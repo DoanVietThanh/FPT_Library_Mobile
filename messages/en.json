@@ -23,5 +23,8 @@
       "Forgot password?": "Forgot password?",
       "Back to login": "Back to login"
     }
+  },
+  "Zod": {
+    "email": "Invalid email"
   }
 }

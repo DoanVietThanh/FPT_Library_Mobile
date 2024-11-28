@@ -22,5 +22,8 @@
       "Forgot password?": "Quên mật khẩu?",
       "Back to login": "Về trang đăng nhập"
     }
+  },
+  "Zod": {
+    "email": "Email không hợp lệ"
   }
 }
