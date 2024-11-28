@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "name": "fpt-library-mobile",
     "slug": "fpt-library-mobile",
     "version": "1.0.0",

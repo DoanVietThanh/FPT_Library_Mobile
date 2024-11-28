@@ -1,0 +1,27 @@
+{
+  "translation": {
+    "Welcome to React": "Welcome to React and react-i18next"
+  },
+  "LoginPage": {
+    "Email": "Email address",
+    "or": "or",
+    "Login": "Continue",
+    "LoginFailedTitle": "Login failed",
+    "ConfirmPassword": "Confirm Password",
+    "Welcome back!": "Welcome back!",
+    "Message": "Sign in to continue to FPT e-Library System",
+    "Continue with Google": "Continue with Google",
+    "Enter your email": "Enter your email",
+    "Don’t have an account?": "Don’t have an account?",
+    "Register": "Register",
+    "Homepage": "Homepage",
+    "PasswordMethodPage": {
+      "Enter your password": "Enter your password",
+      "Message": "Enter the password associated with your account",
+      "Password": "Password",
+      "Login": "Continue",
+      "Forgot password?": "Forgot password?",
+      "Back to login": "Back to login"
+    }
+  }
+}
