@@ -38,6 +38,18 @@
     "Sign in": "Đăng nhập",
     "Homepage": "Trang chủ"
   },
+  "ResetPasswordPage": {
+    "Reset password": "Khôi phục mật khẩu",
+    "Message": "Đầu tiên, nhập mã được gửi đến địa chỉ email của bạn",
+    "Email": "Địa chỉ email",
+    "Continue": "Tiếp tục",
+    "No code": "Không nhận được mã? Gửi lại",
+    "Back to login": "Về trang đăng nhập"
+  },
+  "VerifyOtpPage": {
+    "Verify your email": "Xác minh email",
+    "Message": "Nhập OTP được gửi đến email của bạn"
+  },
   "Zod": {
     "email": "Email không hợp lệ",
     "notMatchPassword": "Mật khẩu không khớp"

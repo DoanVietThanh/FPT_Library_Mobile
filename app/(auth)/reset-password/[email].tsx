@@ -6,10 +6,10 @@ import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import LoginPasswordForm from './_components/login-password-form'
+import ResetPasswordForm from '../_component/reset-password-form'
 
-function LoginPasswordMethodScreen() {
-  const { t } = useTranslation('LoginPage')
+function ResetPasswordScreen() {
+  const { t } = useTranslation('ResetPasswordPage')
   const { email } = useLocalSearchParams()
   return (
     <KeyboardAvoidingView
@@ -25,15 +25,11 @@ function LoginPasswordMethodScreen() {
                   <Image source={fptLogo} className="h-12 w-32" resizeMode="contain" />
                 </View>
                 <View className="flex flex-col gap-y-1">
-                  <Text className="text-center text-lg font-semibold">
-                    {t('PasswordMethodPage.Enter your password')}
-                  </Text>
-                  <Text className="text-center text-sm text-muted-foreground">
-                    {t('PasswordMethodPage.Message')}
-                  </Text>
+                  <Text className="text-center text-lg font-semibold">{t('Reset password')}</Text>
+                  <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <LoginPasswordForm email={email as string} />
+                <ResetPasswordForm />
               </View>
             </View>
           </View>
@@ -43,4 +39,4 @@ function LoginPasswordMethodScreen() {
   )
 }
 
-export default LoginPasswordMethodScreen
+export default ResetPasswordScreen

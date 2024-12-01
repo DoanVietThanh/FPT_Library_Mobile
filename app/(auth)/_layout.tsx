@@ -16,6 +16,12 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
+        name="reset-password/[email]"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="sign-up"
         options={{
           headerShown: false,

@@ -39,6 +39,20 @@
     "Sign in": "Sign in",
     "Homepage": "Homepage"
   },
+  "ResetPasswordPage": {
+    "Reset password": "Reset password",
+    "Message": "First, enter the code sent to your email address",
+
+    "Email": "Email",
+    "ForgotPasswordFailedTitle": "Forgot password failed",
+    "Continue": "Continue",
+    "No code": "Didn't receive a code? Resend",
+    "Back to login": "Back to login"
+  },
+  "VerifyOtpPage": {
+    "Verify your email": "Verify your email",
+    "Message": "Enter the verification code sent to your email"
+  },
   "Zod": {
     "email": "Invalid email",
     "notMatchPassword": "Confirm password does not match with password"

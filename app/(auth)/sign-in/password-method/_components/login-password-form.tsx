@@ -18,7 +18,11 @@ const loginPassword = z.object({
 
 type TLoginPassword = z.infer<typeof loginPassword>
 
-const LoginPasswordForm = () => {
+type Props = {
+  email: string
+}
+
+const LoginPasswordForm = ({ email }: Props) => {
   const { t } = useTranslation('LoginPage')
   const { t: tZod } = useTranslation('Zod')
   const [pending, startTransition] = useTransition()
@@ -53,7 +57,12 @@ const LoginPasswordForm = () => {
       </View>
       <View className="flex flex-col gap-y-6">
         <View className="flex flex-col gap-y-2">
-          <Label className="text-sm font-semibold">{t('PasswordMethodPage.Password')}</Label>
+          <View className="flex flex-row flex-wrap items-center justify-between gap-1">
+            <Label className="text-sm font-semibold">{t('PasswordMethodPage.Password')}</Label>
+            <Link href={`/reset-password/${email}`} className="text-xs hover:underline">
+              {t('PasswordMethodPage.Forgot password?')}
+            </Link>
+          </View>
           <Controller
             control={control}
             name="password"
