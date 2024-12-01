@@ -1,4 +1,4 @@
-import React, { useTransition } from 'react'
+import React, { useState, useTransition } from 'react'
 import { Alert, Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
 import googleIcon from '~/assets/icons/google.png'
@@ -7,6 +7,8 @@ import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
+import { Eye } from '~/lib/icons/eye'
+import { EyeClosed } from '~/lib/icons/eye-closed'
 import { Link } from 'expo-router'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -23,21 +25,25 @@ const registerSchema = z
     path: ['confirmPassword'],
   })
 
-type RegisterSchema = z.infer<typeof registerSchema>
+type TRegisterSchema = z.infer<typeof registerSchema>
 
 const SignUpForm = () => {
   const { t } = useTranslation('RegisterPage')
   const { t: tZod } = useTranslation('Zod')
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
   const [pending, startTransition] = useTransition()
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterSchema>({
+  } = useForm<TRegisterSchema>({
     resolver: zodResolver(registerSchema),
   })
 
-  const onSubmit = (data: RegisterSchema) => {
+  const onSubmit = (data: TRegisterSchema) => {
     startTransition(() => {
       Alert.alert('Form Submitted', JSON.stringify(data))
     })
@@ -78,7 +84,26 @@ const SignUpForm = () => {
             control={control}
             name="password"
             render={({ field: { onChange, onBlur, value } }) => (
-              <Input onBlur={onBlur} onChangeText={onChange} value={value} secureTextEntry />
+              <View className="flex flex-row items-center rounded-[8px] border pr-1">
+                <Input
+                  className="flex-1 border-none border-transparent outline-none"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  secureTextEntry={!showPassword}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onPress={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <EyeClosed className="size-6 text-primary" />
+                  ) : (
+                    <Eye className="size-6 text-primary" />
+                  )}
+                </Button>
+              </View>
             )}
           />
           {errors.password?.message && (
@@ -91,7 +116,26 @@ const SignUpForm = () => {
             control={control}
             name="confirmPassword"
             render={({ field: { onChange, onBlur, value } }) => (
-              <Input onBlur={onBlur} onChangeText={onChange} value={value} secureTextEntry />
+              <View className="flex flex-row items-center rounded-[8px] border pr-1">
+                <Input
+                  className="flex-1 border-none border-transparent outline-none"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  secureTextEntry={!showConfirmPassword}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onPress={() => setShowConfirmPassword((prev) => !prev)}
+                >
+                  {showConfirmPassword ? (
+                    <EyeClosed className="size-6 text-primary" />
+                  ) : (
+                    <Eye className="size-6 text-primary" />
+                  )}
+                </Button>
+              </View>
             )}
           />
           {errors.confirmPassword?.message && (

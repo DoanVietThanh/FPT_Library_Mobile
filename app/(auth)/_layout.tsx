@@ -4,7 +4,13 @@ export default function TabLayout() {
   return (
     <Stack>
       <Stack.Screen
-        name="sign-in"
+        name="sign-in/index"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="sign-in/password-method/[email]"
         options={{
           headerShown: false,
         }}

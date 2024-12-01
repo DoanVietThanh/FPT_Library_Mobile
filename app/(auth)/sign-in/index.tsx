@@ -5,7 +5,7 @@ import { Text } from '~/components/ui/text'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import SignInForm from './_component/sign-in-form'
+import SignInForm from '../_component/sign-in-form'
 
 function SignInScreen() {
   const { t } = useTranslation('LoginPage')
