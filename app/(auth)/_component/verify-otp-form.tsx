@@ -22,8 +22,8 @@ const otpSchema = z.object({
 
 type TOtpSchema = z.infer<typeof otpSchema>
 
-const ResetPasswordForm = () => {
-  const { t } = useTranslation('ResetPasswordPage')
+const VerifyOtpForm = () => {
+  const { t } = useTranslation('VerifyOtpPage')
   const { t: tZod } = useTranslation('Zod')
 
   const [timeDisableResend, setTimeDisableResend] = useState(0)
@@ -102,4 +102,4 @@ const ResetPasswordForm = () => {
   )
 }
 
-export default ResetPasswordForm
+export default VerifyOtpForm
