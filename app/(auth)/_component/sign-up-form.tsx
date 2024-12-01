@@ -12,25 +12,32 @@ import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const loginSchema = z.object({
-  email: z.string().email('email'),
-})
+const registerSchema = z
+  .object({
+    email: z.string().email('email'),
+    password: z.string().min(6),
+    confirmPassword: z.string().min(6),
+  })
+  .refine((data) => data.confirmPassword === data.password, {
+    message: 'notMatchPassword',
+    path: ['confirmPassword'],
+  })
 
-type LoginSchema = z.infer<typeof loginSchema>
+type RegisterSchema = z.infer<typeof registerSchema>
 
-const SignInForm = () => {
-  const { t } = useTranslation('LoginPage')
+const SignUpForm = () => {
+  const { t } = useTranslation('RegisterPage')
   const { t: tZod } = useTranslation('Zod')
   const [pending, startTransition] = useTransition()
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
   })
 
-  const onSubmit = (data: LoginSchema) => {
+  const onSubmit = (data: RegisterSchema) => {
     startTransition(() => {
       Alert.alert('Form Submitted', JSON.stringify(data))
     })
@@ -65,16 +72,42 @@ const SignInForm = () => {
             <Text className="text-sm text-destructive">{tZod(errors.email.message)}</Text>
           )}
         </View>
+        <View className="flex flex-col gap-y-2">
+          <Label className="text-sm font-semibold">{t('Password')}</Label>
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input onBlur={onBlur} onChangeText={onChange} value={value} secureTextEntry />
+            )}
+          />
+          {errors.password?.message && (
+            <Text className="text-sm text-destructive">{tZod(errors.password.message)}</Text>
+          )}
+        </View>
+        <View className="flex flex-col gap-y-2">
+          <Label className="text-sm font-semibold">{t('ConfirmedPassword')}</Label>
+          <Controller
+            control={control}
+            name="confirmPassword"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input onBlur={onBlur} onChangeText={onChange} value={value} secureTextEntry />
+            )}
+          />
+          {errors.confirmPassword?.message && (
+            <Text className="text-sm text-destructive">{tZod(errors.confirmPassword.message)}</Text>
+          )}
+        </View>
 
         <Button disabled={pending} className="w-full" onPress={handleSubmit(onSubmit)}>
-          <Text>{t('Login')}</Text>
+          <Text>{t('Register')}</Text>
         </Button>
 
         <View className="flex flex-row flex-wrap justify-between gap-2 text-sm">
           <View className="flex flex-row items-center gap-1 text-muted-foreground">
-            <Text className="text-sm">{t('Don’t have an account?')}</Text>
-            <Link href="/sign-up" className="text-foreground hover:underline">
-              <Text className="text-sm font-semibold">{t('Register')}</Text>
+            <Text className="text-sm"> {t('Already have an account?')}</Text>
+            <Link href="/sign-in" className="text-foreground hover:underline">
+              <Text className="text-sm font-semibold">{t('Sign in')}</Text>
             </Link>
           </View>
           <Link href="/" className="hover:underline">
@@ -86,4 +119,4 @@ const SignInForm = () => {
   )
 }
 
-export default SignInForm
+export default SignUpForm

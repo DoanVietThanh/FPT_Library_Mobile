@@ -23,7 +23,23 @@
       "Back to login": "Về trang đăng nhập"
     }
   },
+  "RegisterPage": {
+    "Email": "Địa chỉ email",
+    "Password": "Mật khẩu",
+    "ConfirmedPassword": "Nhập lại mật khẩu",
+    "Register": "Đăng kí",
+    "LoginFailedTitle": "Đăng nhập thất bại",
+    "StudentCode": "Mã số sinh viên",
+    "Create your account": "Tạo tài khoản",
+    "Message": "Chào mừng! Vui lòng điền thông tin để bắt đầu.",
+    "Continue with Google": "Tiếp tục với Google",
+    "or": "hoặc",
+    "Already have an account?": "Đã có tài khoản?",
+    "Sign in": "Đăng nhập",
+    "Homepage": "Trang chủ"
+  },
   "Zod": {
-    "email": "Email không hợp lệ"
+    "email": "Email không hợp lệ",
+    "notMatchPassword": "Mật khẩu không khớp"
   }
 }

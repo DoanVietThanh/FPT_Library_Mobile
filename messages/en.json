@@ -24,7 +24,23 @@
       "Back to login": "Back to login"
     }
   },
+  "RegisterPage": {
+    "Email": "Email address",
+    "Password": "Password",
+    "ConfirmedPassword": "Confirmed password",
+    "Register": "Continue",
+    "RegisterFailedTitle": "Register failed",
+    "StudentCode": "Student Code",
+    "Create your account": "Create your account",
+    "Message": "Welcome! Please fill in the details to get started.",
+    "Continue with Google": "Continue with Google",
+    "or": "or",
+    "Already have an account?": "Already have an account?",
+    "Sign in": "Sign in",
+    "Homepage": "Homepage"
+  },
   "Zod": {
-    "email": "Invalid email"
+    "email": "Invalid email",
+    "notMatchPassword": "Confirm password does not match with password"
   }
 }
