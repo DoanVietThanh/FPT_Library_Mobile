@@ -1,0 +1,57 @@
+{
+  "translation": {
+    "Welcome to React": "Chào mừng tới react"
+  },
+  "LoginPage": {
+    "Email": "Địa chỉ email",
+    "or": "hoặc",
+    "Login": "Tiếp tục",
+    "LoginFailedTitle": "Đăng nhập thất bại",
+    "Welcome back!": "Chào mừng trở lại!",
+    "Message": "Đăng nhập để tiếp tục với FPT e-Library",
+    "Continue with Google": "Tiếp tục với Google",
+    "Enter your email": "Nhập email",
+    "Don’t have an account?": "Chưa có tài khoản?",
+    "Register": "Đăng ký",
+    "Homepage": "Trang chủ",
+    "PasswordMethodPage": {
+      "Enter your password": "Nhập mật khẩu",
+      "Message": "Nhập mật khẩu thích hợp cho tài khoản của bạn",
+      "Password": "Mật khẩu",
+      "Login": "Tiếp tục",
+      "Forgot password?": "Quên mật khẩu?",
+      "Back to login": "Về trang đăng nhập"
+    }
+  },
+  "RegisterPage": {
+    "Email": "Địa chỉ email",
+    "Password": "Mật khẩu",
+    "ConfirmedPassword": "Nhập lại mật khẩu",
+    "Register": "Đăng kí",
+    "LoginFailedTitle": "Đăng nhập thất bại",
+    "StudentCode": "Mã số sinh viên",
+    "Create your account": "Tạo tài khoản",
+    "Message": "Chào mừng! Vui lòng điền thông tin để bắt đầu.",
+    "Continue with Google": "Tiếp tục với Google",
+    "or": "hoặc",
+    "Already have an account?": "Đã có tài khoản?",
+    "Sign in": "Đăng nhập",
+    "Homepage": "Trang chủ"
+  },
+  "ResetPasswordPage": {
+    "Reset password": "Khôi phục mật khẩu",
+    "Message": "Đầu tiên, nhập mã được gửi đến địa chỉ email của bạn",
+    "Email": "Địa chỉ email",
+    "Continue": "Tiếp tục",
+    "No code": "Không nhận được mã? Gửi lại",
+    "Back to login": "Về trang đăng nhập"
+  },
+  "VerifyOtpPage": {
+    "Verify your email": "Xác minh email",
+    "Message": "Nhập OTP được gửi đến email của bạn"
+  },
+  "Zod": {
+    "email": "Email không hợp lệ",
+    "notMatchPassword": "Mật khẩu không khớp"
+  }
+}

@@ -15,6 +15,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import '~/lib/i18n.ts'
 
+import AuthProvider from '~/contexts/auth-provider'
+
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
   dark: false,
@@ -72,16 +74,20 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <BottomSheetModalProvider>
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-            </Stack>
-          </BottomSheetModalProvider>
-          <PortalHost />
-        </GestureHandlerRootView>
+        <AuthProvider>
+          <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <BottomSheetModalProvider>
+              <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+              </Stack>
+            </BottomSheetModalProvider>
+            <PortalHost />
+          </GestureHandlerRootView>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   )
