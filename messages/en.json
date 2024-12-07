@@ -74,6 +74,23 @@
   },
   "MoreScreen": {
     "Title": "More",
-    "ChangeInfo": "Change the personal information"
+    "ChangeInfo": "Change the personal information",
+    "Setting": "Setting",
+    "MyQR": "My QR Code",
+    "OTP": "Get OTP",
+    "Blog": "Blog",
+    "Location": "Location"
+  },
+  "Me": {
+    "Account": {
+      "Profile": {
+        "Title": "Profile",
+        "OtherInfo": "Other Info",
+        "Gender": "Gender",
+        "Phone": "Phone number",
+        "Email": "Email",
+        "Address": "Address"
+      }
+    }
   }
 }

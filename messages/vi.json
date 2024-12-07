@@ -71,6 +71,23 @@
   },
   "MoreScreen": {
     "Title": "Thêm",
-    "ChangeInfo": "Thay đổi thông tin cá nhân"
+    "ChangeInfo": "Thay đổi thông tin cá nhân",
+    "Setting": "Cài đặt",
+    "MyQR": "Mã QR của tôi",
+    "OTP": "Lấy OTP",
+    "Blog": "Tin tức",
+    "Location": "Địa điểm"
+  },
+  "Me": {
+    "Account": {
+      "Profile": {
+        "Title": "Trang cá nhân",
+        "OtherInfo": "Thống tin khác",
+        "Gender": "Giới tính",
+        "Phone": "Số điện thoại liên hệ",
+        "Email": "Email",
+        "Address": "Địa chỉ"
+      }
+    }
   }
 }
