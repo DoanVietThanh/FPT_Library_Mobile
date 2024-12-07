@@ -1,11 +1,16 @@
 import { Pressable, View } from 'react-native'
 import AntDesign from '@expo/vector-icons/AntDesign'
+import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
 import { Stack, useRouter } from 'expo-router'
 import {
   ChevronRight,
   ClipboardList,
+  FileQuestion,
+  LogOut,
   MapPinHouse,
+  NotepadText,
+  Phone,
   QrCode,
   Settings,
   ShieldCheck,
@@ -55,7 +60,7 @@ export default function Home() {
           </View>
 
           <View className="flex flex-col gap-4 rounded-lg bg-primary-foreground p-4">
-            {/* Setting */}
+            {/* OTP */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
                 <ShieldCheck className="text-primary" color={'orange'} />
@@ -63,7 +68,7 @@ export default function Home() {
               </View>
               <ChevronRight className="text-primary" color={'orange'} />
             </View>
-            {/* My QR code */}
+            {/* Blog */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
                 <ClipboardList className="text-primary" color={'orange'} />
@@ -71,7 +76,7 @@ export default function Home() {
               </View>
               <ChevronRight className="text-primary" color={'orange'} />
             </View>
-            {/* Địa điểm */}
+            {/* Location */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
                 <MapPinHouse className="text-primary" color={'orange'} />
@@ -80,6 +85,38 @@ export default function Home() {
               <ChevronRight className="text-primary" color={'orange'} />
             </View>
           </View>
+
+          <View className="flex flex-col gap-4 rounded-lg bg-primary-foreground p-4">
+            {/* Policy */}
+            <View className="flex w-full flex-row justify-between gap-4">
+              <View className="flex flex-row items-center gap-2">
+                <NotepadText className="text-primary" color={'orange'} />
+                <Text className="text-lg">{t('Policy')}</Text>
+              </View>
+              <ChevronRight className="text-primary" color={'orange'} />
+            </View>
+            {/* Question */}
+            <View className="flex w-full flex-row justify-between gap-4">
+              <View className="flex flex-row items-center gap-2">
+                <FileQuestion className="text-primary" color={'orange'} />
+                <Text className="text-lg">{t('Question')}</Text>
+              </View>
+              <ChevronRight className="text-primary" color={'orange'} />
+            </View>
+            {/* Contact */}
+            <View className="flex w-full flex-row justify-between gap-4">
+              <View className="flex flex-row items-center gap-2">
+                <Phone className="text-primary" color={'orange'} />
+                <Text className="text-lg">{t('Contact')}</Text>
+              </View>
+              <ChevronRight className="text-primary" color={'orange'} />
+            </View>
+          </View>
+
+          <Button className="flex flex-row items-center gap-4">
+            <Text className="text-3xl">{t('Logout')}</Text>
+            <LogOut color={'white'} size={20} />
+          </Button>
         </View>
       </SafeAreaView>
     </>

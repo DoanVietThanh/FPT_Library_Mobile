@@ -51,6 +51,10 @@ export default function App() {
           <Button className="mt-6" onPress={() => router.push('/sign-in')}>
             <Text>Continue with email</Text>
           </Button>
+
+          <Button className="mt-6" onPress={() => router.push('/(tabs)/home')}>
+            <Text>Continue with email</Text>
+          </Button>
         </View>
       </ScrollView>
     </SafeAreaView>

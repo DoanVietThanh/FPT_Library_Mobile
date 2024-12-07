@@ -79,7 +79,11 @@
     "MyQR": "My QR Code",
     "OTP": "Get OTP",
     "Blog": "Blog",
-    "Location": "Location"
+    "Location": "Location",
+    "Policy": "Policy & Terms of Use",
+    "Question": "Frequently asked questions",
+    "Contact": "Contact",
+    "Logout": "Logout"
   },
   "Me": {
     "Account": {

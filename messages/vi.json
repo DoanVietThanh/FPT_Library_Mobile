@@ -76,7 +76,11 @@
     "MyQR": "Mã QR của tôi",
     "OTP": "Lấy OTP",
     "Blog": "Tin tức",
-    "Location": "Địa điểm"
+    "Location": "Địa điểm",
+    "Policy": "Điều khoản & điều kiện sử dụng",
+    "Question": "Câu hỏi thường gặp",
+    "Contact": "Liên hệ",
+    "Logout": "Đăng xuất"
   },
   "Me": {
     "Account": {
