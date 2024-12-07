@@ -56,5 +56,24 @@
   "Zod": {
     "email": "Invalid email",
     "notMatchPassword": "Confirm password does not match with password"
+  },
+  "TabLayout": {
+    "Home": "Home",
+    "QR": "QR Code",
+    "Search": "Search",
+    "More": "More"
+  },
+  "HomeScreen": {
+    "Title": "Home"
+  },
+  "QRScreen": {
+    "Title": "QR Code"
+  },
+  "SearchScreen": {
+    "Title": "Search"
+  },
+  "MoreScreen": {
+    "Title": "More",
+    "ChangeInfo": "Change the personal information"
   }
 }

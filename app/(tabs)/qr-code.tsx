@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Home() {
-  const { t } = useTranslation('HomeScreen')
+  const { t } = useTranslation('QRScreen')
   return (
     <>
       <Stack.Screen options={{ title: t('Title') }} />

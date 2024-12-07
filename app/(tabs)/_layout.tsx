@@ -1,27 +1,47 @@
+import { Image } from 'react-native'
+import fptLogo from '~/assets/images/fpt-logo.png'
 import { ThemeToggle } from '~/components/ui/theme-toggle'
 import { Tabs } from 'expo-router'
+import { useTranslation } from 'react-i18next'
 
-import { HeaderButton } from '../../components/HeaderButton'
 import { TabBarIcon } from '../../components/TabBarIcon'
 
 export default function TabLayout() {
+  const { t } = useTranslation('TabLayout')
   return (
     <Tabs>
       <Tabs.Screen
         name="home"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-
+          title: t('Home'),
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => <ThemeToggle />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="qr-code"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => <HeaderButton />,
+          title: t('QR'),
+          tabBarIcon: ({ color }) => <TabBarIcon name="qrcode" color={color} />,
+          headerRight: () => <ThemeToggle />,
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: t('Search'),
+          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+          headerRight: () => <ThemeToggle />,
+        }}
+      />
+      <Tabs.Screen
+        name="more"
+        options={{
+          headerTitle: () => (
+            <Image source={fptLogo} style={{ height: 32, width: 100 }} resizeMode="contain" />
+          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="ellipsis-h" color={color} />,
+          headerRight: () => <ThemeToggle />,
         }}
       />
     </Tabs>

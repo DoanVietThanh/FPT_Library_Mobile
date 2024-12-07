@@ -7,7 +7,7 @@ import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
@@ -23,6 +23,7 @@ type Props = {
 }
 
 const LoginPasswordForm = ({ email }: Props) => {
+  const router = useRouter()
   const { t } = useTranslation('LoginPage')
   const { t: tZod } = useTranslation('Zod')
   const [pending, startTransition] = useTransition()
@@ -37,6 +38,7 @@ const LoginPasswordForm = ({ email }: Props) => {
   const onSubmit = (data: TLoginPassword) => {
     startTransition(() => {
       Alert.alert('Form Submitted', JSON.stringify(data))
+      router.push('/(tabs)/home')
     })
   }
 
