@@ -53,5 +53,24 @@
   "Zod": {
     "email": "Email không hợp lệ",
     "notMatchPassword": "Mật khẩu không khớp"
+  },
+  "TabLayout": {
+    "Home": "Trang chủ",
+    "QR": "QR Code",
+    "Search": "Tìm kiếm",
+    "More": "Thêm"
+  },
+  "HomeScreen": {
+    "Title": "Trang chủ"
+  },
+  "QRScreen": {
+    "Title": "QR Code"
+  },
+  "SearchScreen": {
+    "Title": "Tìm kiếm"
+  },
+  "MoreScreen": {
+    "Title": "Thêm",
+    "ChangeInfo": "Thay đổi thông tin cá nhân"
   }
 }
