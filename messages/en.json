@@ -37,7 +37,9 @@
     "or": "or",
     "Already have an account?": "Already have an account?",
     "Sign in": "Sign in",
-    "Homepage": "Homepage"
+    "Homepage": "Homepage",
+    "FirstName": "First name",
+    "LastName": "Last name"
   },
   "ResetPasswordPage": {
     "Reset password": "Reset password",

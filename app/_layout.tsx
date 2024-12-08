@@ -12,6 +12,7 @@ import { useColorScheme } from '~/lib/use-color-scheme'
 import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Toast from 'react-native-toast-message'
 
 import '~/lib/i18n.ts'
 
@@ -84,6 +85,7 @@ export default function RootLayout() {
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
               </Stack>
+              <Toast />
             </BottomSheetModalProvider>
             <PortalHost />
           </GestureHandlerRootView>

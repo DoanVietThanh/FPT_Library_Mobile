@@ -36,7 +36,9 @@
     "or": "hoặc",
     "Already have an account?": "Đã có tài khoản?",
     "Sign in": "Đăng nhập",
-    "Homepage": "Trang chủ"
+    "Homepage": "Trang chủ",
+    "FirstName": "Tên",
+    "LastName": "Họ"
   },
   "ResetPasswordPage": {
     "Reset password": "Khôi phục mật khẩu",

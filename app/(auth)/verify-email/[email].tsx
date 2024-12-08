@@ -2,13 +2,15 @@ import React from 'react'
 import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import fptLogo from '~/assets/images/fpt-logo.png'
 import { Text } from '~/components/ui/text'
+import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import SignInForm from '../_components/sign-in-form'
+import VerifyOtpForm from '../_components/verify-otp-form'
 
-function SignInScreen() {
-  const { t } = useTranslation('LoginPage')
+function VerifyOtpScreen() {
+  const { t } = useTranslation('VerifyOtpPage')
+  const { email } = useLocalSearchParams()
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -23,10 +25,13 @@ function SignInScreen() {
                   <Image source={fptLogo} className="h-12 w-32" resizeMode="contain" />
                 </View>
                 <View className="flex flex-col gap-y-1">
-                  <Text className="text-center text-lg font-semibold">{t('Welcome back!')}</Text>
+                  <Text className="text-center text-lg font-semibold">
+                    {t('Verify your email')}
+                  </Text>
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
+                  <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <SignInForm />
+                <VerifyOtpForm />
               </View>
             </View>
           </View>
@@ -36,4 +41,4 @@ function SignInScreen() {
   )
 }
 
-export default SignInScreen
+export default VerifyOtpScreen

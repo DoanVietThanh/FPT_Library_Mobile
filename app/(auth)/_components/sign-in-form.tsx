@@ -1,5 +1,5 @@
-import React, { useTransition } from 'react'
-import { Alert, Image, View } from 'react-native'
+import React from 'react'
+import { Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
 import googleIcon from '~/assets/icons/google.png'
 import { Button } from '~/components/ui/button'
@@ -7,35 +7,43 @@ import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
+import useLogin from '~/hooks/mutations/auth/use-login'
+import handleActionError from '~/lib/handle-action-error'
+import { loginSchema, TLoginSchema } from '~/lib/validations/auth/login'
 import { Link, useRouter } from 'expo-router'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { z } from 'zod'
-
-const loginSchema = z.object({
-  email: z.string().email('email'),
-})
-
-type TLoginSchema = z.infer<typeof loginSchema>
 
 const SignInForm = () => {
   const router = useRouter()
-  const { t } = useTranslation('LoginPage')
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation('LoginPage')
   const { t: tZod } = useTranslation('Zod')
-  const [pending, startTransition] = useTransition()
+
   const {
     control,
     handleSubmit,
+    setFocus,
     formState: { errors },
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
   })
 
-  const onSubmit = (data: TLoginSchema) => {
-    startTransition(() => {
-      Alert.alert('Form Submitted', JSON.stringify(data))
+  const { mutate: login, isPending } = useLogin()
+
+  const onSubmit = async (body: TLoginSchema) => {
+    login(body, {
+      onSuccess: (res) => {
+        if (res.isSuccess) {
+          router.push(`/verify-email/${body.email}`)
+          return
+        }
+
+        handleActionError(res, language, control, setFocus)
+      },
     })
-    router.push(`/sign-in/password-method/${data.email}`)
   }
 
   return (
@@ -68,7 +76,7 @@ const SignInForm = () => {
           )}
         </View>
 
-        <Button disabled={pending} className="w-full" onPress={handleSubmit(onSubmit)}>
+        <Button disabled={isPending} className="w-full" onPress={handleSubmit(onSubmit)}>
           <Text>{t('Login')}</Text>
         </Button>
 

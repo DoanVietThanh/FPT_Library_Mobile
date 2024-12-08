@@ -6,7 +6,7 @@ import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import ResetPasswordForm from '../_component/reset-password-form'
+import ResetPasswordForm from '../_components/reset-password-form'
 
 function ResetPasswordScreen() {
   const { t } = useTranslation('ResetPasswordPage')
