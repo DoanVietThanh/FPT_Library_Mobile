@@ -86,10 +86,10 @@ const request = async <TData = undefined>(
   const body = options?.body ? JSON.stringify(options.body) : undefined
   const baseHeaders = {
     'Content-Type': 'application/json',
-    'Accept-Language': '',
+    'Accept-Language': options?.lang ?? 'vi',
   }
 
-  baseHeaders['Accept-Language'] = options?.lang ?? 'vi'
+  console.log(baseHeaders)
 
   const baseUrl =
     options?.baseUrl === undefined ? process.env.EXPO_PUBLIC_API_ENDPOINT : options.baseUrl

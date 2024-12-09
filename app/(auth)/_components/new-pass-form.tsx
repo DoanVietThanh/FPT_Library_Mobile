@@ -132,19 +132,14 @@ function NewPassForm({ changePasswordToken, email }: Props) {
         </View>
 
         <Button disabled={isPending} onPress={handleSubmit(onSubmit)} className="w-full">
-          <Text>{t('NewPass')}</Text>
+          <Text>{t('Continue')}</Text>
         </Button>
-        <View className="flex flex-row flex-wrap justify-between gap-2 text-sm">
-          <View className="flex flex-row items-center gap-1 text-muted-foreground">
-            <Text className="text-sm"> {t('Already have an account?')}</Text>
-            <Link href="/sign-in" className="text-foreground hover:underline">
-              <Text className="text-sm font-semibold">{t('Sign in')}</Text>
-            </Link>
-          </View>
-          <Link href="/" className="hover:underline">
-            <Text className="text-sm">{t('Homepage')}</Text>
-          </Link>
-        </View>
+        <Link
+          href="/sign-in"
+          className="block cursor-pointer text-center text-sm font-bold text-foreground hover:underline"
+        >
+          {t('Back to login')}
+        </Link>
       </View>
     </>
   )

@@ -22,6 +22,12 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
+        name="verify-email/[email]"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="sign-up"
         options={{
           headerShown: false,

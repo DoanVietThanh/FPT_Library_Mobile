@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
 import googleIcon from '~/assets/icons/google.png'
@@ -14,6 +14,7 @@ import {
   TLoginByPasswordSchema,
 } from '~/lib/validations/auth/login-password'
 import { Link, useRouter } from 'expo-router'
+import { Eye, EyeClosed } from 'lucide-react-native'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -27,6 +28,8 @@ const LoginPasswordForm = ({ email }: Props) => {
     i18n: { language },
   } = useTranslation('LoginPage')
   const { t: tZod } = useTranslation('Zod')
+
+  const [showPassword, setShowPassword] = useState(false)
   const { mutate: loginByPassword, isPending } = useLoginPassword()
   const router = useRouter()
   const {
@@ -36,6 +39,9 @@ const LoginPasswordForm = ({ email }: Props) => {
     formState: { errors },
   } = useForm<TLoginByPasswordSchema>({
     resolver: zodResolver(loginByPasswordSchema),
+    defaultValues: {
+      email,
+    },
   })
 
   const onSubmit = (body: TLoginByPasswordSchema) => {
@@ -78,7 +84,22 @@ const LoginPasswordForm = ({ email }: Props) => {
             control={control}
             name="password"
             render={({ field: { onChange, onBlur, value } }) => (
-              <Input onBlur={onBlur} onChangeText={onChange} value={value} />
+              <View className="flex flex-row items-center rounded-[8px] border pr-1">
+                <Input
+                  className="flex-1 border-none border-transparent outline-none"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  secureTextEntry={!showPassword}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onPress={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <EyeClosed className="size-6" /> : <Eye className="size-6" />}
+                </Button>
+              </View>
             )}
           />
           {errors.password?.message && (

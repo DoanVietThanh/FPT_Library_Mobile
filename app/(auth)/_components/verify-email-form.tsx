@@ -22,7 +22,7 @@ const VerifyEmailForm = ({ email }: Props) => {
   const {
     t,
     i18n: { language },
-  } = useTranslation('VerifyOtpPage')
+  } = useTranslation('ResetPasswordPage')
   const { t: tZod } = useTranslation('Zod')
 
   const [timeDisableResend, setTimeDisableResend] = useState(0)

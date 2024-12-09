@@ -41,8 +41,17 @@ const SignInForm = () => {
     login(body, {
       onSuccess: (res) => {
         if (res.isSuccess) {
-          router.push(`/verify-email/${body.email}`)
+          if (res.data === 'Auth.Success0003') {
+            router.push(`/sign-in/password-method/${body.email}`)
+            return
+          }
+
+          router.push(`/sign-in/otp-method/${body.email}`)
           return
+        }
+
+        if (res.typeError === 'warning' && res.resultCode === 'Auth.Warning0008') {
+          router.push(`/verify-email/${body.email}`)
         }
 
         handleActionError(res, language, control, setFocus)
