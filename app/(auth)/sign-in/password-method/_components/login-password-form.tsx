@@ -21,14 +21,13 @@ type Props = {
   email: string
 }
 
-const { mutate: loginByPassword, isPending } = useLoginPassword()
-
 const LoginPasswordForm = ({ email }: Props) => {
   const {
     t,
     i18n: { language },
   } = useTranslation('LoginPage')
   const { t: tZod } = useTranslation('Zod')
+  const { mutate: loginByPassword, isPending } = useLoginPassword()
   const router = useRouter()
   const {
     control,

@@ -1,33 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { handleHttpError, http } from '~/lib/http'
-import { TLoginByPasswordSchema } from '~/lib/validations/auth/login-password'
+import { TLoginByOtpSchema } from '~/lib/validations/auth/login-otp'
 import { ActionResponse } from '~/types/action-response'
 import { useTranslation } from 'react-i18next'
 
-type TLoginByPasswordData = {
+type TLoginByOtpData = {
   accessToken: string
   refreshToken: string
 }
 
-function useLoginPassword() {
+function useLoginOtp() {
   const {
     i18n: { language: lang },
   } = useTranslation()
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (
-      body: TLoginByPasswordSchema,
-    ): Promise<ActionResponse<TLoginByPasswordData>> => {
+    mutationFn: async (body: TLoginByOtpSchema): Promise<ActionResponse<TLoginByOtpData>> => {
       try {
-        const { data } = await http.post<TLoginByPasswordData>(
-          '/api/auth/sign-in/password-method',
-          body,
-          {
-            lang,
-          },
-        )
+        const { data } = await http.post<TLoginByOtpData>('/api/auth/sign-in/otp-method', body, {
+          lang,
+        })
 
         await AsyncStorage.setItem('accessToken', data.accessToken)
         await AsyncStorage.setItem('refreshToken', data.refreshToken)
@@ -47,4 +41,4 @@ function useLoginPassword() {
   })
 }
 
-export default useLoginPassword
+export default useLoginOtp

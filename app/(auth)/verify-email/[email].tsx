@@ -6,7 +6,7 @@ import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import VerifyOtpForm from '../_components/verify-otp-form'
+import VerifyEmailForm from '../_components/verify-email-form'
 
 function VerifyOtpScreen() {
   const { t } = useTranslation('VerifyOtpPage')
@@ -31,7 +31,7 @@ function VerifyOtpScreen() {
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <VerifyOtpForm />
+                <VerifyEmailForm email={email as string} />
               </View>
             </View>
           </View>

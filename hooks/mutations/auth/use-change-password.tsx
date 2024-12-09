@@ -1,31 +1,33 @@
 import { useMutation } from '@tanstack/react-query'
 import { handleHttpError, http } from '~/lib/http'
-import { TRegisterSchema } from '~/lib/validations/auth/register'
 import { ActionResponse } from '~/types/action-response'
 import { useTranslation } from 'react-i18next'
 
-function useRegister() {
+type TChangePassword = {
+  email: string
+  password: string
+  token: string
+}
+
+function useChangePassword() {
   const {
     i18n: { language: lang },
   } = useTranslation()
 
   return useMutation({
-    mutationFn: async (body: TRegisterSchema): Promise<ActionResponse> => {
+    mutationFn: async (body: TChangePassword): Promise<ActionResponse<string>> => {
       try {
-        console.log(process.env.EXPO_PUBLIC_API_ENDPOINT)
-
-        await http.post('/api/auth/sign-up', body, { lang })
+        const { message } = await http.patch('/api/auth/change-password', body, { lang })
 
         return {
           isSuccess: true,
+          data: message,
         }
       } catch (error) {
-        console.log(error)
-
         return handleHttpError(error)
       }
     },
   })
 }
 
-export default useRegister
+export default useChangePassword

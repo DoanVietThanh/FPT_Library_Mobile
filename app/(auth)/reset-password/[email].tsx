@@ -29,7 +29,7 @@ function ResetPasswordScreen() {
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <ResetPasswordForm />
+                <ResetPasswordForm email={email as string} />
               </View>
             </View>
           </View>

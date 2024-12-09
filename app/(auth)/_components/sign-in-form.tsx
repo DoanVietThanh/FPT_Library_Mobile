@@ -8,11 +8,15 @@ import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
 import useLogin from '~/hooks/mutations/auth/use-login'
+import { googleConfig } from '~/lib/constants'
 import handleActionError from '~/lib/handle-action-error'
 import { loginSchema, TLoginSchema } from '~/lib/validations/auth/login'
 import { Link, useRouter } from 'expo-router'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { authorize } from 'react-native-app-auth'
+
+// Configuration for Google OAuth2
 
 const SignInForm = () => {
   const router = useRouter()
@@ -46,10 +50,22 @@ const SignInForm = () => {
     })
   }
 
+  const handleGoogleLogin = async () => {
+    console.log(authorize)
+    console.log(googleConfig)
+
+    try {
+      const result = await authorize(googleConfig)
+      console.log('Authorization Code:', { result })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <Button
-        // onClick={handleGoogleLogin}
+        onPress={handleGoogleLogin}
         variant="outline"
         className="flex w-full flex-row border-none outline-none"
       >

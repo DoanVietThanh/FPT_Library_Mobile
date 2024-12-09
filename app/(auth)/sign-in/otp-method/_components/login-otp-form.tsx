@@ -1,38 +1,37 @@
-import React, { useEffect, useState, useTransition } from 'react'
-import { Alert, GestureResponderEvent, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { GestureResponderEvent, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
+import OTPInput from '~/app/(auth)/_components/otp-input'
 import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
-import { Link } from 'expo-router'
+import useLoginOtp from '~/hooks/mutations/auth/use-login-otp'
+import useResendOtp from '~/hooks/mutations/auth/use-resend-otp'
+import handleActionError from '~/lib/handle-action-error'
+import { otpSchema, TOtpSchema } from '~/lib/validations/auth/otp'
+import { Link, useRouter } from 'expo-router'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { z } from 'zod'
+import Toast from 'react-native-toast-message'
 
-import OTPInput from './otp-input'
+type Props = {
+  email: string
+}
 
-const otpSchema = z.object({
-  pin: z.array(z.string()).refine((value) => {
-    let count = 0
-    value.forEach((i) => {
-      if (i !== '') count++
-    })
-    return count === 6
-  }, 'length6'),
-})
-
-type TOtpSchema = z.infer<typeof otpSchema>
-
-const VerifyOtpForm = () => {
-  const { t } = useTranslation('VerifyOtpPage')
+const LoginOtpForm = ({ email }: Props) => {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation('VerifyOtpPage')
   const { t: tZod } = useTranslation('Zod')
+  const router = useRouter()
 
   const [timeDisableResend, setTimeDisableResend] = useState(0)
 
-  const [pending, startTransition] = useTransition()
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setFocus,
   } = useForm<TOtpSchema>({
     resolver: zodResolver(otpSchema),
     defaultValues: {
@@ -40,16 +39,45 @@ const VerifyOtpForm = () => {
     },
   })
 
-  const onSubmit = (data: TOtpSchema) => {
-    startTransition(() => {
-      Alert.alert('Form Submitted', JSON.stringify(data))
-    })
+  const { mutate: loginByOtp, isPending } = useLoginOtp()
+  const { mutate: resendOtp, isPending: pendingResendOtp } = useResendOtp()
+
+  const onSubmit = (body: TOtpSchema) => {
+    loginByOtp(
+      {
+        email,
+        otp: body.pin.join(''),
+      },
+      {
+        onSuccess: (res) => {
+          if (res.isSuccess) {
+            router.push(`/`)
+            return
+          }
+
+          handleActionError(res, language, control, setFocus)
+        },
+      },
+    )
   }
 
   function handleResendCode(e: GestureResponderEvent) {
     e.preventDefault()
     e.stopPropagation()
     setTimeDisableResend(30)
+
+    resendOtp(email, {
+      onSuccess: (res) => {
+        if (res.isSuccess) {
+          Toast.show({
+            text1: language === 'vi' ? 'Thành công' : 'Success',
+            text2: res.data,
+            type: 'success',
+          })
+          return
+        }
+      },
+    })
   }
 
   useEffect(() => {
@@ -78,7 +106,7 @@ const VerifyOtpForm = () => {
 
         <Button
           onPress={handleResendCode}
-          disabled={timeDisableResend > 0}
+          disabled={timeDisableResend > 0 || pendingResendOtp}
           className="min-h-0 min-w-0 p-0 hover:bg-transparent hover:underline"
           variant="ghost"
         >
@@ -88,7 +116,7 @@ const VerifyOtpForm = () => {
         </Button>
       </View>
 
-      <Button disabled={pending} className="w-full" onPress={handleSubmit(onSubmit)}>
+      <Button disabled={isPending} className="w-full" onPress={handleSubmit(onSubmit)}>
         <Text>{t('Continue')}</Text>
       </Button>
 
@@ -102,4 +130,4 @@ const VerifyOtpForm = () => {
   )
 }
 
-export default VerifyOtpForm
+export default LoginOtpForm

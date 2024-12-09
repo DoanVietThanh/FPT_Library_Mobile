@@ -33,7 +33,7 @@ function LoginPasswordMethodScreen() {
                   </Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                {/* <LoginPasswordForm email={email as string} /> */}
+                <LoginPasswordForm email={email as string} />
               </View>
             </View>
           </View>
