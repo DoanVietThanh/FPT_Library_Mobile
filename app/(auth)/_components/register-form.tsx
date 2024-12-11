@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
 import { Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  GoogleSignin,
+  isErrorWithCode,
+  isSuccessResponse,
+  statusCodes,
+} from '@react-native-google-signin/google-signin'
 import googleIcon from '~/assets/icons/google.png'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
+import useLoginGoogle from '~/hooks/mutations/auth/use-login-google'
 import useRegister from '~/hooks/mutations/auth/use-sign-up'
 import handleActionError from '~/lib/handle-action-error'
 import { registerSchema, TRegisterSchema } from '~/lib/validations/auth/register'
@@ -14,6 +21,14 @@ import { Link, useRouter } from 'expo-router'
 import { Eye, EyeClosed } from 'lucide-react-native'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import Toast from 'react-native-toast-message'
+
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
+  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  offlineAccess: true,
+  forceCodeForRefreshToken: true,
+})
 
 function RegisterForm() {
   const router = useRouter()
@@ -28,6 +43,7 @@ function RegisterForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const { mutate: signUp, isPending } = useRegister()
+  const { mutate: loginGoogle, isPending: isPendingGoogle } = useLoginGoogle()
 
   const {
     control,
@@ -51,10 +67,58 @@ function RegisterForm() {
     })
   }
 
+  const handleGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices()
+
+      const response = await GoogleSignin.signIn()
+      if (isSuccessResponse(response)) {
+        console.log(response.data.serverAuthCode)
+
+        if (!response.data.serverAuthCode) {
+          Toast.show({
+            type: 'error', // Define your custom type
+            text1: language === 'vi' ? 'Lỗi' : 'Error',
+            text2:
+              language === 'vi'
+                ? 'Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.'
+                : 'An unknown error occurred. Please try again later.',
+          })
+          return
+        }
+        loginGoogle(response.data.serverAuthCode, {
+          onSuccess: (res) => {
+            if (res.isSuccess) {
+              router.push(`/`)
+              return
+            }
+
+            handleActionError(res, language, control, setFocus)
+          },
+        })
+      } else {
+        console.log('cancelled')
+      }
+    } catch (error) {
+      console.log({ error })
+
+      if (isErrorWithCode(error)) {
+        switch (error.code) {
+          case statusCodes.IN_PROGRESS:
+            break
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            break
+          default:
+        }
+      } else {
+        // an error that's not related to google sign in occurred
+      }
+    }
+  }
   return (
     <>
       <Button
-        // onClick={handleGoogleLogin}
+        onPress={handleGoogleLogin}
         variant="outline"
         className="flex w-full flex-row border-none outline-none"
       >
@@ -169,7 +233,11 @@ function RegisterForm() {
           )}
         </View>
 
-        <Button disabled={isPending} onPress={handleSubmit(onSubmit)} className="w-full">
+        <Button
+          disabled={isPending || isPendingGoogle}
+          onPress={handleSubmit(onSubmit)}
+          className="w-full"
+        >
           <Text>{t('Register')}</Text>
         </Button>
         <View className="flex flex-row flex-wrap justify-between gap-2 text-sm">

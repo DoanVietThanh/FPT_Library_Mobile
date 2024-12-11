@@ -1,6 +1,12 @@
 import React from 'react'
 import { Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  GoogleSignin,
+  isErrorWithCode,
+  isSuccessResponse,
+  statusCodes,
+} from '@react-native-google-signin/google-signin'
 import googleIcon from '~/assets/icons/google.png'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
@@ -8,15 +14,22 @@ import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
 import useLogin from '~/hooks/mutations/auth/use-login'
-import { googleConfig } from '~/lib/constants'
+import useLoginGoogle from '~/hooks/mutations/auth/use-login-google'
 import handleActionError from '~/lib/handle-action-error'
 import { loginSchema, TLoginSchema } from '~/lib/validations/auth/login'
 import { Link, useRouter } from 'expo-router'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { authorize } from 'react-native-app-auth'
+import Toast from 'react-native-toast-message'
 
 // Configuration for Google OAuth2
+
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
+  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  offlineAccess: true,
+  forceCodeForRefreshToken: true,
+})
 
 const SignInForm = () => {
   const router = useRouter()
@@ -36,6 +49,7 @@ const SignInForm = () => {
   })
 
   const { mutate: login, isPending } = useLogin()
+  const { mutate: loginGoogle, isPending: isPendingGoogle } = useLoginGoogle()
 
   const onSubmit = async (body: TLoginSchema) => {
     login(body, {
@@ -60,14 +74,51 @@ const SignInForm = () => {
   }
 
   const handleGoogleLogin = async () => {
-    console.log(authorize)
-    console.log(googleConfig)
-
     try {
-      const result = await authorize(googleConfig)
-      console.log('Authorization Code:', { result })
+      await GoogleSignin.hasPlayServices()
+
+      const response = await GoogleSignin.signIn()
+      if (isSuccessResponse(response)) {
+        console.log(response.data.serverAuthCode)
+
+        if (!response.data.serverAuthCode) {
+          Toast.show({
+            type: 'error', // Define your custom type
+            text1: language === 'vi' ? 'Lỗi' : 'Error',
+            text2:
+              language === 'vi'
+                ? 'Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.'
+                : 'An unknown error occurred. Please try again later.',
+          })
+          return
+        }
+        loginGoogle(response.data.serverAuthCode, {
+          onSuccess: (res) => {
+            if (res.isSuccess) {
+              router.push(`/`)
+              return
+            }
+
+            handleActionError(res, language, control, setFocus)
+          },
+        })
+      } else {
+        console.log('cancelled')
+      }
     } catch (error) {
-      console.log(error)
+      console.log({ error })
+
+      if (isErrorWithCode(error)) {
+        switch (error.code) {
+          case statusCodes.IN_PROGRESS:
+            break
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            break
+          default:
+        }
+      } else {
+        // an error that's not related to google sign in occurred
+      }
     }
   }
 
@@ -101,7 +152,11 @@ const SignInForm = () => {
           )}
         </View>
 
-        <Button disabled={isPending} className="w-full" onPress={handleSubmit(onSubmit)}>
+        <Button
+          disabled={isPending || isPendingGoogle}
+          className="w-full"
+          onPress={handleSubmit(onSubmit)}
+        >
           <Text>{t('Login')}</Text>
         </Button>
 
