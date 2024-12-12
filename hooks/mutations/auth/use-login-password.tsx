@@ -33,7 +33,7 @@ function useLoginPassword() {
         await AsyncStorage.setItem('refreshToken', data.refreshToken)
 
         queryClient.invalidateQueries({
-          queryKey: ['who-am-i'],
+          queryKey: ['token'],
         })
 
         return {

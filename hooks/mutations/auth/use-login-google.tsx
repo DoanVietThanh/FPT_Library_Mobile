@@ -30,15 +30,13 @@ function useLoginGoogle() {
         await AsyncStorage.setItem('refreshToken', data.refreshToken)
 
         queryClient.invalidateQueries({
-          queryKey: ['who-am-i'],
+          queryKey: ['token'],
         })
 
         return {
           isSuccess: true,
         }
       } catch (error) {
-        console.log({ error })
-
         return handleHttpError(error)
       }
     },

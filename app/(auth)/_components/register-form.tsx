@@ -73,8 +73,6 @@ function RegisterForm() {
 
       const response = await GoogleSignin.signIn()
       if (isSuccessResponse(response)) {
-        console.log(response.data.serverAuthCode)
-
         if (!response.data.serverAuthCode) {
           Toast.show({
             type: 'error', // Define your custom type
@@ -97,11 +95,9 @@ function RegisterForm() {
           },
         })
       } else {
-        console.log('cancelled')
+        //cancelled
       }
     } catch (error) {
-      console.log({ error })
-
       if (isErrorWithCode(error)) {
         switch (error.code) {
           case statusCodes.IN_PROGRESS:

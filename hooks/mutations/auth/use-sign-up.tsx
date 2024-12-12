@@ -12,16 +12,12 @@ function useRegister() {
   return useMutation({
     mutationFn: async (body: TRegisterSchema): Promise<ActionResponse> => {
       try {
-        console.log(process.env.EXPO_PUBLIC_API_ENDPOINT)
-
         await http.post('/api/auth/sign-up', body, { lang })
 
         return {
           isSuccess: true,
         }
       } catch (error) {
-        console.log(error)
-
         return handleHttpError(error)
       }
     },

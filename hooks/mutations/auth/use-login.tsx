@@ -11,8 +11,6 @@ function useLogin() {
 
   return useMutation({
     mutationFn: async (body: TLoginSchema): Promise<ActionResponse<string>> => {
-      console.log({ lang })
-
       try {
         const { resultCode } = await http.post('/api/auth/sign-in', body, { lang })
 
