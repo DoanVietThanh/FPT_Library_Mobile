@@ -37,12 +37,15 @@
     "or": "or",
     "Already have an account?": "Already have an account?",
     "Sign in": "Sign in",
-    "Homepage": "Homepage"
+    "Homepage": "Homepage",
+    "FirstName": "First name",
+    "LastName": "Last name"
   },
   "ResetPasswordPage": {
     "Reset password": "Reset password",
     "Message": "First, enter the code sent to your email address",
-
+    "Password": "Password",
+    "ConfirmedPassword": "Confirmed password",
     "Email": "Email",
     "ForgotPasswordFailedTitle": "Forgot password failed",
     "Continue": "Continue",

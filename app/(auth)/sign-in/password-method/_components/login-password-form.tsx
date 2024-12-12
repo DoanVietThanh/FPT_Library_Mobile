@@ -1,5 +1,5 @@
-import React, { useTransition } from 'react'
-import { Alert, Image, View } from 'react-native'
+import React, { useState } from 'react'
+import { Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
 import googleIcon from '~/assets/icons/google.png'
 import { Button } from '~/components/ui/button'
@@ -7,38 +7,55 @@ import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
+import useLoginPassword from '~/hooks/mutations/auth/use-login-password'
+import handleActionError from '~/lib/handle-action-error'
+import {
+  loginByPasswordSchema,
+  TLoginByPasswordSchema,
+} from '~/lib/validations/auth/login-password'
 import { Link, useRouter } from 'expo-router'
+import { Eye, EyeClosed } from 'lucide-react-native'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { z } from 'zod'
-
-const loginPassword = z.object({
-  password: z.string().min(6, { message: 'min6' }),
-})
-
-type TLoginPassword = z.infer<typeof loginPassword>
 
 type Props = {
   email: string
 }
 
 const LoginPasswordForm = ({ email }: Props) => {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation('LoginPage')
   const router = useRouter()
-  const { t } = useTranslation('LoginPage')
+
   const { t: tZod } = useTranslation('Zod')
-  const [pending, startTransition] = useTransition()
+
+  const [showPassword, setShowPassword] = useState(false)
+  const { mutate: loginByPassword, isPending } = useLoginPassword()
+
   const {
     control,
     handleSubmit,
+    setFocus,
     formState: { errors },
-  } = useForm<TLoginPassword>({
-    resolver: zodResolver(loginPassword),
+  } = useForm<TLoginByPasswordSchema>({
+    resolver: zodResolver(loginByPasswordSchema),
+    defaultValues: {
+      email,
+    },
   })
 
-  const onSubmit = (data: TLoginPassword) => {
-    startTransition(() => {
-      Alert.alert('Form Submitted', JSON.stringify(data))
-      router.push('/(tabs)/home')
+  const onSubmit = (body: TLoginByPasswordSchema) => {
+    loginByPassword(body, {
+      onSuccess: (res) => {
+        if (res.isSuccess) {
+          router.push('/')
+          return
+        }
+
+        handleActionError(res, language, control, setFocus)
+      },
     })
   }
 
@@ -69,7 +86,22 @@ const LoginPasswordForm = ({ email }: Props) => {
             control={control}
             name="password"
             render={({ field: { onChange, onBlur, value } }) => (
-              <Input onBlur={onBlur} onChangeText={onChange} value={value} />
+              <View className="flex flex-row items-center rounded-[8px] border pr-1">
+                <Input
+                  className="flex-1 border-none border-transparent outline-none"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  secureTextEntry={!showPassword}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onPress={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <EyeClosed className="size-6" /> : <Eye className="size-6" />}
+                </Button>
+              </View>
             )}
           />
           {errors.password?.message && (
@@ -77,7 +109,7 @@ const LoginPasswordForm = ({ email }: Props) => {
           )}
         </View>
 
-        <Button disabled={pending} className="w-full" onPress={handleSubmit(onSubmit)}>
+        <Button disabled={isPending} className="w-full" onPress={handleSubmit(onSubmit)}>
           <Text>{t('PasswordMethodPage.Login')}</Text>
         </Button>
 

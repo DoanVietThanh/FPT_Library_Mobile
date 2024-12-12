@@ -5,7 +5,7 @@ import { Text } from '~/components/ui/text'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import SignUpForm from './_component/sign-up-form'
+import RegisterForm from './_components/register-form'
 
 function SignUpScreen() {
   const { t } = useTranslation('RegisterPage')
@@ -28,7 +28,7 @@ function SignUpScreen() {
                   </Text>
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                 </View>
-                <SignUpForm />
+                <RegisterForm />
               </View>
             </View>
           </View>

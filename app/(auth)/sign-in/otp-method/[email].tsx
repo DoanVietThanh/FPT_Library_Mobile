@@ -6,10 +6,10 @@ import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import VerifyOtpForm from '../_component/verify-otp-form'
+import LoginOtpForm from './_components/login-otp-form'
 
-function VerifyOtpScreen() {
-  const { t } = useTranslation('VerifyOtpPage')
+function LoginPasswordMethodScreen() {
+  const { t } = useTranslation('OtpMethodPage')
   const { email } = useLocalSearchParams()
   return (
     <KeyboardAvoidingView
@@ -25,13 +25,11 @@ function VerifyOtpScreen() {
                   <Image source={fptLogo} className="h-12 w-32" resizeMode="contain" />
                 </View>
                 <View className="flex flex-col gap-y-1">
-                  <Text className="text-center text-lg font-semibold">
-                    {t('Verify your email')}
-                  </Text>
+                  <Text className="text-center text-lg font-semibold">{t('Check your email')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <VerifyOtpForm />
+                <LoginOtpForm email={email as string} />
               </View>
             </View>
           </View>
@@ -41,4 +39,4 @@ function VerifyOtpScreen() {
   )
 }
 
-export default VerifyOtpScreen
+export default LoginPasswordMethodScreen

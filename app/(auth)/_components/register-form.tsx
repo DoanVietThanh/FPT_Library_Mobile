@@ -1,58 +1,120 @@
-import React, { useState, useTransition } from 'react'
-import { Alert, Image, View } from 'react-native'
+import React, { useState } from 'react'
+import { Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  GoogleSignin,
+  isErrorWithCode,
+  isSuccessResponse,
+  statusCodes,
+} from '@react-native-google-signin/google-signin'
 import googleIcon from '~/assets/icons/google.png'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
-import { Eye } from '~/lib/icons/eye'
-import { EyeClosed } from '~/lib/icons/eye-closed'
-import { Link } from 'expo-router'
+import useLoginGoogle from '~/hooks/mutations/auth/use-login-google'
+import useRegister from '~/hooks/mutations/auth/use-sign-up'
+import handleActionError from '~/lib/handle-action-error'
+import { registerSchema, TRegisterSchema } from '~/lib/validations/auth/register'
+import { Link, useRouter } from 'expo-router'
+import { Eye, EyeClosed } from 'lucide-react-native'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { z } from 'zod'
+import Toast from 'react-native-toast-message'
 
-const registerSchema = z
-  .object({
-    email: z.string().email('email'),
-    password: z.string().min(6),
-    confirmPassword: z.string().min(6),
-  })
-  .refine((data) => data.confirmPassword === data.password, {
-    message: 'notMatchPassword',
-    path: ['confirmPassword'],
-  })
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
+  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  offlineAccess: true,
+  forceCodeForRefreshToken: true,
+})
 
-type TRegisterSchema = z.infer<typeof registerSchema>
+function RegisterForm() {
+  const router = useRouter()
 
-const SignUpForm = () => {
-  const { t } = useTranslation('RegisterPage')
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation('RegisterPage')
   const { t: tZod } = useTranslation('Zod')
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const [pending, startTransition] = useTransition()
+  const { mutate: signUp, isPending } = useRegister()
+  const { mutate: loginGoogle, isPending: isPendingGoogle } = useLoginGoogle()
+
   const {
     control,
+    setFocus,
     handleSubmit,
     formState: { errors },
   } = useForm<TRegisterSchema>({
     resolver: zodResolver(registerSchema),
   })
 
-  const onSubmit = (data: TRegisterSchema) => {
-    startTransition(() => {
-      Alert.alert('Form Submitted', JSON.stringify(data))
+  const onSubmit = async (body: TRegisterSchema) => {
+    signUp(body, {
+      onSuccess: (res) => {
+        if (res.isSuccess) {
+          router.push(`/verify-email/${body.email}`)
+          return
+        }
+
+        handleActionError(res, language, control, setFocus)
+      },
     })
   }
 
+  const handleGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices()
+
+      const response = await GoogleSignin.signIn()
+      if (isSuccessResponse(response)) {
+        if (!response.data.serverAuthCode) {
+          Toast.show({
+            type: 'error', // Define your custom type
+            text1: language === 'vi' ? 'Lỗi' : 'Error',
+            text2:
+              language === 'vi'
+                ? 'Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.'
+                : 'An unknown error occurred. Please try again later.',
+          })
+          return
+        }
+        loginGoogle(response.data.serverAuthCode, {
+          onSuccess: (res) => {
+            if (res.isSuccess) {
+              router.push(`/`)
+              return
+            }
+
+            handleActionError(res, language, control, setFocus)
+          },
+        })
+      } else {
+        //cancelled
+      }
+    } catch (error) {
+      if (isErrorWithCode(error)) {
+        switch (error.code) {
+          case statusCodes.IN_PROGRESS:
+            break
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            break
+          default:
+        }
+      } else {
+        // an error that's not related to google sign in occurred
+      }
+    }
+  }
   return (
     <>
       <Button
-        // onClick={handleGoogleLogin}
+        onPress={handleGoogleLogin}
         variant="outline"
         className="flex w-full flex-row border-none outline-none"
       >
@@ -64,7 +126,34 @@ const SignUpForm = () => {
         <Text className="text-sm">{t('or')}</Text>
         <Separator className="flex-1" />
       </View>
+
       <View className="flex flex-col gap-y-6">
+        <View className="w-full">
+          <Label className="mb-1 text-sm font-semibold">{t('FirstName')}</Label>
+          <Controller
+            control={control}
+            name="firstName"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input onBlur={onBlur} onChangeText={onChange} value={value} />
+            )}
+          />
+          {errors.email?.message && (
+            <Text className="text-sm text-destructive">{tZod(errors.email.message)}</Text>
+          )}
+        </View>
+        <View className="w-full">
+          <Label className="mb-1 text-sm font-semibold">{t('LastName')}</Label>
+          <Controller
+            control={control}
+            name="lastName"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input onBlur={onBlur} onChangeText={onChange} value={value} />
+            )}
+          />
+          {errors.email?.message && (
+            <Text className="text-sm text-destructive">{tZod(errors.email.message)}</Text>
+          )}
+        </View>
         <View className="flex flex-col gap-y-2">
           <Label className="text-sm font-semibold">{t('Email')}</Label>
           <Controller
@@ -78,6 +167,7 @@ const SignUpForm = () => {
             <Text className="text-sm text-destructive">{tZod(errors.email.message)}</Text>
           )}
         </View>
+
         <View className="flex flex-col gap-y-2">
           <Label className="text-sm font-semibold">{t('Password')}</Label>
           <Controller
@@ -97,11 +187,7 @@ const SignUpForm = () => {
                   size="icon"
                   onPress={() => setShowPassword((prev) => !prev)}
                 >
-                  {showPassword ? (
-                    <EyeClosed className="size-6 text-primary" />
-                  ) : (
-                    <Eye className="size-6 text-primary" />
-                  )}
+                  {showPassword ? <EyeClosed className="size-6" /> : <Eye className="size-6" />}
                 </Button>
               </View>
             )}
@@ -130,9 +216,9 @@ const SignUpForm = () => {
                   onPress={() => setShowConfirmPassword((prev) => !prev)}
                 >
                   {showConfirmPassword ? (
-                    <EyeClosed className="size-6 text-primary" />
+                    <EyeClosed className="size-6" />
                   ) : (
-                    <Eye className="size-6 text-primary" />
+                    <Eye className="size-6" />
                   )}
                 </Button>
               </View>
@@ -143,10 +229,13 @@ const SignUpForm = () => {
           )}
         </View>
 
-        <Button disabled={pending} className="w-full" onPress={handleSubmit(onSubmit)}>
+        <Button
+          disabled={isPending || isPendingGoogle}
+          onPress={handleSubmit(onSubmit)}
+          className="w-full"
+        >
           <Text>{t('Register')}</Text>
         </Button>
-
         <View className="flex flex-row flex-wrap justify-between gap-2 text-sm">
           <View className="flex flex-row items-center gap-1 text-muted-foreground">
             <Text className="text-sm"> {t('Already have an account?')}</Text>
@@ -163,4 +252,4 @@ const SignUpForm = () => {
   )
 }
 
-export default SignUpForm
+export default RegisterForm

@@ -11,8 +11,6 @@ const OTPInput = ({ otp, setOtp }: Props) => {
   const inputRefs = useRef<(TextInput | null)[]>([])
 
   const handleChange = (text: string, index: number) => {
-    if (isNaN(Number(text))) return
-
     const newOtp = [...otp]
     newOtp[index] = text
     setOtp(newOtp)
@@ -44,7 +42,6 @@ const OTPInput = ({ otp, setOtp }: Props) => {
           value={digit}
           onChangeText={(text) => handleChange(text, index)}
           onKeyPress={(e) => handleKeyPress(e, index)}
-          keyboardType="numeric"
           maxLength={1}
           ref={(el) => (inputRefs.current[index] = el)}
         />

@@ -7,15 +7,15 @@ import { Redirect, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function App() {
-  const { isLoading, isLoggedIn } = useAuth()
+  const { isLoadingAuth, isLoggedIn } = useAuth()
 
-  if (!isLoading && isLoggedIn) {
+  if (!isLoadingAuth && isLoggedIn) {
     return <Redirect href="/home" />
   }
 
   return (
     <SafeAreaView className="relative h-full">
-      {isLoading && (
+      {isLoadingAuth && (
         <View className="fixed z-10 flex h-full w-full items-center justify-center">
           <Image source={fptLogo} className="h-[84px] w-[130px]" resizeMode="contain" />
         </View>

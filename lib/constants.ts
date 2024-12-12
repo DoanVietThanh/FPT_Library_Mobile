@@ -16,3 +16,10 @@ export const NAV_THEME = {
     text: 'hsl(21 0% 90%)', // foreground
   },
 }
+
+export const googleConfig = {
+  issuer: 'https://accounts.google.com',
+  clientId: '1076769092661-kde2gscmapurmteslfbhommlcobb685k.apps.googleusercontent.com',
+  redirectUrl: `com.googleusercontent.apps.1076769092661-kde2gscmapurmteslfbhommlcobb685k:/oauth2redirect/google`, // Match with Google Console
+  scopes: ['openid', 'profile', 'email'], // Scopes you want to request
+}

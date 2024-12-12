@@ -1,12 +1,15 @@
-import { Image } from 'react-native'
-import fptLogo from '~/assets/images/fpt-logo.png'
+import { View } from 'react-native'
+import { Button } from '~/components/ui/button'
+import { Text } from '~/components/ui/text'
 import { ThemeToggle } from '~/components/ui/theme-toggle'
+import useSignOut from '~/hooks/mutations/auth/use-sign-out'
 import { Tabs } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 
 import { TabBarIcon } from '../../components/TabBarIcon'
 
 export default function TabLayout() {
+  const { mutate: signOut } = useSignOut()
   const { t } = useTranslation('TabLayout')
   return (
     <Tabs>

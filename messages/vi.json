@@ -36,7 +36,9 @@
     "or": "hoặc",
     "Already have an account?": "Đã có tài khoản?",
     "Sign in": "Đăng nhập",
-    "Homepage": "Trang chủ"
+    "Homepage": "Trang chủ",
+    "FirstName": "Tên",
+    "LastName": "Họ"
   },
   "ResetPasswordPage": {
     "Reset password": "Khôi phục mật khẩu",
@@ -44,7 +46,9 @@
     "Email": "Địa chỉ email",
     "Continue": "Tiếp tục",
     "No code": "Không nhận được mã? Gửi lại",
-    "Back to login": "Về trang đăng nhập"
+    "Back to login": "Về trang đăng nhập",
+    "Password": "Mật khẩu",
+    "ConfirmedPassword": "Nhập lại mật khẩu"
   },
   "VerifyOtpPage": {
     "Verify your email": "Xác minh email",

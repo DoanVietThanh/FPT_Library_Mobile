@@ -11,7 +11,9 @@ import { NAV_THEME } from '~/lib/constants'
 import { useColorScheme } from '~/lib/use-color-scheme'
 import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import * as WebBrowser from 'expo-web-browser'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Toast from 'react-native-toast-message'
 
 import '~/lib/i18n.ts'
 
@@ -37,6 +39,8 @@ export {
 SplashScreen.preventAutoHideAsync()
 
 const queryClient = new QueryClient()
+
+WebBrowser.maybeCompleteAuthSession()
 
 export default function RootLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme()
@@ -84,6 +88,7 @@ export default function RootLayout() {
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
               </Stack>
+              <Toast />
             </BottomSheetModalProvider>
             <PortalHost />
           </GestureHandlerRootView>
