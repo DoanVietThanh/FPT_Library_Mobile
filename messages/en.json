@@ -59,5 +59,45 @@
   "Zod": {
     "email": "Invalid email",
     "notMatchPassword": "Confirm password does not match with password"
+  },
+  "TabLayout": {
+    "Home": "Home",
+    "QR": "QR Code",
+    "Search": "Search",
+    "More": "More"
+  },
+  "HomeScreen": {
+    "Title": "Home"
+  },
+  "QRScreen": {
+    "Title": "QR Code"
+  },
+  "SearchScreen": {
+    "Title": "Search"
+  },
+  "MoreScreen": {
+    "Title": "More",
+    "ChangeInfo": "Change the personal information",
+    "Setting": "Setting",
+    "MyQR": "My QR Code",
+    "OTP": "Get OTP",
+    "Blog": "Blog",
+    "Location": "Location",
+    "Policy": "Policy & Terms of Use",
+    "Question": "Frequently asked questions",
+    "Contact": "Contact",
+    "Logout": "Logout"
+  },
+  "Me": {
+    "Account": {
+      "Profile": {
+        "Title": "Profile",
+        "OtherInfo": "Other Info",
+        "Gender": "Gender",
+        "Phone": "Phone number",
+        "Email": "Email",
+        "Address": "Address"
+      }
+    }
   }
 }

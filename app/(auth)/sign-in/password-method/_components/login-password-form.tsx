@@ -27,11 +27,13 @@ const LoginPasswordForm = ({ email }: Props) => {
     t,
     i18n: { language },
   } = useTranslation('LoginPage')
+  const router = useRouter()
+
   const { t: tZod } = useTranslation('Zod')
 
   const [showPassword, setShowPassword] = useState(false)
   const { mutate: loginByPassword, isPending } = useLoginPassword()
-  const router = useRouter()
+
   const {
     control,
     handleSubmit,

@@ -57,5 +57,45 @@
   "Zod": {
     "email": "Email không hợp lệ",
     "notMatchPassword": "Mật khẩu không khớp"
+  },
+  "TabLayout": {
+    "Home": "Trang chủ",
+    "QR": "QR Code",
+    "Search": "Tìm kiếm",
+    "More": "Thêm"
+  },
+  "HomeScreen": {
+    "Title": "Trang chủ"
+  },
+  "QRScreen": {
+    "Title": "QR Code"
+  },
+  "SearchScreen": {
+    "Title": "Tìm kiếm"
+  },
+  "MoreScreen": {
+    "Title": "Thêm",
+    "ChangeInfo": "Thay đổi thông tin cá nhân",
+    "Setting": "Cài đặt",
+    "MyQR": "Mã QR của tôi",
+    "OTP": "Lấy OTP",
+    "Blog": "Tin tức",
+    "Location": "Địa điểm",
+    "Policy": "Điều khoản & điều kiện sử dụng",
+    "Question": "Câu hỏi thường gặp",
+    "Contact": "Liên hệ",
+    "Logout": "Đăng xuất"
+  },
+  "Me": {
+    "Account": {
+      "Profile": {
+        "Title": "Trang cá nhân",
+        "OtherInfo": "Thống tin khác",
+        "Gender": "Giới tính",
+        "Phone": "Số điện thoại liên hệ",
+        "Email": "Email",
+        "Address": "Địa chỉ"
+      }
+    }
   }
 }
