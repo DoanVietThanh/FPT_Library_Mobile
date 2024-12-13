@@ -68,7 +68,7 @@ const SignInForm = () => {
           router.push(`/verify-email/${body.email}`)
         }
 
-        handleActionError(res, language, control, setFocus)
+        handleActionError(res, control, setFocus)
       },
     })
   }
@@ -97,7 +97,7 @@ const SignInForm = () => {
               return
             }
 
-            handleActionError(res, language, control, setFocus)
+            handleActionError(res, control, setFocus)
           },
         })
       } else {

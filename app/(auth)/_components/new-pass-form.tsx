@@ -61,87 +61,81 @@ function NewPassForm({ changePasswordToken, email }: Props) {
             return
           }
 
-          handleActionError(res, language, control, setFocus)
+          handleActionError(res, control, setFocus)
         },
       },
     )
   }
 
   return (
-    <>
-      <View className="flex flex-col gap-y-6">
-        <View className="flex flex-col gap-y-2">
-          <Label className="text-sm font-semibold">{t('Password')}</Label>
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <View className="flex flex-row items-center rounded-[8px] border pr-1">
-                <Input
-                  className="flex-1 border-none border-transparent outline-none"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  secureTextEntry={!showPassword}
-                />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onPress={() => setShowPassword((prev) => !prev)}
-                >
-                  {showPassword ? <EyeClosed className="size-6" /> : <Eye className="size-6" />}
-                </Button>
-              </View>
-            )}
-          />
-          {errors.password?.message && (
-            <Text className="text-sm text-destructive">{tZod(errors.password.message)}</Text>
+    <View className="flex flex-col gap-y-6">
+      <View className="flex flex-col gap-y-2">
+        <Label className="text-sm font-semibold">{t('Password')}</Label>
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View className="flex flex-row items-center rounded-[8px] border pr-1">
+              <Input
+                className="flex-1 border-none border-transparent outline-none"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                secureTextEntry={!showPassword}
+              />
+              <Button variant="ghost" size="icon" onPress={() => setShowPassword((prev) => !prev)}>
+                {showPassword ? <EyeClosed className="size-6" /> : <Eye className="size-6" />}
+              </Button>
+            </View>
           )}
-        </View>
-        <View className="flex flex-col gap-y-2">
-          <Label className="text-sm font-semibold">{t('ConfirmedPassword')}</Label>
-          <Controller
-            control={control}
-            name="confirmPassword"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <View className="flex flex-row items-center rounded-[8px] border pr-1">
-                <Input
-                  className="flex-1 border-none border-transparent outline-none"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  secureTextEntry={!showConfirmPassword}
-                />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onPress={() => setShowConfirmPassword((prev) => !prev)}
-                >
-                  {showConfirmPassword ? (
-                    <EyeClosed className="size-6" />
-                  ) : (
-                    <Eye className="size-6" />
-                  )}
-                </Button>
-              </View>
-            )}
-          />
-          {errors.confirmPassword?.message && (
-            <Text className="text-sm text-destructive">{tZod(errors.confirmPassword.message)}</Text>
-          )}
-        </View>
-
-        <Button disabled={isPending} onPress={handleSubmit(onSubmit)} className="w-full">
-          <Text>{t('Continue')}</Text>
-        </Button>
-        <Link
-          href="/sign-in"
-          className="block cursor-pointer text-center text-sm font-bold text-foreground hover:underline"
-        >
-          {t('Back to login')}
-        </Link>
+        />
+        {errors.password?.message && (
+          <Text className="text-sm text-destructive">{tZod(errors.password.message)}</Text>
+        )}
       </View>
-    </>
+      <View className="flex flex-col gap-y-2">
+        <Label className="text-sm font-semibold">{t('ConfirmedPassword')}</Label>
+        <Controller
+          control={control}
+          name="confirmPassword"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View className="flex flex-row items-center rounded-[8px] border pr-1">
+              <Input
+                className="flex-1 border-none border-transparent outline-none"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                secureTextEntry={!showConfirmPassword}
+              />
+              <Button
+                variant="ghost"
+                size="icon"
+                onPress={() => setShowConfirmPassword((prev) => !prev)}
+              >
+                {showConfirmPassword ? (
+                  <EyeClosed className="size-6" />
+                ) : (
+                  <Eye className="size-6" />
+                )}
+              </Button>
+            </View>
+          )}
+        />
+        {errors.confirmPassword?.message && (
+          <Text className="text-sm text-destructive">{tZod(errors.confirmPassword.message)}</Text>
+        )}
+      </View>
+
+      <Button disabled={isPending} onPress={handleSubmit(onSubmit)} className="w-full">
+        <Text>{t('Continue')}</Text>
+      </Button>
+      <Link
+        href="/sign-in"
+        className="block cursor-pointer text-center text-sm font-bold text-foreground hover:underline"
+      >
+        {t('Back to login')}
+      </Link>
+    </View>
   )
 }
 

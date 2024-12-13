@@ -61,7 +61,7 @@ const VerifyEmailForm = ({ email }: Props) => {
             return
           }
 
-          handleActionError(res, language, control, setFocus)
+          handleActionError(res, control, setFocus)
         },
       },
     )

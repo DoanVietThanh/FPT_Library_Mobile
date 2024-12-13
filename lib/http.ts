@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ActionError } from '~/types/action-response'
+import i18n from 'i18next' // Import the i18n instance directly
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type CustomOptions = RequestInit & {
   baseUrl?: string
   lang?: string
+  searchParams?: Record<string, string>
 }
 
 type OkResponse<TData = undefined> = {
@@ -86,7 +88,7 @@ const request = async <TData = undefined>(
   const body = options?.body ? JSON.stringify(options.body) : undefined
   const baseHeaders = {
     'Content-Type': 'application/json',
-    'Accept-Language': options?.lang ?? 'vi',
+    'Accept-Language': options?.lang ?? i18n.language ?? 'vi',
   }
 
   console.log(baseHeaders)
@@ -94,7 +96,9 @@ const request = async <TData = undefined>(
   const baseUrl =
     options?.baseUrl === undefined ? process.env.EXPO_PUBLIC_API_ENDPOINT : options.baseUrl
 
-  const res = await fetch(`${baseUrl}${url}`, {
+  const searchParams = new URLSearchParams(options?.searchParams)
+
+  const res = await fetch(`${baseUrl}${url}?${searchParams.toString()}`, {
     ...options,
     headers: {
       ...baseHeaders,

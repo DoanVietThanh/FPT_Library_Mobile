@@ -20,10 +20,7 @@ type Props = {
 }
 
 const ResetPasswordForm = ({ email }: Props) => {
-  const {
-    t,
-    i18n: { language },
-  } = useTranslation('ResetPasswordPage')
+  const { t } = useTranslation('ResetPasswordPage')
   const { t: tZod } = useTranslation('Zod')
   const queryClient = useQueryClient()
 
@@ -33,10 +30,7 @@ const ResetPasswordForm = ({ email }: Props) => {
 
   useQuery({
     queryKey: ['forgot-password', email],
-    queryFn: async () =>
-      await http.get(`/api/auth/forgot-password?Email=${email}`, {
-        lang: language,
-      }),
+    queryFn: async () => await http.get(`/api/auth/forgot-password?Email=${email}`),
     refetchOnWindowFocus: false,
   })
 
@@ -69,7 +63,7 @@ const ResetPasswordForm = ({ email }: Props) => {
             return
           }
 
-          handleActionError(res, language, control, setFocus)
+          handleActionError(res, control, setFocus)
         },
       },
     )

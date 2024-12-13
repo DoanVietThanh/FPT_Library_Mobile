@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { handleHttpError, http } from '~/lib/http'
 import { ActionResponse } from '~/types/action-response'
-import { useTranslation } from 'react-i18next'
 
 type TChangePassword = {
   email: string
@@ -10,14 +9,10 @@ type TChangePassword = {
 }
 
 function useChangePassword() {
-  const {
-    i18n: { language: lang },
-  } = useTranslation()
-
   return useMutation({
     mutationFn: async (body: TChangePassword): Promise<ActionResponse<string>> => {
       try {
-        const { message } = await http.patch('/api/auth/change-password', body, { lang })
+        const { message } = await http.patch('/api/auth/change-password', body)
 
         return {
           isSuccess: true,
