@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { handleHttpError, http } from '~/lib/http'
 import { TLoginByPasswordSchema } from '~/lib/validations/auth/login-password'
 import { ActionResponse } from '~/types/action-response'
-import { useTranslation } from 'react-i18next'
 
 type TLoginByPasswordData = {
   accessToken: string
@@ -11,9 +10,6 @@ type TLoginByPasswordData = {
 }
 
 function useLoginPassword() {
-  const {
-    i18n: { language: lang },
-  } = useTranslation()
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -24,9 +20,6 @@ function useLoginPassword() {
         const { data } = await http.post<TLoginByPasswordData>(
           '/api/auth/sign-in/password-method',
           body,
-          {
-            lang,
-          },
         )
 
         await AsyncStorage.setItem('accessToken', data.accessToken)

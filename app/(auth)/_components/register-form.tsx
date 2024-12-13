@@ -62,7 +62,7 @@ function RegisterForm() {
           return
         }
 
-        handleActionError(res, language, control, setFocus)
+        handleActionError(res, control, setFocus)
       },
     })
   }
@@ -91,7 +91,7 @@ function RegisterForm() {
               return
             }
 
-            handleActionError(res, language, control, setFocus)
+            handleActionError(res, control, setFocus)
           },
         })
       } else {

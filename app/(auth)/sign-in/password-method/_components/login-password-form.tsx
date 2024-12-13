@@ -23,10 +23,7 @@ type Props = {
 }
 
 const LoginPasswordForm = ({ email }: Props) => {
-  const {
-    t,
-    i18n: { language },
-  } = useTranslation('LoginPage')
+  const { t } = useTranslation('LoginPage')
   const router = useRouter()
 
   const { t: tZod } = useTranslation('Zod')
@@ -54,7 +51,7 @@ const LoginPasswordForm = ({ email }: Props) => {
           return
         }
 
-        handleActionError(res, language, control, setFocus)
+        handleActionError(res, control, setFocus)
       },
     })
   }
