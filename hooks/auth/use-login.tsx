@@ -5,13 +5,25 @@ import { ActionResponse } from '~/types/action-response'
 
 function useLogin() {
   return useMutation({
-    mutationFn: async (body: TLoginSchema): Promise<ActionResponse<string>> => {
+    mutationFn: async (
+      body: TLoginSchema,
+    ): Promise<
+      ActionResponse<{
+        resultCode: string
+        userType: 'User' | 'Employee' | 'Admin'
+      }>
+    > => {
       try {
-        const { resultCode } = await http.post('/api/auth/sign-in', body)
+        const { resultCode, data } = await http.post<{
+          userType: 'User' | 'Employee' | 'Admin'
+        }>('/api/auth/sign-in', body)
 
         return {
           isSuccess: true,
-          data: resultCode,
+          data: {
+            resultCode,
+            userType: data.userType,
+          },
         }
       } catch (error) {
         const resError = handleHttpError(error)

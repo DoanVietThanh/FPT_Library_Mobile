@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useQueryClient } from '@tanstack/react-query'
 import googleIcon from '~/assets/icons/google.png'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
-import useLoginPassword from '~/hooks/mutations/auth/use-login-password'
+import useLoginPassword from '~/hooks/auth/use-login-password'
 import handleActionError from '~/lib/handle-action-error'
 import {
   loginByPasswordSchema,
@@ -25,6 +26,7 @@ type Props = {
 const LoginPasswordForm = ({ email }: Props) => {
   const { t } = useTranslation('LoginPage')
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   const { t: tZod } = useTranslation('Zod')
 
@@ -47,7 +49,15 @@ const LoginPasswordForm = ({ email }: Props) => {
     loginByPassword(body, {
       onSuccess: (res) => {
         if (res.isSuccess) {
+          queryClient.invalidateQueries({
+            queryKey: ['token'],
+          })
           router.push('/')
+          return
+        }
+
+        if (res.typeError === 'warning' && res.resultCode === 'Auth.Warning0010') {
+          router.push(`/mfa/${body.email}`)
           return
         }
 

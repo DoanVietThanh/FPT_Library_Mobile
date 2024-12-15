@@ -6,7 +6,7 @@ import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import LoginPasswordForm from './_components/login-password-form'
+import LoginPasswordForm from '../_components/login-password-form'
 
 function LoginPasswordMethodScreen() {
   const { t } = useTranslation('LoginPage')

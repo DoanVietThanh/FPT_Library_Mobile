@@ -13,8 +13,8 @@ import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Text } from '~/components/ui/text'
-import useLogin from '~/hooks/mutations/auth/use-login'
-import useLoginGoogle from '~/hooks/mutations/auth/use-login-google'
+import useLogin from '~/hooks/auth/use-login'
+import useLoginGoogle from '~/hooks/auth/use-login-google'
 import handleActionError from '~/lib/handle-action-error'
 import { loginSchema, TLoginSchema } from '~/lib/validations/auth/login'
 import { Link, useRouter } from 'expo-router'
@@ -55,17 +55,32 @@ const SignInForm = () => {
     login(body, {
       onSuccess: (res) => {
         if (res.isSuccess) {
-          if (res.data === 'Auth.Success0003') {
-            router.push(`/sign-in/password-method/${body.email}`)
+          if (res.data.resultCode === 'Auth.Success0003') {
+            router.push(
+              `/sign-in/password-method/${res.data.userType.toLocaleLowerCase()}/${body.email}`,
+            )
             return
           }
 
-          router.push(`/sign-in/otp-method/${body.email}`)
+          if (res.data.resultCode === 'Auth.Success0004') {
+            router.push(`/sign-in/otp-method/${body.email}`)
+            return
+          }
+
+          console.log('Something went wrong')
           return
         }
 
-        if (res.typeError === 'warning' && res.resultCode === 'Auth.Warning0008') {
-          router.push(`/verify-email/${body.email}`)
+        if (res.typeError === 'warning') {
+          if (res.resultCode === 'Auth.Warning0008') {
+            router.push(`/verify-email/${body.email}`)
+            return
+          }
+
+          if (res.resultCode === 'Auth.Warning0011') {
+            router.push(`/mfa/${body.email}/enable`)
+            return
+          }
         }
 
         handleActionError(res, control, setFocus)

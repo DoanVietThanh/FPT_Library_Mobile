@@ -97,5 +97,14 @@
         "Address": "Địa chỉ"
       }
     }
+  },
+  "MfaPage": {
+    "Verify MFA": "Xác thực MFA",
+    "Active MFA": "Kích hoạt MFA",
+    "Message": "Tài khoản của bạn được bảo vệ bằng xác thực đa yếu tố (MFA)",
+    "Message enable": "Cài đặt ứng dụng tương thích như Google Authenticator, Duo Mobile hoặc ứng dụng Authy trên thiết bị di động hoặc máy tính của bạn.",
+    "Message enable 2": "Mở ứng dụng xác thực, sau đó sử dụng ứng dụng để quét QR và nhận được mã MFA.",
+    "Message enable 3": "Vui lòng lưu một trong các mã bên dưới trong trường hợp bạn làm mất thiết bị đã sử dụng để kích hoạt MFA.",
+    "Message enable 4": "Nhập mã MFA bên dưới"
   }
 }

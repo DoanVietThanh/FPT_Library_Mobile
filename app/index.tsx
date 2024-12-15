@@ -52,9 +52,9 @@ export default function App() {
             <Text>Continue with email</Text>
           </Button>
 
-          <Button className="mt-6" onPress={() => router.push('/(tabs)/home')}>
+          {/* <Button className="mt-6" onPress={() => router.push('/(tabs)/home')}>
             <Text>Continue with email</Text>
-          </Button>
+          </Button> */}
         </View>
       </ScrollView>
     </SafeAreaView>
