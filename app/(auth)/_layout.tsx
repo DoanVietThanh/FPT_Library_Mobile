@@ -10,7 +10,19 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
-        name="sign-in/password-method/[email]"
+        name="sign-in/password-method/[type]/[email]"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="mfa/[email]/index"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="mfa/[email]/enable"
         options={{
           headerShown: false,
         }}
