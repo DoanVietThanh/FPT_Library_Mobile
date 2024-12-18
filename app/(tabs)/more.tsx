@@ -1,8 +1,9 @@
+import React from 'react'
 import { Pressable, View } from 'react-native'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
-import { Stack, useRouter } from 'expo-router'
+import { Link, Stack, useRouter } from 'expo-router'
 import {
   ChevronRight,
   ClipboardList,
@@ -13,6 +14,7 @@ import {
   Phone,
   QrCode,
   Settings,
+  Shield,
   ShieldCheck,
 } from 'lucide-react-native'
 import { useTranslation } from 'react-i18next'
@@ -49,6 +51,16 @@ export default function Home() {
               </View>
               <ChevronRight className="text-primary" color={'orange'} />
             </View>
+            {/* Security */}
+            <Link href="/me/account/security">
+              <View className="flex w-full flex-row justify-between gap-4">
+                <View className="flex flex-row items-center gap-2">
+                  <Shield className="text-primary" color={'orange'} />
+                  <Text className="text-lg ">{t('Security')}</Text>
+                </View>
+                <ChevronRight className="text-primary" color={'orange'} />
+              </View>
+            </Link>
             {/* My QR code */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">

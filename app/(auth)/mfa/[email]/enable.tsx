@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import fptLogo from '~/assets/images/fpt-logo.png'
+import BackupCodes from '~/components/backup-codes'
 import { Skeleton } from '~/components/ui/skeleton'
 import { Text } from '~/components/ui/text'
 import useMfaQr from '~/hooks/auth/use-mfa-qr'
@@ -9,7 +10,6 @@ import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import MfaForm from '../../_components/mfa-form'
-import BackupCodes from './_components/backup-codes'
 
 function EnableMfaScreen() {
   const { t } = useTranslation('MfaPage')

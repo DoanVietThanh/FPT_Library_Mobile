@@ -15,9 +15,11 @@ import OTPInput from './otp-input'
 
 type Props = {
   email: string
+  hideBackToLogin?: boolean
+  callback?: () => void
 }
 
-const MfaForm = ({ email }: Props) => {
+const MfaForm = ({ email, callback, hideBackToLogin = false }: Props) => {
   const { t } = useTranslation('ResetPasswordPage')
   const { t: tZod } = useTranslation('Zod')
   const router = useRouter()
@@ -49,7 +51,15 @@ const MfaForm = ({ email }: Props) => {
             queryClient.invalidateQueries({
               queryKey: ['token'],
             })
-            router.push('/')
+            queryClient.invalidateQueries({
+              queryKey: ['backup-codes'],
+            })
+            if (!hideBackToLogin) {
+              router.push('/')
+              if (callback) {
+                callback()
+              }
+            }
             return
           }
 
@@ -76,12 +86,14 @@ const MfaForm = ({ email }: Props) => {
         <Text>{t('Continue')}</Text>
       </Button>
 
-      <Link
-        href="/sign-in"
-        className="block cursor-pointer text-center text-sm font-bold text-foreground hover:underline"
-      >
-        {t('Back to login')}
-      </Link>
+      {!hideBackToLogin && (
+        <Link
+          href="/sign-in"
+          className="block cursor-pointer text-center text-sm font-bold text-foreground hover:underline"
+        >
+          {t('Back to login')}
+        </Link>
+      )}
     </View>
   )
 }

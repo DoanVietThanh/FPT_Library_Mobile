@@ -16,6 +16,12 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
+        name="sign-in/otp-method/[email]"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="mfa/[email]/index"
         options={{
           headerShown: false,

@@ -54,6 +54,8 @@ const SignInForm = () => {
   const onSubmit = async (body: TLoginSchema) => {
     login(body, {
       onSuccess: (res) => {
+        console.log({ res })
+
         if (res.isSuccess) {
           if (res.data.resultCode === 'Auth.Success0003') {
             router.push(
@@ -62,7 +64,7 @@ const SignInForm = () => {
             return
           }
 
-          if (res.data.resultCode === 'Auth.Success0004') {
+          if (res.data.resultCode === 'Auth.Success0005') {
             router.push(`/sign-in/otp-method/${body.email}`)
             return
           }

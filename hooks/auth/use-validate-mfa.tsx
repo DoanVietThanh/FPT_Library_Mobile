@@ -27,6 +27,10 @@ function useValidateMfa() {
           queryKey: ['token'],
         })
 
+        queryClient.invalidateQueries({
+          queryKey: ['backup-codes'],
+        })
+
         return {
           isSuccess: true,
           data,

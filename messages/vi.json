@@ -52,7 +52,12 @@
   },
   "VerifyOtpPage": {
     "Verify your email": "Xác minh email",
-    "Message": "Nhập OTP được gửi đến email của bạn"
+    "Message": "Nhập OTP được gửi đến email của bạn",
+    "Check your email": "Kiểm tra email của bạn",
+    "Password": "Password",
+    "Login": "Tiếp tục",
+    "No code": "Không nhận được mã? Gửi lại",
+    "Back to login": "Về trang đăng nhập"
   },
   "Zod": {
     "email": "Email không hợp lệ",
@@ -106,5 +111,17 @@
     "Message enable 2": "Mở ứng dụng xác thực, sau đó sử dụng ứng dụng để quét QR và nhận được mã MFA.",
     "Message enable 3": "Vui lòng lưu một trong các mã bên dưới trong trường hợp bạn làm mất thiết bị đã sử dụng để kích hoạt MFA.",
     "Message enable 4": "Nhập mã MFA bên dưới"
+  },
+  "SecurityPage": {
+    "Backup code": "Mã dự phòng (cho MFA)",
+    "Generate new codes": "Tạo mã mới",
+    "Verify code": "Mã xác thực",
+    "Need to verify": "Xác thực để tạo mã mới",
+    "Check your email for verification code": "Kiểm tra email để lấy mã xác thực",
+    "Continue": "Tiếp tục",
+    "Cancel": "Hủy",
+    "MFA": "MFA",
+    "Active MFA": "Kích hoạt MFA",
+    "Security": "Bảo mật"
   }
 }

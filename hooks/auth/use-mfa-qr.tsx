@@ -6,7 +6,7 @@ export type TMfaQr = {
   backupCodes: string[]
 }
 
-function useMfaQr(email: string) {
+function useMfaQr(email: string, enabled = true) {
   return useQuery({
     queryKey: ['mfa-qr-code', email],
     queryFn: async () => {
@@ -17,6 +17,7 @@ function useMfaQr(email: string) {
         return null
       }
     },
+    enabled: enabled && !!email,
   })
 }
 
