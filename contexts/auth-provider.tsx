@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { http } from '~/lib/http'
 import { ERoleType } from '~/types/enum'
+import { useRouter } from 'expo-router'
 import { jwtDecode } from 'jwt-decode'
 
 interface DecodedToken {
@@ -39,14 +40,20 @@ type AuthContextType = {
   isLoadingAuth: boolean
   isLoggedIn: boolean
   user: CurrentUser | null
+  signOut: () => void
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const queryClient = useQueryClient()
+  const router = useRouter()
 
-  const { data: token, isFetching: isLoadingToken } = useQuery<Token | null>({
+  const {
+    data: token,
+    isFetching: isLoadingToken,
+    refetch: refetchTokens,
+  } = useQuery<Token | null>({
     queryKey: ['token'],
     queryFn: async () => await getTokens(),
   })
@@ -72,6 +79,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const accessToken = useMemo(() => token?.accessToken ?? null, [token])
 
+  const signOut = async () => {
+    router.push('/sign-in')
+    await AsyncStorage.removeItem('accessToken')
+    await AsyncStorage.removeItem('refreshToken')
+    refetchTokens()
+  }
+
   //refresh token
   useEffect(() => {
     const timer = setInterval(
@@ -91,6 +105,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   return (
     <AuthContext.Provider
       value={{
+        signOut,
         accessToken,
         isLoadingAuth: isLoadingToken || isLoadingUser,
         user,

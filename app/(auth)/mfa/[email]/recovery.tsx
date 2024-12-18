@@ -6,10 +6,10 @@ import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import MfaForm from '../../_components/mfa-form'
+import RecoveryMfaForm from './_components/recovery-mfa-form'
 
-function MfaScreen() {
-  const { t } = useTranslation('MfaPage')
+function RecoveryMfaScreen() {
+  const { t } = useTranslation('RecoveryMfaPage')
   const { email } = useLocalSearchParams()
   return (
     <KeyboardAvoidingView
@@ -25,10 +25,10 @@ function MfaScreen() {
                   <Image source={fptLogo} className="h-12 w-32" resizeMode="contain" />
                 </View>
                 <View className="flex flex-col gap-y-1">
-                  <Text className="text-center text-lg font-semibold">{t('Verify MFA')}</Text>
+                  <Text className="text-center text-lg font-semibold"> {t('Recovery MFA')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                 </View>
-                <MfaForm validatePage email={email as string} />
+                <RecoveryMfaForm email={email as string} />
               </View>
             </View>
           </View>
@@ -38,4 +38,4 @@ function MfaScreen() {
   )
 }
 
-export default MfaScreen
+export default RecoveryMfaScreen

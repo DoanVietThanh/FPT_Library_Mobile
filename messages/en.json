@@ -50,7 +50,8 @@
     "ForgotPasswordFailedTitle": "Forgot password failed",
     "Continue": "Continue",
     "No code": "Didn't receive a code? Resend",
-    "Back to login": "Back to login"
+    "Back to login": "Back to login",
+    "Missing mfa": "Lost MFA enabled device?"
   },
   "VerifyOtpPage": {
     "Verify your email": "Verify your email",
@@ -126,5 +127,13 @@
     "MFA": "MFA",
     "Active MFA": "Active MFA",
     "Security": "Security"
+  },
+  "RecoveryMfaPage": {
+    "Recovery MFA": "Recovery MFA",
+    "Message": "Enter your backup code to continue",
+    "Continue": "Continue",
+    "BackupCode": "Backup code",
+    "Back to login": "Back to login",
+    "Missing mfa": "Lost MFA enabled device?"
   }
 }

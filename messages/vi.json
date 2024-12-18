@@ -48,7 +48,8 @@
     "No code": "Không nhận được mã? Gửi lại",
     "Back to login": "Về trang đăng nhập",
     "Password": "Mật khẩu",
-    "ConfirmedPassword": "Nhập lại mật khẩu"
+    "ConfirmedPassword": "Nhập lại mật khẩu",
+    "Missing mfa": "Mất thiết bị kích hoạt MFA?"
   },
   "VerifyOtpPage": {
     "Verify your email": "Xác minh email",
@@ -123,5 +124,13 @@
     "MFA": "MFA",
     "Active MFA": "Kích hoạt MFA",
     "Security": "Bảo mật"
+  },
+  "RecoveryMfaPage": {
+    "Recovery MFA": "Khôi phục MFA",
+    "Message": "Nhập mã dự phòng của bạn để tiếp tục",
+    "Continue": "Tiếp tục",
+    "BackupCode": "Mã dự phòng",
+    "Back to login": "Về trang đăng nhập",
+    "Missing mfa": "Mất thiết bị kích hoạt MFA?"
   }
 }

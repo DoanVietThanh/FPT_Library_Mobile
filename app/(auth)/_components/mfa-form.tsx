@@ -15,11 +15,12 @@ import OTPInput from './otp-input'
 
 type Props = {
   email: string
+  validatePage?: boolean
   hideBackToLogin?: boolean
   callback?: () => void
 }
 
-const MfaForm = ({ email, callback, hideBackToLogin = false }: Props) => {
+const MfaForm = ({ email, callback, hideBackToLogin = false, validatePage = false }: Props) => {
   const { t } = useTranslation('ResetPasswordPage')
   const { t: tZod } = useTranslation('Zod')
   const router = useRouter()
@@ -77,6 +78,14 @@ const MfaForm = ({ email, callback, hideBackToLogin = false }: Props) => {
           name="pin"
           render={({ field: { onChange, value } }) => <OTPInput otp={value} setOtp={onChange} />}
         />
+        {validatePage && (
+          <Link
+            href={`/mfa/${email}/recovery`}
+            className="min-h-0 min-w-0 p-0 hover:bg-transparent hover:underline"
+          >
+            {t('Missing mfa')}
+          </Link>
+        )}
         {errors.pin?.message && (
           <Text className="text-sm text-destructive">{tZod(errors.pin.message)}</Text>
         )}

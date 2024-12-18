@@ -34,6 +34,12 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
+        name="mfa/[email]/recovery"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="reset-password/[email]"
         options={{
           headerShown: false,
