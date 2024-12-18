@@ -15,9 +15,12 @@ import OTPInput from './otp-input'
 
 type Props = {
   email: string
+  validatePage?: boolean
+  hideBackToLogin?: boolean
+  callback?: () => void
 }
 
-const MfaForm = ({ email }: Props) => {
+const MfaForm = ({ email, callback, hideBackToLogin = false, validatePage = false }: Props) => {
   const { t } = useTranslation('ResetPasswordPage')
   const { t: tZod } = useTranslation('Zod')
   const router = useRouter()
@@ -49,7 +52,15 @@ const MfaForm = ({ email }: Props) => {
             queryClient.invalidateQueries({
               queryKey: ['token'],
             })
-            router.push('/')
+            queryClient.invalidateQueries({
+              queryKey: ['backup-codes'],
+            })
+            if (!hideBackToLogin) {
+              router.push('/')
+              if (callback) {
+                callback()
+              }
+            }
             return
           }
 
@@ -67,6 +78,14 @@ const MfaForm = ({ email }: Props) => {
           name="pin"
           render={({ field: { onChange, value } }) => <OTPInput otp={value} setOtp={onChange} />}
         />
+        {validatePage && (
+          <Link
+            href={`/mfa/${email}/recovery`}
+            className="min-h-0 min-w-0 p-0 hover:bg-transparent hover:underline"
+          >
+            {t('Missing mfa')}
+          </Link>
+        )}
         {errors.pin?.message && (
           <Text className="text-sm text-destructive">{tZod(errors.pin.message)}</Text>
         )}
@@ -76,12 +95,14 @@ const MfaForm = ({ email }: Props) => {
         <Text>{t('Continue')}</Text>
       </Button>
 
-      <Link
-        href="/sign-in"
-        className="block cursor-pointer text-center text-sm font-bold text-foreground hover:underline"
-      >
-        {t('Back to login')}
-      </Link>
+      {!hideBackToLogin && (
+        <Link
+          href="/sign-in"
+          className="block cursor-pointer text-center text-sm font-bold text-foreground hover:underline"
+        >
+          {t('Back to login')}
+        </Link>
+      )}
     </View>
   )
 }

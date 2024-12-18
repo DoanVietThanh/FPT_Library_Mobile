@@ -1,3 +1,4 @@
+import React from 'react'
 import { Pressable, View } from 'react-native'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { Label } from '~/components/ui/label'

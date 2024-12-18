@@ -91,8 +91,6 @@ const request = async <TData = undefined>(
     'Accept-Language': options?.lang ?? i18n.language ?? 'vi',
   }
 
-  console.log(baseHeaders)
-
   const baseUrl =
     options?.baseUrl === undefined ? process.env.EXPO_PUBLIC_API_ENDPOINT : options.baseUrl
 
@@ -110,8 +108,11 @@ const request = async <TData = undefined>(
 
   const payload = (await res.json()) as OkResponse<TData>
 
-  console.log({ body: body ? JSON.parse(body) : null })
-  console.log({ payload })
+  console.log({
+    url: `${baseUrl}${url}${searchParams ? `?${searchParams.toString()}` : ''}`,
+    body: body ? JSON.parse(body) : null,
+    payload,
+  })
 
   if (!res.ok || !payload.resultCode.includes('Success')) {
     if (res.ok) {

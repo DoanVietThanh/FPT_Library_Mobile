@@ -50,11 +50,18 @@
     "ForgotPasswordFailedTitle": "Forgot password failed",
     "Continue": "Continue",
     "No code": "Didn't receive a code? Resend",
-    "Back to login": "Back to login"
+    "Back to login": "Back to login",
+    "Missing mfa": "Lost MFA enabled device?"
   },
   "VerifyOtpPage": {
     "Verify your email": "Verify your email",
-    "Message": "Enter the verification code sent to your email"
+    "Message": "Enter the verification code sent to your email",
+    "Check your email": "Check your email",
+    "Password": "Password",
+    "Login": "Continue",
+    "No code": "Didn't receive a code? Resend",
+    "Forgot password?": "Forgot password?",
+    "Back to login": "Back to login"
   },
   "Zod": {
     "email": "Invalid email",
@@ -108,5 +115,25 @@
     "Message enable 2": "Open your authenticator app, then use the app to scan the code.",
     "Message enable 3": "Please save one of the codes below in case you lose the device you used to enable MFA.",
     "Message enable 4": "Type MFA codes below"
+  },
+  "SecurityPage": {
+    "Backup code": "Backup codes (for MFA)",
+    "Generate new codes": "Generate new codes",
+    "Verify code": "Verify code",
+    "Need to verify": "Verify to generate new backup codes",
+    "Check your email for verification code": "Check your email for verification code",
+    "Continue": "Continue",
+    "Cancel": "Cancel",
+    "MFA": "MFA",
+    "Active MFA": "Active MFA",
+    "Security": "Security"
+  },
+  "RecoveryMfaPage": {
+    "Recovery MFA": "Recovery MFA",
+    "Message": "Enter your backup code to continue",
+    "Continue": "Continue",
+    "BackupCode": "Backup code",
+    "Back to login": "Back to login",
+    "Missing mfa": "Lost MFA enabled device?"
   }
 }

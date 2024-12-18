@@ -55,6 +55,11 @@ const LoginOtpForm = ({ email }: Props) => {
             return
           }
 
+          if (res.typeError === 'warning' && res.resultCode === 'Auth.Warning0010') {
+            router.push(`/mfa/${email}`)
+            return
+          }
+
           handleActionError(res, control, setFocus)
         },
       },

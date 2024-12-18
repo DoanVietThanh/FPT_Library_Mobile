@@ -22,10 +22,12 @@ function useLogin() {
           isSuccess: true,
           data: {
             resultCode,
-            userType: data.userType,
+            userType: data?.userType,
           },
         }
       } catch (error) {
+        console.log({ error })
+
         const resError = handleHttpError(error)
 
         if (resError.typeError === 'warning' && resError.resultCode === 'Auth.Warning0008') {

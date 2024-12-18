@@ -5,7 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { http } from '~/lib/http'
 import { ERoleType } from '~/types/enum'
-import { decode } from 'react-native-pure-jwt'
+import { useRouter } from 'expo-router'
+import { jwtDecode } from 'jwt-decode'
 
 interface DecodedToken {
   email: string
@@ -35,18 +36,24 @@ type AuthProviderProps = {
 }
 
 type AuthContextType = {
-  getAccessToken: () => string | null
+  accessToken: string | null
   isLoadingAuth: boolean
   isLoggedIn: boolean
   user: CurrentUser | null
+  signOut: () => void
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const queryClient = useQueryClient()
+  const router = useRouter()
 
-  const { data: token, isFetching: isLoadingToken } = useQuery<Token | null>({
+  const {
+    data: token,
+    isFetching: isLoadingToken,
+    refetch: refetchTokens,
+  } = useQuery<Token | null>({
     queryKey: ['token'],
     queryFn: async () => await getTokens(),
   })
@@ -70,8 +77,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return userData
   }, [userData])
 
-  const getAccessToken = () => {
-    return token?.accessToken ?? null
+  const accessToken = useMemo(() => token?.accessToken ?? null, [token])
+
+  const signOut = async () => {
+    router.push('/sign-in')
+    await AsyncStorage.removeItem('accessToken')
+    await AsyncStorage.removeItem('refreshToken')
+    refetchTokens()
   }
 
   //refresh token
@@ -93,7 +105,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   return (
     <AuthContext.Provider
       value={{
-        getAccessToken,
+        signOut,
+        accessToken,
         isLoadingAuth: isLoadingToken || isLoadingUser,
         user,
         isLoggedIn: !!user,
@@ -123,9 +136,13 @@ async function getTokens() {
       throw new Error('Missing tokens')
     }
 
+    console.log('need to refresh token1')
+
     if (!(await isTokenExpiringSoon(accessToken))) {
       return { accessToken, refreshToken }
     }
+
+    console.log('need to refresh token')
 
     //need to refresh token
     const { data } = await http.post<{
@@ -133,7 +150,7 @@ async function getTokens() {
       refreshToken: string
     }>(
       '/api/auth/refresh-token',
-      { refreshToken },
+      { accessToken, refreshToken },
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -167,7 +184,9 @@ async function isTokenExpiringSoon(token: string) {
 
     // Kiểm tra nếu thời gian hết hạn còn dưới 1 tiếng (3600 giây)
     return timeLeft <= 3600
-  } catch {
+  } catch (error) {
+    console.log(error)
+
     //default return true to trigger refresh token
     return true
   }
@@ -175,10 +194,12 @@ async function isTokenExpiringSoon(token: string) {
 
 async function verifyToken(token: string) {
   try {
-    const verified = await decode(token, process.env.JWT_SECRET_KEY!)
+    const verified = jwtDecode(token)
 
-    return verified.payload as DecodedToken
-  } catch {
+    return verified as DecodedToken
+  } catch (error) {
+    console.log(error)
+
     return null
   }
 }

@@ -1,5 +1,7 @@
+import React from 'react'
 import { Image } from 'react-native'
 import fptLogo from '~/assets/images/fpt-logo.png'
+import SignOutButton from '~/components/sign-out-button'
 import { ThemeToggle } from '~/components/ui/theme-toggle'
 import { Tabs } from 'expo-router'
 import { useTranslation } from 'react-i18next'
@@ -15,7 +17,12 @@ export default function TabLayout() {
         options={{
           title: t('Home'),
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerRight: () => <ThemeToggle />,
+          headerRight: () => (
+            <>
+              <ThemeToggle />
+              <SignOutButton />
+            </>
+          ),
         }}
       />
       <Tabs.Screen
