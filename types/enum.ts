@@ -39,3 +39,9 @@ export enum EAccessLevel {
   CREATE = 3,
   FULL_ACCESS = 4,
 }
+
+export enum ENotificationType {
+  EVENT = 'Event',
+  REMINDER = 'Reminder',
+  NOTICE = 'Notice',
+}

@@ -1,3 +1,5 @@
+import { ENotificationType } from '~/types/enum'
+
 export const NAV_THEME = {
   light: {
     background: 'hsl(21 0% 95%)', // background
@@ -22,4 +24,17 @@ export const googleConfig = {
   clientId: '1076769092661-kde2gscmapurmteslfbhommlcobb685k.apps.googleusercontent.com',
   redirectUrl: `com.googleusercontent.apps.1076769092661-kde2gscmapurmteslfbhommlcobb685k:/oauth2redirect/google`, // Match with Google Console
   scopes: ['openid', 'profile', 'email'], // Scopes you want to request
+}
+
+export const getTypeColor = (type: ENotificationType): string => {
+  switch (type) {
+    case ENotificationType.EVENT:
+      return 'bg-success'
+    case ENotificationType.NOTICE:
+      return 'bg-info'
+    case ENotificationType.REMINDER:
+      return 'bg-danger'
+    default:
+      return 'bg-primary'
+  }
 }

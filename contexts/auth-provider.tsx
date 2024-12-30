@@ -136,13 +136,9 @@ async function getTokens() {
       throw new Error('Missing tokens')
     }
 
-    console.log('need to refresh token1')
-
     if (!(await isTokenExpiringSoon(accessToken))) {
       return { accessToken, refreshToken }
     }
-
-    console.log('need to refresh token')
 
     //need to refresh token
     const { data } = await http.post<{

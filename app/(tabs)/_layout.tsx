@@ -2,6 +2,7 @@ import React from 'react'
 import { Image } from 'react-native'
 import fptLogo from '~/assets/images/fpt-logo.png'
 import SignOutButton from '~/components/sign-out-button'
+import { NotificationBell } from '~/components/ui/notifications-bell'
 import { ThemeToggle } from '~/components/ui/theme-toggle'
 import { Tabs } from 'expo-router'
 import { useTranslation } from 'react-i18next'
@@ -39,6 +40,14 @@ export default function TabLayout() {
           title: t('Search'),
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
           headerRight: () => <ThemeToggle />,
+        }}
+      />
+      <Tabs.Screen
+        name="notifications/index"
+        options={{
+          title: t('Notifications'),
+          tabBarIcon: ({ color }) => <NotificationBell color={color} />,
+          // headerRight: () => <ThemeToggle />,
         }}
       />
       <Tabs.Screen

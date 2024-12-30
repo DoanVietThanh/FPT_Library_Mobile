@@ -71,7 +71,8 @@
     "Home": "Home",
     "QR": "QR Code",
     "Search": "Search",
-    "More": "More"
+    "More": "More",
+    "Notifications": "Notifications"
   },
   "HomeScreen": {
     "Title": "Home"
@@ -93,7 +94,8 @@
     "Policy": "Policy & Terms of Use",
     "Question": "Frequently asked questions",
     "Contact": "Contact",
-    "Logout": "Logout"
+    "Logout": "Logout",
+    "Security": "Security"
   },
   "Me": {
     "Account": {
@@ -135,5 +137,13 @@
     "BackupCode": "Backup code",
     "Back to login": "Back to login",
     "Missing mfa": "Lost MFA enabled device?"
+  },
+  "NotificationsScreen": {
+    "Title": "Notifications"
+  },
+  "NotificationType": {
+    "Notice": "Notice",
+    "Event": "Event",
+    "Reminder": "Reminder"
   }
 }

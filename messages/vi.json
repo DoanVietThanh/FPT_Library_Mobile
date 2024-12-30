@@ -68,7 +68,8 @@
     "Home": "Trang chủ",
     "QR": "QR Code",
     "Search": "Tìm kiếm",
-    "More": "Thêm"
+    "More": "Thêm",
+    "Notifications": "Thông báo"
   },
   "HomeScreen": {
     "Title": "Trang chủ"
@@ -90,7 +91,8 @@
     "Policy": "Điều khoản & điều kiện sử dụng",
     "Question": "Câu hỏi thường gặp",
     "Contact": "Liên hệ",
-    "Logout": "Đăng xuất"
+    "Logout": "Đăng xuất",
+    "Security": "Bảo mật"
   },
   "Me": {
     "Account": {
@@ -132,5 +134,13 @@
     "BackupCode": "Mã dự phòng",
     "Back to login": "Về trang đăng nhập",
     "Missing mfa": "Mất thiết bị kích hoạt MFA?"
+  },
+  "NotificationsScreen": {
+    "Title": "Thông báo"
+  },
+  "NotificationType": {
+    "Notice": "Thông báo",
+    "Event": "Sự kiện",
+    "Reminder": "Nhắc nhở"
   }
 }
