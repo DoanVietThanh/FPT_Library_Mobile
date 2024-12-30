@@ -1,8 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
-import Clipboard from '@react-native-clipboard/clipboard'
 import { Skeleton } from '~/components/ui/skeleton'
 import { cn } from '~/lib/utils'
+import * as Clipboard from 'expo-clipboard'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 
@@ -19,10 +19,8 @@ function BackupCodes({ codes, className, isLoading }: Props) {
   const {
     i18n: { language },
   } = useTranslation()
-  const handleCopyCode = (code: string) => {
-    console.log(code)
-
-    Clipboard.setString(code)
+  const handleCopyCode = async (code: string) => {
+    await Clipboard.setStringAsync(code)
     Toast.show({
       text2: (language === 'vi' ? 'Bạn đã copy mã ' : 'You have saved ') + code,
     })

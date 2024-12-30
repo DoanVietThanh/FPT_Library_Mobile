@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
 import { Image, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  GoogleSignin,
-  isErrorWithCode,
-  isSuccessResponse,
-  statusCodes,
-} from '@react-native-google-signin/google-signin'
 import googleIcon from '~/assets/icons/google.png'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
@@ -23,12 +17,13 @@ import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 
-GoogleSignin.configure({
-  webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
-  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-  offlineAccess: true,
-  forceCodeForRefreshToken: true,
-})
+//GOOGLE SIGN IN
+// GoogleSignin.configure({
+//   webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
+//   scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+//   offlineAccess: true,
+//   forceCodeForRefreshToken: true,
+// })
 
 function RegisterForm() {
   const router = useRouter()
@@ -68,48 +63,51 @@ function RegisterForm() {
   }
 
   const handleGoogleLogin = async () => {
-    try {
-      await GoogleSignin.hasPlayServices()
+    console.log(loginGoogle, language, Toast)
 
-      const response = await GoogleSignin.signIn()
-      if (isSuccessResponse(response)) {
-        if (!response.data.serverAuthCode) {
-          Toast.show({
-            type: 'error', // Define your custom type
-            text1: language === 'vi' ? 'Lỗi' : 'Error',
-            text2:
-              language === 'vi'
-                ? 'Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.'
-                : 'An unknown error occurred. Please try again later.',
-          })
-          return
-        }
-        loginGoogle(response.data.serverAuthCode, {
-          onSuccess: (res) => {
-            if (res.isSuccess) {
-              router.push(`/`)
-              return
-            }
+    //GOOGLE SIGN IN
+    // try {
+    //   await GoogleSignin.hasPlayServices()
 
-            handleActionError(res, control, setFocus)
-          },
-        })
-      } else {
-        //cancelled
-      }
-    } catch (error) {
-      if (isErrorWithCode(error)) {
-        switch (error.code) {
-          case statusCodes.IN_PROGRESS:
-            break
-          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            break
-          default:
-        }
-      } else {
-        // an error that's not related to google sign in occurred
-      }
-    }
+    //   const response = await GoogleSignin.signIn()
+    //   if (isSuccessResponse(response)) {
+    //     if (!response.data.serverAuthCode) {
+    //       Toast.show({
+    //         type: 'error', // Define your custom type
+    //         text1: language === 'vi' ? 'Lỗi' : 'Error',
+    //         text2:
+    //           language === 'vi'
+    //             ? 'Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.'
+    //             : 'An unknown error occurred. Please try again later.',
+    //       })
+    //       return
+    //     }
+    //     loginGoogle(response.data.serverAuthCode, {
+    //       onSuccess: (res) => {
+    //         if (res.isSuccess) {
+    //           router.push(`/`)
+    //           return
+    //         }
+
+    //         handleActionError(res, control, setFocus)
+    //       },
+    //     })
+    //   } else {
+    //     //cancelled
+    //   }
+    // } catch (error) {
+    //   if (isErrorWithCode(error)) {
+    //     switch (error.code) {
+    //       case statusCodes.IN_PROGRESS:
+    //         break
+    //       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+    //         break
+    //       default:
+    //     }
+    //   } else {
+    //     // an error that's not related to google sign in occurred
+    //   }
+    // }
   }
   return (
     <>
