@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 export default function Home() {
   return (
     <>
-      <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right', 'bottom']}>
+      <SafeAreaView className="m-0 flex-1 py-4" edges={['left', 'right', 'bottom']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View className="min-h-screen-safe flex flex-col gap-y-6 bg-secondary p-6">
             <HomeBanner />
