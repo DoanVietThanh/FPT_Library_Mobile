@@ -1,3 +1,10 @@
+export type Book = {
+  id: number
+  title: string
+  author: string
+  image: string
+}
+
 export const dummyBooks = [
   {
     id: 1,
