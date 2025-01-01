@@ -11,12 +11,13 @@ import { TabBarIcon } from '../../components/TabBarIcon'
 
 export default function TabLayout() {
   const { t } = useTranslation('TabLayout')
+
   return (
     <Tabs>
       <Tabs.Screen
         name="home"
         options={{
-          title: t('Home'),
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <>
@@ -26,6 +27,8 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      {/* QR Code tab */}
       <Tabs.Screen
         name="qr-code"
         options={{
@@ -34,6 +37,8 @@ export default function TabLayout() {
           headerRight: () => <ThemeToggle />,
         }}
       />
+
+      {/* Các tab còn lại */}
       <Tabs.Screen
         name="search"
         options={{
@@ -47,7 +52,6 @@ export default function TabLayout() {
         options={{
           title: t('Notifications'),
           tabBarIcon: ({ color }) => <NotificationBell color={color} />,
-          // headerRight: () => <ThemeToggle />,
         }}
       />
       <Tabs.Screen
