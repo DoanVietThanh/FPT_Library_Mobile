@@ -72,7 +72,8 @@
     "Notifications": "Thông báo"
   },
   "HomeScreen": {
-    "Title": "Trang chủ"
+    "Title": "Trang chủ",
+    "welcome": "Chào mừng bạn đến với FPT e-Library"
   },
   "QRScreen": {
     "Title": "QR Code"
