@@ -17,9 +17,10 @@ import Toast from 'react-native-toast-message'
 type Props = {
   changePasswordToken: string
   email: string
+  type: 'user' | 'employee'
 }
 
-function NewPassForm({ changePasswordToken, email }: Props) {
+function NewPassForm({ changePasswordToken, email, type }: Props) {
   const router = useRouter()
 
   const {
@@ -48,6 +49,7 @@ function NewPassForm({ changePasswordToken, email }: Props) {
         email,
         password: body.password,
         token: changePasswordToken,
+        type,
       },
       {
         onSuccess: (res) => {

@@ -2,8 +2,8 @@ import { z } from 'zod'
 
 export const newPassSchema = z
   .object({
-    password: z.string(),
-    confirmPassword: z.string(),
+    password: z.string().trim(),
+    confirmPassword: z.string().trim(),
   })
   .refine((data) => data.confirmPassword === data.password, {
     path: ['confirmPassword'],

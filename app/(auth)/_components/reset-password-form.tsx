@@ -17,9 +17,10 @@ import OTPInput from './otp-input'
 
 type Props = {
   email: string
+  type: 'user' | 'employee'
 }
 
-const ResetPasswordForm = ({ email }: Props) => {
+const ResetPasswordForm = ({ email, type }: Props) => {
   const { t } = useTranslation('ResetPasswordPage')
   const { t: tZod } = useTranslation('Zod')
   const queryClient = useQueryClient()
@@ -130,7 +131,7 @@ const ResetPasswordForm = ({ email }: Props) => {
           </Link>
         </View>
       ) : (
-        <NewPassForm email={email} changePasswordToken={changePasswordToken} />
+        <NewPassForm type={type} email={email} changePasswordToken={changePasswordToken} />
       )}
     </>
   )

@@ -6,11 +6,11 @@ import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import ResetPasswordForm from '../_components/reset-password-form'
+import ResetPasswordForm from '../../_components/reset-password-form'
 
 function ResetPasswordScreen() {
   const { t } = useTranslation('ResetPasswordPage')
-  const { email } = useLocalSearchParams()
+  const { email, type } = useLocalSearchParams()
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -29,7 +29,10 @@ function ResetPasswordScreen() {
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <ResetPasswordForm email={email as string} />
+                <ResetPasswordForm
+                  type={type as 'user' | 'employee'}
+                  email={(email as string).toLowerCase()}
+                />
               </View>
             </View>
           </View>

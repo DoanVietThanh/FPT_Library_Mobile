@@ -73,7 +73,7 @@ function EnableMfaScreen() {
                         {t('Message enable 4')}
                       </p>
                     </View>
-                    <MfaForm email={email as string} />
+                    <MfaForm email={(email as string).toLowerCase()} />
                   </View>
                 </View>
               </View>

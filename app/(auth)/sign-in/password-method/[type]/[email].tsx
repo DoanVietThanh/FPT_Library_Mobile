@@ -10,7 +10,10 @@ import LoginPasswordForm from '../_components/login-password-form'
 
 function LoginPasswordMethodScreen() {
   const { t } = useTranslation('LoginPage')
-  const { email } = useLocalSearchParams()
+  const { email, type } = useLocalSearchParams()
+
+  console.log('LoginPasswordMethodScreen', { email, type })
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -33,7 +36,10 @@ function LoginPasswordMethodScreen() {
                   </Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <LoginPasswordForm email={email as string} />
+                <LoginPasswordForm
+                  type={type as 'user' | 'employee'}
+                  email={(email as string).toLowerCase()}
+                />
               </View>
             </View>
           </View>

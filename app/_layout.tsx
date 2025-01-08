@@ -19,6 +19,7 @@ import '~/lib/i18n.ts'
 
 import AuthProvider from '~/contexts/auth-provider'
 import NotificationsProvider from '~/contexts/notifications-provider'
+import SocketProvider from '~/contexts/socket-provider'
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -80,21 +81,23 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
         <AuthProvider>
-          <NotificationsProvider>
-            <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <BottomSheetModalProvider>
-                <Stack>
-                  <Stack.Screen name="index" options={{ headerShown: false }} />
-                  <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                  <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-                </Stack>
-                <Toast />
-              </BottomSheetModalProvider>
-              <PortalHost />
-            </GestureHandlerRootView>
-          </NotificationsProvider>
+          <SocketProvider>
+            <NotificationsProvider>
+              <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <BottomSheetModalProvider>
+                  <Stack>
+                    <Stack.Screen name="index" options={{ headerShown: false }} />
+                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+                  </Stack>
+                  <Toast />
+                </BottomSheetModalProvider>
+                <PortalHost />
+              </GestureHandlerRootView>
+            </NotificationsProvider>
+          </SocketProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

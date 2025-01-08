@@ -6,13 +6,17 @@ type TChangePassword = {
   email: string
   password: string
   token: string
+  type: 'user' | 'employee'
 }
 
 function useChangePassword() {
   return useMutation({
     mutationFn: async (body: TChangePassword): Promise<ActionResponse<string>> => {
       try {
-        const { message } = await http.patch('/api/auth/change-password', body)
+        const { message } = await http.patch(
+          `/api/auth${body.type === 'employee' ? '/employee' : ''}/change-password`,
+          body,
+        )
 
         return {
           isSuccess: true,

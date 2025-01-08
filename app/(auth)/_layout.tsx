@@ -40,7 +40,7 @@ export default function TabLayout() {
         }}
       />
       <Stack.Screen
-        name="reset-password/[email]"
+        name="reset-password/[type]/[email]"
         options={{
           headerShown: false,
         }}

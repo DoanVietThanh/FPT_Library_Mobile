@@ -28,7 +28,7 @@ function RecoveryMfaScreen() {
                   <Text className="text-center text-lg font-semibold"> {t('Recovery MFA')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                 </View>
-                <RecoveryMfaForm email={email as string} />
+                <RecoveryMfaForm email={(email as string).toLowerCase()} />
               </View>
             </View>
           </View>

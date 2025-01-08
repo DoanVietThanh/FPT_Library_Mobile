@@ -14,13 +14,18 @@ function useLoginPassword() {
 
   return useMutation({
     mutationFn: async (
-      body: TLoginByPasswordSchema,
+      body: TLoginByPasswordSchema & { type: 'user' | 'employee' | 'admin' },
     ): Promise<ActionResponse<TLoginByPasswordData>> => {
+      let url = ''
+
+      if (body.type === 'user') {
+        url = `/api/auth/sign-in/password-method`
+      } else {
+        url = `/api/auth${body.type === 'employee' ? '/employee' : '/admin'}/sign-in`
+      }
+
       try {
-        const { data } = await http.post<TLoginByPasswordData>(
-          '/api/auth/sign-in/password-method',
-          body,
-        )
+        const { data } = await http.post<TLoginByPasswordData>(url, body)
 
         await AsyncStorage.setItem('accessToken', data.accessToken)
         await AsyncStorage.setItem('refreshToken', data.refreshToken)

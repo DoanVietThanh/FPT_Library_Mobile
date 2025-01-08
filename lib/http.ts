@@ -6,7 +6,7 @@ import i18n from 'i18next' // Import the i18n instance directly
 type CustomOptions = RequestInit & {
   baseUrl?: string
   lang?: string
-  searchParams?: Record<string, string>
+  searchParams?: Record<string, string | number | boolean | null | undefined>
 }
 
 type OkResponse<TData = undefined> = {
@@ -85,18 +85,23 @@ const request = async <TData = undefined>(
   url: string,
   options?: CustomOptions,
 ) => {
-  const body = options?.body ? JSON.stringify(options.body) : undefined
+  const body = options?.body
+    ? options.body instanceof FormData
+      ? options.body
+      : JSON.stringify(options.body)
+    : undefined
+
   const baseHeaders = {
     'Content-Type': 'application/json',
     'Accept-Language': options?.lang ?? i18n.language ?? 'vi',
   }
 
   const baseUrl =
-    options?.baseUrl === undefined ? process.env.EXPO_PUBLIC_API_ENDPOINT : options.baseUrl
+    options?.baseUrl === undefined ? process.env.EXPO_PUBLIC_API_ENDPOINT! : options.baseUrl
 
-  const searchParams = options?.searchParams ? new URLSearchParams(options?.searchParams) : null
+  const fetchUrl = buildUrl(baseUrl, url, options?.searchParams)
 
-  const res = await fetch(`${baseUrl}${url}${searchParams ? `?${searchParams.toString()}` : ''}`, {
+  const res = await fetch(fetchUrl, {
     ...options,
     headers: {
       ...baseHeaders,
@@ -108,11 +113,16 @@ const request = async <TData = undefined>(
 
   const payload = (await res.json()) as OkResponse<TData>
 
-  console.log({
-    url: `${baseUrl}${url}${searchParams ? `?${searchParams.toString()}` : ''}`,
-    body: body ? JSON.parse(body) : null,
-    payload,
-  })
+  if (process.env.NEXT_PUBLIC_LOG_FETCH !== 'false')
+    console.log({
+      url: fetchUrl,
+      headers: {
+        ...baseHeaders,
+        ...options?.headers,
+      },
+      body: body ? (body instanceof FormData ? body : JSON.parse(body)) : null,
+      payload,
+    })
 
   if (!res.ok || !payload.resultCode.includes('Success')) {
     if (res.ok) {
@@ -157,4 +167,25 @@ export const http = {
   delete<Response>(url: string, options?: Omit<CustomOptions, 'body'>) {
     return request<Response>('DELETE', url, options)
   },
+  multiDelete<Response>(url: string, body: any, options?: Omit<CustomOptions, 'body'>) {
+    return request<Response>('DELETE', url, { ...options, body })
+  },
+}
+
+const buildUrl = (
+  baseUrl: string,
+  url: string,
+  searchParams: Record<string, string | number | boolean | null | undefined> | undefined,
+) => {
+  const newSearchParams = new URLSearchParams()
+
+  if (searchParams) {
+    Object.entries(searchParams).forEach(([key, value]) => {
+      if (value !== null && value !== undefined && value !== '') {
+        newSearchParams.append(key, value.toString())
+      }
+    })
+  }
+
+  return `${baseUrl}${url}?${newSearchParams.toString()}`
 }

@@ -2,11 +2,11 @@ import { z } from 'zod'
 
 export const registerSchema = z
   .object({
-    email: z.string().email('email'),
-    password: z.string(),
-    confirmPassword: z.string(),
-    firstName: z.string(),
-    lastName: z.string(),
+    email: z.string().trim().email('email').toLowerCase(),
+    password: z.string().trim(),
+    confirmPassword: z.string().trim(),
+    firstName: z.string().trim(),
+    lastName: z.string().trim(),
   })
   .refine((data) => data.confirmPassword === data.password, {
     path: ['confirmPassword'],
