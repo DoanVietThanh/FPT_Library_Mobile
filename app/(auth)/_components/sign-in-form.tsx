@@ -67,6 +67,10 @@ const SignInForm = () => {
           }
 
           if (res.data.resultCode === 'Auth.Success0005') {
+            if (res.data.userType === 'Employee') {
+              router.push(`/reset-password/employee/${body.email}`)
+              return
+            }
             router.push(`/sign-in/otp-method/${body.email}`)
             return
           }

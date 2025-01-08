@@ -29,7 +29,7 @@ function LoginPasswordMethodScreen() {
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <LoginOtpForm email={email as string} />
+                <LoginOtpForm email={(email as string).toLowerCase()} />
               </View>
             </View>
           </View>

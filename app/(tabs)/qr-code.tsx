@@ -1,22 +1,80 @@
-import React from 'react'
-import { View } from 'react-native'
+import { useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
-import { Stack } from 'expo-router'
-import { useTranslation } from 'react-i18next'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useAuth } from '~/contexts/auth-provider'
+import { useSocket } from '~/contexts/socket-provider'
+import { Camera, CameraView } from 'expo-camera'
+import i18n from 'i18next' // Import the i18n instance directly
 
-export default function Home() {
-  const { t } = useTranslation('QRScreen')
+export default function ScannerScreen() {
+  const { accessToken } = useAuth()
+  const { socket, authenticated } = useSocket()
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null)
+  const [scanned, setScanned] = useState<boolean>(false)
+  const [scannedData, setScannedData] = useState('')
+
+  useEffect(() => {
+    const getCameraPermissions = async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync()
+      setHasPermission(status === 'granted')
+    }
+
+    getCameraPermissions()
+  }, [])
+
+  useEffect(() => {
+    if (scannedData && scanned && authenticated && socket && accessToken) {
+      socket.emit('isbn-scanned', { token: accessToken, isbn: scannedData })
+    }
+  }, [scannedData, scanned, authenticated, socket, accessToken])
+
+  const handleBarcodeScanned = ({ type, data }: { type: string; data: string }) => {
+    if (scanned || scannedData) return
+    setScanned(true)
+    setScannedData(data)
+    console.log(`Bar code with type ${type} and data ${data} has been scanned!`)
+  }
+
+  if (hasPermission === null) {
+    return <Text>Requesting for camera permission</Text>
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>
+  }
+
   return (
-    <>
-      <Stack.Screen options={{ title: t('Title') }} />
-      <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right', 'bottom']}>
-        <View className="min-h-screen-safe flex flex-col gap-y-6 bg-secondary p-6">
-          <View className="flex w-full flex-row items-center justify-start gap-4 rounded-lg bg-primary-foreground p-4">
-            <Text>{t('Title')}</Text>
-          </View>
+    <View style={styles.container}>
+      {!scanned && (
+        <CameraView
+          onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
+          barcodeScannerSettings={{
+            barcodeTypes: ['ean13'],
+          }}
+          style={StyleSheet.absoluteFillObject}
+        />
+      )}
+
+      {scanned && (
+        <View className="flex flex-row justify-center">
+          <Button
+            onPress={() => {
+              setScanned(false)
+              setScannedData('')
+            }}
+          >
+            <Text>{i18n.language === 'vi' ? 'Quét lại' : 'Scan again'}</Text>
+          </Button>
         </View>
-      </SafeAreaView>
-    </>
+      )}
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+})

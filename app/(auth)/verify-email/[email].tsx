@@ -31,7 +31,7 @@ function VerifyOtpScreen() {
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{email}</Text>
                 </View>
-                <VerifyEmailForm email={email as string} />
+                <VerifyEmailForm email={(email as string).toLowerCase()} />
               </View>
             </View>
           </View>

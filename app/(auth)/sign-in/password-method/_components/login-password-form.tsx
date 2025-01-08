@@ -21,9 +21,10 @@ import { useTranslation } from 'react-i18next'
 
 type Props = {
   email: string
+  type: 'user' | 'employee'
 }
 
-const LoginPasswordForm = ({ email }: Props) => {
+const LoginPasswordForm = ({ email, type }: Props) => {
   const { t } = useTranslation('LoginPage')
   const router = useRouter()
   const queryClient = useQueryClient()
@@ -46,24 +47,27 @@ const LoginPasswordForm = ({ email }: Props) => {
   })
 
   const onSubmit = (body: TLoginByPasswordSchema) => {
-    loginByPassword(body, {
-      onSuccess: (res) => {
-        if (res.isSuccess) {
-          queryClient.invalidateQueries({
-            queryKey: ['token'],
-          })
-          router.push('/')
-          return
-        }
+    loginByPassword(
+      { ...body, type },
+      {
+        onSuccess: (res) => {
+          if (res.isSuccess) {
+            queryClient.invalidateQueries({
+              queryKey: ['token'],
+            })
+            router.push('/')
+            return
+          }
 
-        if (res.typeError === 'warning' && res.resultCode === 'Auth.Warning0010') {
-          router.push(`/mfa/${body.email}`)
-          return
-        }
+          if (res.typeError === 'warning' && res.resultCode === 'Auth.Warning0010') {
+            router.push(`/mfa/${body.email}`)
+            return
+          }
 
-        handleActionError(res, control, setFocus)
+          handleActionError(res, control, setFocus)
+        },
       },
-    })
+    )
   }
 
   return (
@@ -85,7 +89,10 @@ const LoginPasswordForm = ({ email }: Props) => {
         <View className="flex flex-col gap-y-2">
           <View className="flex flex-row flex-wrap items-center justify-between gap-1">
             <Label className="text-sm font-semibold">{t('PasswordMethodPage.Password')}</Label>
-            <Link href={`/reset-password/${email}`} className="text-xs hover:underline">
+            <Link
+              href={`/reset-password/${type === 'employee' ? 'employee' : 'user'}/${email}`}
+              className="text-xs hover:underline"
+            >
               {t('PasswordMethodPage.Forgot password?')}
             </Link>
           </View>

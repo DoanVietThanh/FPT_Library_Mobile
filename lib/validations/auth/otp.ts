@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const otpSchema = z.object({
-  pin: z.array(z.string()).refine((value) => {
+  pin: z.array(z.string().trim()).refine((value) => {
     let count = 0
     value.forEach((i) => {
       if (i !== '') count++

@@ -28,7 +28,7 @@ function MfaScreen() {
                   <Text className="text-center text-lg font-semibold">{t('Verify MFA')}</Text>
                   <Text className="text-center text-sm text-muted-foreground">{t('Message')}</Text>
                 </View>
-                <MfaForm validatePage email={email as string} />
+                <MfaForm validatePage email={(email as string).toLowerCase()} />
               </View>
             </View>
           </View>
