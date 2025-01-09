@@ -15,14 +15,15 @@ export type ApiNotificationsResponse = {
 export const fetchNotifications = async (page: number, token: string | null) => {
   try {
     if (!token) return []
-    const { data } = await http.get<ApiNotificationsResponse>(
-      `/api/privacy/notifications?PageIndex=${page}&PageSize=${PAGE_SIZE}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const { data } = await http.get<ApiNotificationsResponse>(`/api/privacy/notifications`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    )
+      searchParams: {
+        PageIndex: page,
+        PageSize: PAGE_SIZE,
+      },
+    })
 
     return data.sources
   } catch {
