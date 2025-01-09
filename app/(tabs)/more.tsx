@@ -3,6 +3,7 @@ import { Pressable, View } from 'react-native'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
+import { useAuth } from '~/contexts/auth-provider'
 import { Link, Stack, useRouter } from 'expo-router'
 import {
   ChevronRight,
@@ -23,6 +24,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 export default function Home() {
   const router = useRouter()
   const { t } = useTranslation('MoreScreen')
+  const { signOut } = useAuth()
 
   return (
     <>
@@ -125,7 +127,7 @@ export default function Home() {
             </View>
           </View>
 
-          <Button className="flex flex-row items-center gap-4">
+          <Button onPress={signOut} className="flex flex-row items-center gap-4">
             <Text className="text-3xl">{t('Logout')}</Text>
             <LogOut color={'white'} size={20} />
           </Button>
