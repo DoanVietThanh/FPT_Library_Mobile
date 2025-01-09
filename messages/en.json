@@ -145,5 +145,42 @@
     "Notice": "Notice",
     "Event": "Event",
     "Reminder": "Reminder"
+  },
+  "Badges": {
+    "BookConditionStatus": {
+      "Good": "Good",
+      "Worn": "Worn",
+      "Damaged": "Damaged",
+      "Lost": "Lost"
+    },
+    "NotificationType": {
+      "Event": "Event",
+      "Notice": "Notice",
+      "Reminder": "Reminder"
+    },
+    "ResourceBookType": {
+      "AudioBook": "Audio book",
+      "Ebook": "EBook"
+    },
+    "BookFormat": {
+      "Paperback": "Paperback",
+      "HardCover": "Hard cover"
+    },
+    "BookEditionStatus": {
+      "Draft": "Draft",
+      "Published": "Published",
+      "Deleted": "Deleted"
+    },
+    "BookCopyStatus": {
+      "InShelf": "In shelf",
+      "OutOfShelf": "Out of shelf",
+      "Borrowed": "Borrowed",
+      "Reserved": "Reserved",
+      "Deleted": "Deleted"
+    },
+    "Visibility": {
+      "Public": "Public",
+      "Private": "Private"
+    }
   }
 }

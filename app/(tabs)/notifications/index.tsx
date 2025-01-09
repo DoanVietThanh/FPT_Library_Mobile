@@ -1,26 +1,25 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import { Badge } from '~/components/ui/badge'
+import NotificationTypeBadge from '~/components/ui/notification-type-badge'
 import { Text } from '~/components/ui/text'
 import { useNotifications } from '~/contexts/notifications-provider'
 import useInfiniteNotifications from '~/hooks/notifications/use-infinite-notifications'
-import { getTypeColor } from '~/lib/constants'
 import { Loader } from '~/lib/icons/loader'
 import {
   offReceiveNotification,
   onReceiveNotification,
   SocketNotification,
 } from '~/lib/signalR/receive-notification-signalR'
-import { cn } from '~/lib/utils'
 import { Notification } from '~/types/models'
 import { format } from 'date-fns'
 import { Link, Stack, useFocusEffect } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+const { convert } = require('html-to-text')
+
 export default function Notifications() {
   const { t } = useTranslation('NotificationsScreen')
-  const { t: tNotificationType } = useTranslation('NotificationType')
 
   const { handleInNotificationsScreen, connection } = useNotifications()
 
@@ -72,24 +71,20 @@ export default function Notifications() {
             <Link
               href={`/notifications/${notification.item.notificationId}`}
               key={notification.item.notificationId}
-              className="flex flex-col items-start p-2"
+              className="flex flex-col items-start gap-3 p-2"
             >
               <View className="flex w-full flex-row items-start justify-between">
                 <Text className="line-clamp-2 font-semibold">{notification.item.title}</Text>
-                <Badge
-                  className={cn(
-                    `rounded-md text-xs ${getTypeColor(notification.item.notificationType)}`,
-                  )}
-                >
-                  <Text>{tNotificationType(notification.item.notificationType)}</Text>
-                </Badge>
+                <NotificationTypeBadge type={notification.item.notificationType} />
               </View>
-              <Text className="line-clamp-3 text-sm text-card-foreground">
-                {notification.item.message}
-              </Text>
-              <Text className="mt-1 text-xs text-muted-foreground">
-                {format(new Date(notification.item.createDate), 'MMM d, yyyy h:mm a')}
-              </Text>
+              <View className="flex flex-col gap-3">
+                <Text className="line-clamp-3 text-sm text-card-foreground">
+                  {convert(notification.item.message)}
+                </Text>
+                <Text className="text-xs text-muted-foreground">
+                  {format(new Date(notification.item.createDate), 'MMM d, yyyy h:mm a')}
+                </Text>
+              </View>
             </Link>
           )}
           ListHeaderComponent={() => (

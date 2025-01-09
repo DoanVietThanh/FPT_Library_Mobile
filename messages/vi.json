@@ -143,5 +143,42 @@
     "Notice": "Thông báo",
     "Event": "Sự kiện",
     "Reminder": "Nhắc nhở"
+  },
+  "Badges": {
+    "BookConditionStatus": {
+      "Good": "Tốt",
+      "Worn": "Rách",
+      "Damaged": "Hỏng",
+      "Lost": "Mất"
+    },
+    "NotificationType": {
+      "Event": "Sự kiện",
+      "Notice": "Thông báo",
+      "Reminder": "Nhắc nhở"
+    },
+    "ResourceBookType": {
+      "AudioBook": "Sách nói",
+      "Ebook": "Sách điện tử"
+    },
+    "BookFormat": {
+      "Paperback": "Bìa giấy",
+      "HardCover": "Bìa cứng"
+    },
+    "BookEditionStatus": {
+      "Draft": "Bản nháp",
+      "Published": "Xuất bản",
+      "Deleted": "Đã xóa"
+    },
+    "BookCopyStatus": {
+      "InShelf": "Trên kệ",
+      "OutOfShelf": "Trong kho",
+      "Borrowed": "Đang mượn",
+      "Reserved": "Đặt trước",
+      "Deleted": "Đã xóa"
+    },
+    "Visibility": {
+      "Public": "Công khai",
+      "Private": "Riêng tư"
+    }
   }
 }
