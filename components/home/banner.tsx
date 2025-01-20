@@ -59,7 +59,7 @@ export default function HomeBanner() {
         <View className="flex min-h-[120px] flex-col items-center justify-center text-nowrap bg-primary ">
           <Text
             className="-rotate-90 font-semibold text-primary-foreground"
-            style={{ transform: [{ rotate: '-90deg ' }] }}
+            // style={{ transform: [{ rotate: '-90deg ' }] }}
           >
             New Arrival
           </Text>

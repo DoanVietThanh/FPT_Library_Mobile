@@ -30,7 +30,7 @@ const BookTabOverview = () => {
       <Separator />
       <View className="flex flex-col gap-2">
         <Text className="text-xl font-semibold text-primary">Detail</Text>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Published in</Text>
           <Text>United State</Text>
         </View>
@@ -39,11 +39,11 @@ const BookTabOverview = () => {
       {/* Edition notes */}
       <View className="flex flex-col gap-2">
         <Text className="text-xl font-semibold text-primary">Edition Notes</Text>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Series</Text>
           <Text>Dover large print classics</Text>
         </View>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Genre</Text>
           <Text>Fiction</Text>
         </View>
@@ -52,11 +52,11 @@ const BookTabOverview = () => {
       {/* Classifications */}
       <View className="flex flex-col gap-2">
         <Text className="text-xl font-semibold text-primary">Classifications</Text>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Dewey Decimal Class</Text>
           <Text>823/.8</Text>
         </View>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Library of Congress</Text>
           <Text>PR5485 .A1 2002</Text>
         </View>
@@ -65,11 +65,11 @@ const BookTabOverview = () => {
       {/* The physical object */}
       <View className="flex flex-col gap-2">
         <Text className="text-xl font-semibold text-primary">The physical object</Text>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Pagination</Text>
           <Text>ix, 112 p. (large print)</Text>
         </View>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Number of pages</Text>
           <Text>216</Text>
         </View>
@@ -78,25 +78,25 @@ const BookTabOverview = () => {
       {/* ID numbers */}
       <View className="flex flex-col gap-2">
         <Text className="text-xl font-semibold text-primary">ID Numbers</Text>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>My Book Shelf</Text>
           <Text>OL3570252M</Text>
         </View>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>ISBN 10</Text>
           <Text>0486424715</Text>
         </View>
 
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>LCCN</Text>
           <Text>2002073560</Text>
         </View>
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Library Thing</Text>
           <Text>12349</Text>
         </View>
 
-        <View className="flex flex-row justify-between px-4">
+        <View className="flex flex-row justify-between">
           <Text>Good reads</Text>
           <Text>690668</Text>
         </View>
@@ -105,7 +105,7 @@ const BookTabOverview = () => {
       <Separator />
       <View className="flex flex-col gap-2">
         <Text className="text-xl font-semibold text-primary">Community Reviews</Text>
-        <View className="flex flex-row items-center justify-between px-4">
+        <View className="flex flex-row items-center justify-between">
           <Text>Page</Text>
           <View className="flex flex-row items-center gap-2">
             <Badge className="flex items-center">
@@ -114,7 +114,7 @@ const BookTabOverview = () => {
           </View>
         </View>
 
-        <View className="flex flex-row items-center justify-between px-4">
+        <View className="flex flex-row items-center justify-between">
           <Text>Enjoyable</Text>
           <View className="flex flex-row items-center gap-2">
             <Badge className="flex items-center">
@@ -123,7 +123,7 @@ const BookTabOverview = () => {
           </View>
         </View>
 
-        <View className="flex flex-row items-center justify-between px-4">
+        <View className="flex flex-row items-center justify-between">
           <Text>Difficulty</Text>
           <View className="flex flex-row items-center gap-2">
             <Badge className="flex items-center">
@@ -132,7 +132,7 @@ const BookTabOverview = () => {
           </View>
         </View>
 
-        <View className="flex flex-row items-center justify-between px-4">
+        <View className="flex flex-row items-center justify-between">
           <Text>Genre</Text>
           <View className="flex flex-row items-center gap-2">
             <Badge className="flex items-center">
@@ -144,7 +144,7 @@ const BookTabOverview = () => {
           </View>
         </View>
 
-        <View className="flex flex-row items-center justify-between px-4">
+        <View className="flex flex-row items-center justify-between">
           <Text>Mood</Text>
           <View className="flex flex-row items-center gap-2">
             <Badge className="flex items-center">
