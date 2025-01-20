@@ -5,15 +5,15 @@ import { Button } from '~/components/ui/button'
 import { Separator } from '~/components/ui/separator'
 import { useLocalSearchParams } from 'expo-router'
 import {
-  Cake,
+  Book,
+  BookOpen,
   CheckCircle2,
+  Headphones,
+  Heart,
   MapPin,
-  Notebook,
   NotebookPen,
-  Plus,
   Share2,
   Star,
-  User,
 } from 'lucide-react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -40,20 +40,22 @@ const BookDetail = () => {
                 source={{ uri: book?.image }}
                 className="h-96 w-2/3 rounded-lg object-contain"
               />
-              <Separator />
-              <View className="flex w-full flex-row justify-between gap-x-4">
-                <Pressable className="flex flex-1 flex-row items-center justify-center gap-4">
-                  <NotebookPen size={16} />
-                  <Text>Review</Text>
+
+              <View className="flex w-full justify-between gap-y-4">
+                <Pressable className="flex flex-1 flex-row items-center justify-center gap-4 rounded-lg bg-primary p-2 text-primary-foreground">
+                  <MapPin size={16} color={'white'} />
+                  <Text className="text-sm text-primary-foreground">Locate</Text>
                 </Pressable>
-                <Pressable className="flex flex-1 flex-row items-center justify-center gap-4 border-x-2">
-                  <Notebook size={16} />
-                  <Text>Note</Text>
-                </Pressable>
-                <Pressable className="flex flex-1 flex-row items-center justify-center gap-4">
-                  <Share2 size={16} />
-                  <Text>Share</Text>
-                </Pressable>
+                <View className="flex flex-1 flex-row items-center justify-center gap-4">
+                  <Pressable className="flex flex-1 flex-row items-center justify-center gap-4">
+                    <NotebookPen size={16} />
+                    <Text>Review</Text>
+                  </Pressable>
+                  <Pressable className="flex flex-1 flex-row items-center justify-center gap-4">
+                    <Share2 size={16} />
+                    <Text>Share</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
 
@@ -106,18 +108,19 @@ const BookDetail = () => {
               </View>
 
               <Separator />
-              <View className="flex flex-row justify-between gap-4">
-                <Button className="flex flex-row items-center gap-2 ">
-                  <Plus size={16} className="text-primary-foreground" />
-                  <Text className="text-sm font-semibold text-primary-foreground">Add to list</Text>
+              <View className="flex flex-row items-center justify-between gap-4">
+                <Button variant={'outline'} className="flex flex-row items-center gap-2 ">
+                  <Heart size={24} color={'red'} className="text-primary-foreground" />
                 </Button>
                 <Button className="flex flex-row items-center gap-2 ">
-                  <Plus size={16} className="text-primary-foreground" />
+                  <Book size={16} color={'white'} className="text-primary-foreground" />
                   <Text className="text-sm font-semibold text-primary-foreground">Borrow</Text>
                 </Button>
-                <Button className="flex flex-row items-center gap-2 ">
-                  <Plus size={16} className="text-primary-foreground" />
-                  <Text className="text-sm font-semibold text-primary-foreground">Read</Text>
+                <Button variant={'destructive'} className="flex flex-row items-center gap-2 ">
+                  <Headphones size={24} color={'white'} className="text-primary-foreground" />
+                </Button>
+                <Button variant={'destructive'} className="flex flex-row items-center gap-2 ">
+                  <BookOpen size={24} color={'white'} className="text-primary-foreground" />
                 </Button>
               </View>
 
