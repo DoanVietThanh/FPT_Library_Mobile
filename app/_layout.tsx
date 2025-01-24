@@ -79,7 +79,8 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+      {/* <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}> */}
+      <ThemeProvider value={LIGHT_THEME}>
         <AuthProvider>
           <SocketProvider>
             <NotificationsProvider>

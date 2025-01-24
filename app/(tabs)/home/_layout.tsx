@@ -29,6 +29,22 @@ export default function HomeLayout() {
           ),
         }}
       />
+
+      <Stack.Screen
+        name="books/[bookId]/ebook"
+        options={{
+          headerShown: true,
+          title: 'Book Ebook',
+          headerLeft: () => (
+            <TouchableOpacity
+              className="rounded-full border border-gray-300 bg-white p-2 shadow-md"
+              onPress={() => router.back()}
+            >
+              <Feather name="arrow-left" size={16} color="black" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack>
   )
 }
