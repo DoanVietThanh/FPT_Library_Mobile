@@ -3,7 +3,7 @@ import { Image, Pressable, Text, View } from 'react-native'
 import { dummyBooks } from '~/components/home/dummy-books'
 import { Button } from '~/components/ui/button'
 import { Separator } from '~/components/ui/separator'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import {
   Book,
   BookOpen,
@@ -18,10 +18,12 @@ import {
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import BookAuthor from './_components/book-author'
-import BookTabs from './_components/book-tabs'
+import BookAuthor from '../_components/book-author'
+import BookBorrowDialog from '../_components/book-borrow-dialog'
+import BookTabs from '../_components/book-tabs'
 
 const BookDetail = () => {
+  const router = useRouter()
   const { bookId } = useLocalSearchParams()
 
   const book = dummyBooks.find((book) => book.id.toString() === bookId)
@@ -112,15 +114,21 @@ const BookDetail = () => {
                 <Button variant={'outline'} className="flex flex-row items-center gap-2 ">
                   <Heart size={24} color={'red'} className="text-primary-foreground" />
                 </Button>
-                <Button className="flex flex-row items-center gap-2 ">
-                  <Book size={16} color={'white'} className="text-primary-foreground" />
-                  <Text className="text-sm font-semibold text-primary-foreground">Borrow</Text>
+
+                <BookBorrowDialog />
+                <Button
+                  onPress={() => router.push(`/home/books/${bookId}/ebook?audio=true`)}
+                  variant={'outline'}
+                  className="flex flex-row items-center gap-2 "
+                >
+                  <Headphones size={24} color={'black'} />
                 </Button>
-                <Button variant={'destructive'} className="flex flex-row items-center gap-2 ">
-                  <Headphones size={24} color={'white'} className="text-primary-foreground" />
-                </Button>
-                <Button variant={'destructive'} className="flex flex-row items-center gap-2 ">
-                  <BookOpen size={24} color={'white'} className="text-primary-foreground" />
+                <Button
+                  onPress={() => router.push(`/home/books/${bookId}/ebook?audio=false`)}
+                  variant={'outline'}
+                  className="flex flex-row items-center gap-2 "
+                >
+                  <BookOpen size={24} color={'black'} />
                 </Button>
               </View>
 
