@@ -25,7 +25,6 @@ function BookRequestBorrow() {
   const {
     control,
     handleSubmit,
-    setValue,
     reset,
     clearErrors,
     formState: { errors },

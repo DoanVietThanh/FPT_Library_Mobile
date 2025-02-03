@@ -1,17 +1,28 @@
 import React from 'react'
 import { Image, Text, View } from 'react-native'
-import { Book, dummyBooks } from '~/components/home/dummy-books'
+import { dummyBooks } from '~/components/home/dummy-books'
 import { Separator } from '~/components/ui/separator'
-import { Cake, User } from 'lucide-react-native'
+import { LibraryItem } from '~/types/models'
+import { Cake, Earth, User } from 'lucide-react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 type Props = {
-  book: Book
+  libraryItem: LibraryItem
 }
 
-const BookAuthor = ({ book }: Props) => {
+const BookAuthorCard = ({ libraryItem }: Props) => {
+  console.log('🚀 ~ BookAuthorCard ~ libraryItem?:', libraryItem)
+
+  if (libraryItem.authors.length === 0) {
+    return (
+      <View className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-background p-4">
+        <Text>No authors found</Text>
+      </View>
+    )
+  }
+
   return (
-    <View className="flex w-full flex-col gap-4 rounded-lg bg-primary-foreground p-4">
+    <View className="flex w-full flex-col gap-4 rounded-lg bg-background p-4">
       <View className="flex flex-row gap-2">
         <Text className="text-xl font-bold text-primary">About</Text>
         <Text className="text-xl font-bold">Author</Text>
@@ -20,24 +31,32 @@ const BookAuthor = ({ book }: Props) => {
         <View className="flex flex-col justify-center gap-4">
           <View className="flex flex-row items-center gap-2">
             <User size={20} color="gray" />
-            <Text className="text-lg">{book.author}</Text>
+            <Text className="text-lg">{libraryItem?.authors[0]?.fullName || ''}</Text>
           </View>
+
+          {libraryItem.authors[0].dob && (
+            <View className="flex flex-row items-center gap-2">
+              <Cake size={20} color="gray" />
+              <Text className="text-sm">
+                {new Date(libraryItem.authors[0]?.dob).toDateString()}
+              </Text>
+            </View>
+          )}
+
           <View className="flex flex-row items-center gap-2">
-            <Cake size={20} color="gray" />
-            <Text className="text-sm">July 31, 1965</Text>
+            <Earth size={20} color="gray" />
+            <Text className="text-sm">{libraryItem.authors[0].nationality}</Text>
           </View>
         </View>
         <Image
+          alt="author"
           source={{
-            uri: 'https://files.bestbooks.to/625e6d9b-dd99-4f83-8ce0-d361bcde9642.jpg',
+            uri: libraryItem?.authors[0].authorImage as string,
           }}
           className="h-20 w-20 rounded-lg object-contain"
         />
       </View>
-      <Text className="text-justify text-sm">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor ullam repellat saepe
-        corporis? Blanditiis porro accusantium tempora possimus mollitia laborum.
-      </Text>
+      <Text className="text-justify text-sm">{libraryItem.authors[0]?.biography}</Text>
 
       <Separator />
       <View className="flex flex-row gap-2">
@@ -57,4 +76,4 @@ const BookAuthor = ({ book }: Props) => {
   )
 }
 
-export default BookAuthor
+export default BookAuthorCard

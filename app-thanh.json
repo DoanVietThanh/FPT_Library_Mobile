@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "owner": "thanhdoan2003",
+    "newArchEnabled": true,
+    "name": "fpt-library-mobile",
+    "slug": "fpt-library-mobile",
+    "version": "1.0.0",
+    "scheme": "fpt-library-mobile",
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-router", "@react-native-google-signin/google-signin"],
+    "experiments": {
+      "typedRoutes": true,
+      "tsconfigPaths": true
+    },
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.thanhdoan2003.fptlibrarymobile",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.thanhdoan2003.fptlibrarymobile"
+    },
+    "eas": {
+      "build": {
+        "experimental": {
+          "native": true
+        }
+      }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6c1f8620-d3b8-4d66-aaa9-31242d6b2e9f"
+      }
+    }
+  }
+}

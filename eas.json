@@ -10,10 +10,7 @@
     },
     "development-simulator": {
       "developmentClient": true,
-      "distribution": "internal",
-      "android": {
-        "simulator": true
-      }
+      "distribution": "internal"
     },
     "preview": {
       "distribution": "internal"

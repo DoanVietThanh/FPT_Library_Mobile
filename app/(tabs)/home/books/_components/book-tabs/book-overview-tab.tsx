@@ -3,28 +3,42 @@ import { Text, View } from 'react-native'
 import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
 import { Separator } from '~/components/ui/separator'
-import { SquarePen } from 'lucide-react-native'
-import { Pressable } from 'react-native-gesture-handler'
+import useGetLibraryItem from '~/hooks/library-items/use-get-libraryItem'
+import { splitCamelCase } from '~/lib/utils'
+import { Loader, SquarePen } from 'lucide-react-native'
 
-const BookTabOverview = () => {
+type Props = {
+  libraryItemId: string
+}
+
+const BookOverviewTab = ({ libraryItemId }: Props) => {
+  const { data: libraryItem, isLoading } = useGetLibraryItem(libraryItemId as string)
+
+  if (!libraryItem) {
+    return null
+  }
+
+  if (isLoading) {
+    return (
+      <View className="flex flex-1 items-center justify-center">
+        <Loader className="size-9 animate-spin" />
+      </View>
+    )
+  }
+
   return (
     <View className="mt-4 flex flex-col gap-4">
-      <View className="flex flex-row items-center gap-2">
-        <Text className="flex-1">Publish year: 2000</Text>
-        <Text className="flex-1">Publisher: ABC</Text>
+      <View className="flex flex-row">
+        <Text className="flex-1">Publish year: {libraryItem?.publicationYear}</Text>
+        <Text className="flex-1">Publisher: {libraryItem?.publisher}</Text>
       </View>
-      <View className="flex flex-row items-center gap-2">
-        <Text className="flex-1">Language: English</Text>
-        <Text className="flex-1">Pages: 200</Text>
+      <View className="flex flex-row">
+        <Text className="flex-1">Language: {libraryItem?.originLanguage}</Text>
+        <Text className="flex-1">Pages: {libraryItem?.pageCount}</Text>
       </View>
       <View>
         <Text className="font-semibold text-primary">Preview available in English</Text>
-        <Text className="text-justify text-sm">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro sunt praesentium nisi
-          eaque atque autem dolor, dolore, impedit voluptatibus rerum est esse voluptatum aperiam
-          tempora cumque illo maxime iste in illum suscipit eos? Maiores cupiditate numquam adipisci
-          beatae porro sint.
-        </Text>
+        <Text className="text-justify text-sm">{libraryItem.summary}</Text>
       </View>
 
       <Separator />
@@ -32,7 +46,23 @@ const BookTabOverview = () => {
         <Text className="text-xl font-semibold text-primary">Detail</Text>
         <View className="flex flex-row justify-between">
           <Text>Published in</Text>
-          <Text>United State</Text>
+          <Text>{libraryItem?.publicationPlace}</Text>
+        </View>
+        <View className="flex flex-row justify-between">
+          <Text>Category</Text>
+          <Text>{splitCamelCase(libraryItem.category.englishName as string)}</Text>
+        </View>
+        <View className="flex flex-row justify-between">
+          <Text>Cutter number</Text>
+          <Text>{libraryItem?.cutterNumber}</Text>
+        </View>
+        <View className="flex flex-row justify-between">
+          <Text>Dimensions</Text>
+          <Text>{libraryItem?.dimensions}</Text>
+        </View>
+        <View className="flex flex-row justify-between">
+          <Text>Responsibility</Text>
+          <Text>{libraryItem?.responsibility}</Text>
         </View>
       </View>
 
@@ -40,12 +70,16 @@ const BookTabOverview = () => {
       <View className="flex flex-col gap-2">
         <Text className="text-xl font-semibold text-primary">Edition Notes</Text>
         <View className="flex flex-row justify-between">
-          <Text>Series</Text>
-          <Text>Dover large print classics</Text>
+          <Text>Genre</Text>
+          <Text>{libraryItem?.genres}</Text>
         </View>
         <View className="flex flex-row justify-between">
-          <Text>Genre</Text>
-          <Text>Fiction</Text>
+          <Text>Topic</Text>
+          <Text>{libraryItem?.topicalTerms}</Text>
+        </View>
+        <View className="flex flex-row justify-between">
+          <Text>General notes</Text>
+          <Text>{libraryItem?.generalNote}</Text>
         </View>
       </View>
 
@@ -54,11 +88,7 @@ const BookTabOverview = () => {
         <Text className="text-xl font-semibold text-primary">Classifications</Text>
         <View className="flex flex-row justify-between">
           <Text>Dewey Decimal Class</Text>
-          <Text>823/.8</Text>
-        </View>
-        <View className="flex flex-row justify-between">
-          <Text>Library of Congress</Text>
-          <Text>PR5485 .A1 2002</Text>
+          <Text>{libraryItem?.classificationNumber}</Text>
         </View>
       </View>
 
@@ -66,12 +96,12 @@ const BookTabOverview = () => {
       <View className="flex flex-col gap-2">
         <Text className="text-xl font-semibold text-primary">The physical object</Text>
         <View className="flex flex-row justify-between">
-          <Text>Pagination</Text>
-          <Text>ix, 112 p. (large print)</Text>
+          <Text>Number of pages</Text>
+          <Text>{libraryItem?.pageCount}</Text>
         </View>
         <View className="flex flex-row justify-between">
-          <Text>Number of pages</Text>
-          <Text>216</Text>
+          <Text>Detail</Text>
+          <Text>{libraryItem?.physicalDetails}</Text>
         </View>
       </View>
 
@@ -80,25 +110,11 @@ const BookTabOverview = () => {
         <Text className="text-xl font-semibold text-primary">ID Numbers</Text>
         <View className="flex flex-row justify-between">
           <Text>My Book Shelf</Text>
-          <Text>OL3570252M</Text>
+          <Text>{libraryItem.shelf?.shelfId}</Text>
         </View>
         <View className="flex flex-row justify-between">
           <Text>ISBN 10</Text>
-          <Text>0486424715</Text>
-        </View>
-
-        <View className="flex flex-row justify-between">
-          <Text>LCCN</Text>
-          <Text>2002073560</Text>
-        </View>
-        <View className="flex flex-row justify-between">
-          <Text>Library Thing</Text>
-          <Text>12349</Text>
-        </View>
-
-        <View className="flex flex-row justify-between">
-          <Text>Good reads</Text>
-          <Text>690668</Text>
+          <Text>{libraryItem?.isbn}</Text>
         </View>
       </View>
 
@@ -165,4 +181,4 @@ const BookTabOverview = () => {
   )
 }
 
-export default BookTabOverview
+export default BookOverviewTab
