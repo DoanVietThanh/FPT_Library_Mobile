@@ -25,3 +25,23 @@ export function isTokenExpired(token: string): boolean {
     return true
   }
 }
+
+export const formatTime = (time: number): string => {
+  const minutes = Math.floor(time / 60)
+  const seconds = Math.floor(time % 60)
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`
+}
+
+export function isImageLinkValid(link: string): boolean {
+  try {
+    const url = new URL(link)
+    const imageUrlRegex = /\.(jpeg|jpg|gif|png)$/i
+    return url.protocol === 'https:' && imageUrlRegex.test(url.pathname)
+  } catch {
+    return false
+  }
+}
+
+export function splitCamelCase(text: string): string {
+  return text.replace(/([a-z])([A-Z])/g, '$1 $2')
+}

@@ -45,3 +45,44 @@ export enum ENotificationType {
   REMINDER = 'Reminder',
   NOTICE = 'Notice',
 }
+
+export enum EResourceBookType {
+  AUDIO_BOOK = 'AudioBook',
+  EBOOK = 'Ebook',
+}
+
+export enum EBookFormat {
+  PAPERBACK = 'Paperback',
+  HARD_COVER = 'HardCover',
+}
+
+export enum EBookCopyConditionStatus {
+  GOOD = 'Good',
+  WORN = 'Worn',
+  DAMAGED = 'Damaged',
+  // LOST = "Lost",
+}
+
+export enum ELibraryItemStatus {
+  Draft = 'Draft',
+  Published = 'Published',
+}
+
+export enum EVisibility {
+  PUBLIC = 'Public',
+  PRIVATE = 'Private',
+}
+
+export enum EBookEditionStatus {
+  DRAFT = 'Draft',
+  PUBLISHED = 'Published',
+  DELETED = 'Deleted',
+}
+
+export enum EBookCopyStatus {
+  IN_SHELF = 'InShelf',
+  OUT_OF_SHELF = 'OutOfShelf',
+  BORROWED = 'Borrowed',
+  RESERVED = 'Reserved',
+  DELETED = 'Deleted',
+}
