@@ -14,6 +14,7 @@ import { Text } from '~/components/ui/text'
 import { cn } from '~/lib/utils'
 import { ELibraryItemStatus } from '~/types/enum'
 import { LibraryItem } from '~/types/models'
+import { EllipsisVertical } from 'lucide-react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type Props = {
@@ -21,7 +22,7 @@ type Props = {
   libraryItem: LibraryItem
 }
 
-const MIN_COLUMN_WIDTHS = [60, 60, 120, 120, 120]
+const MIN_COLUMN_WIDTHS = [40, 60, 120, 120, 120]
 
 const BookInstancesTab = ({ libraryItemId, libraryItem }: Props) => {
   const { width } = useWindowDimensions()
@@ -40,7 +41,7 @@ const BookInstancesTab = ({ libraryItemId, libraryItem }: Props) => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="px-0.5" style={{ width: columnWidths[0] }}>
+              <TableHead style={{ width: columnWidths[0] }}>
                 <Text>STT</Text>
               </TableHead>
               <TableHead style={{ width: columnWidths[1] }}>
@@ -75,7 +76,7 @@ const BookInstancesTab = ({ libraryItemId, libraryItem }: Props) => {
                     <TableCell style={{ width: columnWidths[1] }}>
                       <Text>{item.barcode}</Text>
                     </TableCell>
-                    <TableCell style={{ width: columnWidths[2], alignItems: 'center' }}>
+                    <TableCell style={{ width: columnWidths[2] }}>
                       {/* <Barcode value={item.barcode || ''} format="CODE128" /> */}
                       <Text>__</Text>
                     </TableCell>
@@ -85,7 +86,7 @@ const BookInstancesTab = ({ libraryItemId, libraryItem }: Props) => {
                       />
                     </TableCell>
                     <TableCell style={{ width: columnWidths[4] }}>
-                      <Text>Action</Text>
+                      <EllipsisVertical />
                     </TableCell>
                   </TableRow>
                 )
