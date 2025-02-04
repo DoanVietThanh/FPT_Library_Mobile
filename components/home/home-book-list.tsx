@@ -19,6 +19,8 @@ const HomeBookList = ({ title, categoryId }: Props) => {
     pageSize: '5',
   })
 
+  console.log('🚀 ~ HomeBookList ~ libraryItems:', libraryItems)
+
   if (isLoading || !libraryItems) {
     return (
       <View className="flex flex-row justify-center">

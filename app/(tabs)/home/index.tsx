@@ -19,6 +19,7 @@ export default function Home() {
     )
   }
 
+  console.log('🚀 ~ Home ~ categories:', categories)
   return (
     <>
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right', 'top']}>

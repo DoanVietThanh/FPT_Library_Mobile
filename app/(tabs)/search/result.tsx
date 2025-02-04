@@ -49,16 +49,13 @@ const SearchBookResult = () => {
                       className="h-28 w-20 rounded-lg object-contain"
                     />
                   </View>
-
                   <View>
                     <Text className="text-lg font-semibold">{book.title}</Text>
                     <Text>Tác giả: {book.author}</Text>
                     <Text className="text-sm">Topic: Lorem ipsum dolor sit amet.</Text>
                   </View>
                 </View>
-
                 <Separator className="my-2" />
-
                 <Text>Summary</Text>
               </Card>
             </View>

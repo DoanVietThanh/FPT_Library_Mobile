@@ -34,7 +34,7 @@ const badgeConfig = (
 function LibraryItemStatusBadge({ status }: Props) {
   return (
     <Badge variant={badgeConfig(status).badgeVariant} className="flex w-fit justify-center">
-      <Text>{badgeConfig(status).label}</Text>
+      <Text className="text-primary-foreground">{badgeConfig(status).label}</Text>
     </Badge>
   )
 }
