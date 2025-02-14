@@ -2,18 +2,18 @@ import { ENotificationType } from '~/types/enum'
 
 export const NAV_THEME = {
   light: {
-    background: 'hsl(21 0% 95%)', // background
-    border: 'hsl(21 20% 82%)', // border
-    card: 'hsl(21 0% 93%)', // card
-    notification: 'hsl(0 50% 50%)', // destructive
+    background: 'hsl(0 0% 100%)', // background
+    border: 'hsl(240 5.9% 90%)', // border
+    card: 'hsl(0 0% 100%)', // card
+    notification: 'hsl(5, 79%, 57%)', // destructive
     primary: 'hsl(178 71% 27%)', // primary
-    text: 'hsl(21 0% 15%)', // foreground
+    text: 'hsl(240 10% 3.9%)', // foreground
   },
   dark: {
     background: 'hsl(21 10% 10%)', // background
     border: 'hsl(21 20% 18%)', // border
     card: 'hsl(21 0% 10%)', // card
-    notification: 'hsl(4 86% 58%)', // destructive
+    notification: 'hsl(5, 79%, 57%)', // destructive
     primary: 'hsl(178 71% 27%)', // primary
     text: 'hsl(21 0% 90%)', // foreground
   },

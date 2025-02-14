@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { jwtDecode } from 'jwt-decode'
+import queryString from 'query-string'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
@@ -44,4 +45,28 @@ export function isImageLinkValid(link: string): boolean {
 
 export function splitCamelCase(text: string): string {
   return text.replace(/([a-z])([A-Z])/g, '$1 $2')
+}
+
+export function formUrlQuery({
+  params,
+  updates,
+  url,
+}: {
+  params: string
+  updates: Record<string, string | (string | null)[] | null>
+  url: string
+}) {
+  const query = queryString.parse(params)
+
+  Object.keys(updates).forEach((key) => {
+    query[key] = updates[key]
+  })
+
+  return queryString.stringifyUrl(
+    {
+      url: url || '',
+      query,
+    },
+    { skipNull: true },
+  )
 }

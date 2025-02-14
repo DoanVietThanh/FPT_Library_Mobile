@@ -1,4 +1,10 @@
-import { EBookCopyStatus, EBookFormat, ENotificationType, EResourceBookType } from './enum'
+import {
+  EBookCopyStatus,
+  EBookEditionStatus,
+  EBookFormat,
+  ENotificationType,
+  EResourceBookType,
+} from './enum'
 
 export type User = {
   userId: string
@@ -24,9 +30,54 @@ export type Notification = {
 
 export type Category = {
   categoryId: number
+  prefix: string
   englishName: string
   vietnameseName: string
   description: string | null
+  isAllowAITraining: boolean
+}
+
+export type BookEdition = {
+  libraryItemId: number
+  title: string
+  subTitle: string | null
+  responsibility: string | null
+  edition: string | null
+  editionNumber: number | null
+  language: string | null
+  originLanguage: string | null
+  summary: string | null
+  coverImage: string | null
+  publicationYear: number | null
+  publisher: string | null
+  publicationPlace: string | null
+  classificationNumber: string | null
+  cutterNumber: string | null
+  isbn: string | null
+  ean: string | null
+  estimatedPrice: number | null
+  pageCount: number | null
+  physicalDetails: string | null
+  dimensions: string | null
+  accompanyingMaterial: string | null
+  genres: string | null
+  generalNote: string | null
+  bibliographicalNote: string | null
+  topicalTerms: string | null
+  additionalAuthors: string | null
+  avgReviewedRate: number | null
+  categoryId: number
+  shelfId: number | null
+  groupId: number | null
+  status: EBookEditionStatus
+  isDeleted: boolean
+  canBorrow: boolean
+  isTrained: boolean
+  trainedAt: Date | null
+  createdAt: Date
+  updatedAt: Date | null
+  createdBy: string
+  updatedBy: string | null
 }
 
 export type LibraryItem = {
@@ -208,4 +259,30 @@ export type Shelf = {
   createDate: Date
   updateDate: Date | null
   isDeleted: boolean
+  section: Section | null
+}
+
+export type Author = {
+  authorId: number
+  fullName: string
+  authorCode: string
+  authorImage: string
+  biography: string
+  dob: string
+  dateOfDeath: string
+  nationality: string
+  createDate: string
+  updateDate: string
+  isDeleted: false
+  bookEditionAuthors: unknown[]
+}
+
+export type LibraryItemAuthor = {
+  libraryItemAuthorId: number
+  libraryItemId: number
+  authorId: number
+  createdAt: Date
+  updatedAt: Date | null
+  createdBy: string | null
+  updatedBy: string | null
 }

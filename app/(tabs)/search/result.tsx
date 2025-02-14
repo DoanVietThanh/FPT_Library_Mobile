@@ -4,13 +4,28 @@ import { dummyBooks } from '~/components/home/dummy-books'
 import { Button } from '~/components/ui/button'
 import { Card } from '~/components/ui/card'
 import { Separator } from '~/components/ui/separator'
-import { Stack } from 'expo-router'
+import useSearchBooksAdvance from '~/hooks/library-items/use-search-books-advance'
+import { searchBooksAdvanceSchema } from '~/lib/validations/book/search-books-advance'
+import { Stack, useLocalSearchParams } from 'expo-router'
 import { Filter } from 'lucide-react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SearchBookResult = () => {
+  const searchParams = useLocalSearchParams()
+  const { sort, isMatchExact, searchWithSpecial, ...rest } = searchBooksAdvanceSchema.parse({
+    ...searchParams,
+    searchWithKeyword: searchParams.searchWithKeyword ? +searchParams.searchWithKeyword : undefined,
+  })
+
   const book = dummyBooks[0]
+
+  const { data } = useSearchBooksAdvance({
+    sort,
+    isMatchExact,
+    searchWithSpecial,
+    ...rest,
+  })
 
   return (
     <>
@@ -29,6 +44,7 @@ const SearchBookResult = () => {
             {/* <View className="flex flex-1 flex-col gap-2">
               <BookFilterTabs />
             </View> */}
+
             <View className="flex flex-row items-center justify-between gap-2">
               <Text>Kết quả: {Number(1245).toLocaleString()}</Text>
               <View className="flex flex-row items-center justify-between gap-2">
@@ -37,6 +53,8 @@ const SearchBookResult = () => {
                 <Text>More</Text>
               </View>
             </View>
+
+            <Text>{JSON.stringify(data)}</Text>
 
             <View>
               <Card className="w-full p-4">
