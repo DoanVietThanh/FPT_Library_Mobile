@@ -1,40 +1,28 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
-import { cn } from '~/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 import AdvancedSearchTab from './advanced-search-tab'
 import BasicSearchTab from './basic-search-tab'
 import QuickSearchTab from './quick-search'
 
 const BookFilterTabs = () => {
+  const { t } = useTranslation('SearchScreen')
   const [value, setValue] = useState('quick-search')
 
   return (
     <View className="justify-center">
-      <Tabs
-        value={value}
-        onValueChange={setValue}
-        className="mx-auto w-full max-w-[400px] flex-col gap-2"
-      >
+      <Tabs value={value} onValueChange={setValue} className="mx-auto w-full flex-col gap-1.5">
         <TabsList className="w-full flex-row">
-          <TabsTrigger
-            value="quick-search"
-            className={cn('flex-1 rounded-lg', value === 'quick-search' && 'bg-primary text-white')}
-          >
-            <Text className={cn(value === 'quick-search' && 'text-white')}>Quick</Text>
+          <TabsTrigger value="quick-search" className="flex-1 rounded-md">
+            <Text>{t('Quick')}</Text>
           </TabsTrigger>
-          <TabsTrigger
-            value="basic-search"
-            className={cn('flex-1 rounded-lg', value === 'basic-search' && 'bg-primary')}
-          >
-            <Text className={cn(value === 'basic-search' && 'text-white')}>Basic</Text>
+          <TabsTrigger value="basic-search" className="flex-1 rounded-md">
+            <Text>{t('Basic')}</Text>
           </TabsTrigger>
-          <TabsTrigger
-            value="advanced-search"
-            className={cn('flex-1 rounded-lg', value === 'advanced-search' && 'bg-primary')}
-          >
-            <Text className={cn(value === 'advanced-search' && 'text-white')}>Advanced</Text>
+          <TabsTrigger value="advanced-search" className="flex-1 rounded-md">
+            <Text>{t('Advance')}</Text>
           </TabsTrigger>
         </TabsList>
         <TabsContent value="quick-search">

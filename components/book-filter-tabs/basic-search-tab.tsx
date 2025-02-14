@@ -1,172 +1,110 @@
-import React, { useState } from 'react'
-import { Text, View } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker'
-import { RefreshCcw, Search } from 'lucide-react-native'
+import { useState } from 'react'
+import { View } from 'react-native'
+import { formUrlQuery } from '~/lib/utils'
+import { ESearchType } from '~/types/enum'
+import { Href, useLocalSearchParams, useRouter } from 'expo-router'
+import cloneDeep from 'lodash.clonedeep'
+import { useTranslation } from 'react-i18next'
 
 import { Button } from '../ui/button'
-import { Checkbox } from '../ui/checkbox'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
-
-const quickSearchData = [
-  { id: 1, key: 'title', label: 'Nhan đề' },
-  { id: 2, key: 'author', label: 'Tác giả' },
-  { id: 3, key: 'keyword', label: 'Từ khóa' },
-  { id: 4, key: 'category', label: 'Phân loại' },
-  { id: 5, key: 'year', label: 'Năm xuất bản' },
-  { id: 6, key: 'registration', label: 'Số ĐKCB' },
-  { id: 7, key: 'isbn', label: 'ISBN' },
-  { id: 8, key: 'allFields', label: 'Mọi trường' },
-]
+import { Text } from '../ui/text'
 
 const BasicSearchTab = () => {
-  const [checkboxStates, setCheckboxStates] = useState<{ [key: number]: boolean }>(
-    quickSearchData.reduce(
-      (acc, item) => {
-        acc[item.id] = false
-        return acc
-      },
-      {} as { [key: number]: boolean },
-    ),
-  )
+  const searchParams = useLocalSearchParams()
+  const router = useRouter()
+  const { t } = useTranslation('SearchScreen')
+  const [values, setValues] = useState({
+    title: searchParams.title || '',
+    author: searchParams.author || '',
+    isbn: searchParams.isbn || '',
+    classificationNumber: searchParams.classificationNumber || '',
+    genres: searchParams.genres || '',
+    publisher: searchParams.publisher || '',
+    topicalTerms: searchParams.topicalTerms || '',
+  })
 
-  const [inputValues, setInputValues] = useState<{ [key: number]: string }>(
-    quickSearchData.reduce(
-      (acc, item) => {
-        acc[item.id] = ''
-        return acc
-      },
-      {} as { [key: number]: string },
-    ),
-  )
-
-  const [yearFrom, setYearFrom] = useState<Date | undefined>(undefined)
-  const [yearTo, setYearTo] = useState<Date | undefined>(undefined)
-
-  const handleCheckboxChange = (id: number, checked: boolean) => {
-    setCheckboxStates((prevState) => ({
-      ...prevState,
-      [id]: checked,
-    }))
+  const handleInputChange = (key: string, value: string) => {
+    setValues((prev) => ({ ...prev, [key]: value }))
   }
 
-  const handleInputChange = (id: number, value: string) => {
-    setInputValues((prevState) => ({
-      ...prevState,
-      [id]: value,
-    }))
-
-    if (value.trim() !== '') {
-      handleCheckboxChange(id, true)
-    } else {
-      handleCheckboxChange(id, false)
-    }
+  const resetFields = () => {
+    setValues({
+      title: '',
+      author: '',
+      isbn: '',
+      classificationNumber: '',
+      genres: '',
+      publisher: '',
+      topicalTerms: '',
+    })
   }
 
-  const handleReset = () => {
-    setCheckboxStates(
-      quickSearchData.reduce(
-        (acc, item) => {
-          acc[item.id] = false
-          return acc
-        },
-        {} as { [key: number]: boolean },
-      ),
-    )
-    setInputValues(
-      quickSearchData.reduce(
-        (acc, item) => {
-          acc[item.id] = ''
-          return acc
-        },
-        {} as { [key: number]: string },
-      ),
-    )
-    setYearFrom(undefined)
-    setYearTo(undefined)
+  const handleApply = () => {
+    if (Object.values(values).every((a) => a === '')) return
+
+    const searchValues = cloneDeep(values)
+    Object.keys(searchValues).forEach((k) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      searchValues[k] = searchValues[k] === '' ? undefined : searchValues[k]
+    })
+    const newUrl = formUrlQuery({
+      url: '/search/result',
+      params: searchParams.toString(),
+      updates: {
+        ...searchValues,
+        pageIndex: '1',
+        searchType: ESearchType.BASIC_SEARCH.toString(),
+        search: null,
+      },
+    })
+
+    router.push(newUrl as Href)
   }
 
   return (
-    <View className="flex flex-1 flex-col gap-2 rounded-lg bg-background p-2">
-      <View className="flex w-full flex-col gap-4">
-        {quickSearchData.map((item) =>
-          item.key === 'year' ? (
-            <View key={item.id} className="flex w-full flex-col gap-2">
-              <View className="flex flex-row items-center gap-2">
-                <Checkbox
-                  checked={checkboxStates[item.id]}
-                  onCheckedChange={(checked) => handleCheckboxChange(item.id, checked)}
-                />
-                <Text className="text-lg font-semibold">{item.label}</Text>
-              </View>
-              <View className="flex flex-row gap-4">
-                <View className="flex flex-1 flex-row items-center justify-center gap-2">
-                  <Label htmlFor="year-from">Từ</Label>
-                  <DateTimePicker
-                    className="flex-1"
-                    value={yearFrom || new Date()}
-                    mode="date"
-                    display="default"
-                    onChange={(event, selectedDate) => {
-                      setYearFrom(selectedDate || yearFrom)
-                      handleCheckboxChange(item.id, true)
-                    }}
-                  />
-                </View>
-
-                <View className="flex flex-1 flex-row items-center justify-center gap-2">
-                  <Label htmlFor="year-from">Đến</Label>
-                  <DateTimePicker
-                    className="flex-1"
-                    value={yearTo || new Date()}
-                    mode="date"
-                    display="default"
-                    onChange={(event, selectedDate) => {
-                      setYearTo(selectedDate || yearTo)
-                      handleCheckboxChange(item.id, true)
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-          ) : (
-            <View key={item.id} className="flex w-full flex-col gap-2">
-              <View className="flex flex-row items-center gap-2">
-                <Checkbox
-                  checked={checkboxStates[item.id]}
-                  onCheckedChange={(checked) => handleCheckboxChange(item.id, checked)}
-                />
-                <Text className="text-lg font-semibold">{item.label}</Text>
-              </View>
-              <Input
-                className="h-8 flex-1"
-                placeholder={item.label}
-                value={inputValues[item.id]}
-                onChangeText={(value) => handleInputChange(item.id, value)}
-              />
-            </View>
-          ),
-        )}
+    <View className="flex flex-col gap-4">
+      <View className="flex gap-4">
+        {Object.keys(values).map((key, index) => (
+          <View key={index} className="flex">
+            <Label>{t(getPlaceholder(key))}</Label>
+            <Input
+              placeholder={t(getPlaceholder(key))}
+              value={values[key as keyof typeof values] as string}
+              onChangeText={(val) => handleInputChange(key, val)}
+            />
+          </View>
+        ))}
       </View>
-
-      <View className="flex w-full flex-col gap-4">
-        <View className="flex w-full flex-row gap-2">
-          <Button
-            variant={'secondary'}
-            onPress={handleReset}
-            className="flex w-full flex-1 flex-row items-center gap-2"
-          >
-            <RefreshCcw size={16} color={'black'} />
-            <Text className="">Reset</Text>
-          </Button>
-          <Button className="flex w-full flex-1 flex-row items-center gap-2">
-            <Search size={16} color={'white'} />
-            <Text className="text-white">Search</Text>
-          </Button>
-        </View>
+      <View className="flex flex-row items-center justify-end gap-4">
+        <Button
+          variant="outline"
+          className="flex flex-row flex-nowrap items-center gap-2"
+          onPress={resetFields}
+        >
+          <Text className="flex flex-row items-center gap-2">{t('Reset')}</Text>
+        </Button>
+        <Button onPress={handleApply} className="flex flex-row flex-nowrap items-center gap-2">
+          <Text className="flex flex-row items-center gap-2">{t('Search')}</Text>
+        </Button>
       </View>
     </View>
   )
+}
+
+const getPlaceholder = (key: string) => {
+  const placeholders: { [key: string]: string } = {
+    title: 'Title',
+    author: 'Author',
+    isbn: 'ISBN',
+    classificationNumber: 'Classification number',
+    genres: 'Genres',
+    publisher: 'Publisher',
+    topicalTerms: 'Keyword',
+  }
+  return placeholders[key] || ''
 }
 
 export default BasicSearchTab

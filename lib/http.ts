@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ActionError } from '~/types/action-response'
 import i18n from 'i18next' // Import the i18n instance directly
+import queryString from 'query-string'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type CustomOptions = RequestInit & {
   baseUrl?: string
   lang?: string
-  searchParams?: Record<string, string | number | boolean | null | undefined>
+  searchParams?: queryString.StringifiableRecord | undefined
+  responseType?: 'json' | 'blob'
 }
 
 type OkResponse<TData = undefined> = {
@@ -15,20 +17,23 @@ type OkResponse<TData = undefined> = {
   data: TData
 }
 
-class HttpError extends Error {
+export class HttpError extends Error {
   resultCode: string
   type: 'unknown' | 'warning' | 'error' | 'form'
   fieldErrors: Record<string, string[]>
+  data: any
   constructor({
     fieldErrors,
     message,
     type,
     resultCode,
+    data,
   }: {
     resultCode: string
     type: 'unknown' | 'warning' | 'error' | 'form'
     message?: string
     fieldErrors?: Record<string, string[]>
+    data?: any
   } & (
     | {
         type: 'unknown'
@@ -36,6 +41,7 @@ class HttpError extends Error {
     | {
         type: 'warning' | 'error'
         message: string
+        data: any
       }
     | {
         type: 'form'
@@ -46,6 +52,7 @@ class HttpError extends Error {
     this.type = type
     this.resultCode = resultCode
     this.fieldErrors = fieldErrors || {}
+    this.data = data
   }
 }
 
@@ -71,6 +78,7 @@ export function handleHttpError(error: unknown): ActionError {
       typeError: error.type,
       messageError: error.message,
       resultCode: error.resultCode,
+      data: error.data,
     }
   }
 
@@ -96,10 +104,25 @@ const request = async <TData = undefined>(
     'Accept-Language': options?.lang ?? i18n.language ?? 'vi',
   }
 
-  const baseUrl =
-    options?.baseUrl === undefined ? process.env.EXPO_PUBLIC_API_ENDPOINT! : options.baseUrl
+  if (body instanceof FormData) {
+    // @ts-ignore
+    delete baseHeaders['Content-Type']
+  }
 
-  const fetchUrl = buildUrl(baseUrl, url, options?.searchParams)
+  const responseType = options?.responseType === 'blob' ? 'blob' : 'json'
+
+  const baseUrl =
+    options?.baseUrl === undefined ? process.env.EXPO_PUBLIC_API_ENDPOINT : options.baseUrl
+
+  const fetchUrl =
+    baseUrl +
+    queryString.stringifyUrl(
+      {
+        url: url,
+        query: options?.searchParams,
+      },
+      { skipNull: true, skipEmptyString: true },
+    )
 
   const res = await fetch(fetchUrl, {
     ...options,
@@ -111,6 +134,18 @@ const request = async <TData = undefined>(
     method,
   })
 
+  if (responseType === 'blob') {
+    if (!res.ok) {
+      throw new Error(`Failed to fetch blob: ${res.status} ${res.statusText}`)
+    }
+    const blob = await res.blob()
+    return {
+      resultCode: '',
+      message: '',
+      data: blob as TData,
+    }
+  }
+
   const payload = (await res.json()) as OkResponse<TData>
 
   if (process.env.NEXT_PUBLIC_LOG_FETCH !== 'false')
@@ -121,7 +156,7 @@ const request = async <TData = undefined>(
         ...options?.headers,
       },
       body: body ? (body instanceof FormData ? body : JSON.parse(body)) : null,
-      payload,
+      payload: payload,
     })
 
   if (!res.ok || !payload.resultCode.includes('Success')) {
@@ -130,6 +165,7 @@ const request = async <TData = undefined>(
         type: payload.resultCode.includes('Fail') ? 'error' : 'warning',
         message: payload.message,
         resultCode: payload.resultCode,
+        data: payload.data,
       })
     }
 
@@ -172,20 +208,20 @@ export const http = {
   },
 }
 
-const buildUrl = (
-  baseUrl: string,
-  url: string,
-  searchParams: Record<string, string | number | boolean | null | undefined> | undefined,
-) => {
-  const newSearchParams = new URLSearchParams()
+// const buildUrl = (
+//   baseUrl: string,
+//   url: string,
+//   searchParams: Record<string, string | number | boolean | null | undefined> | undefined,
+// ) => {
+//   const newSearchParams = new URLSearchParams()
 
-  if (searchParams) {
-    Object.entries(searchParams).forEach(([key, value]) => {
-      if (value !== null && value !== undefined && value !== '') {
-        newSearchParams.append(key, value.toString())
-      }
-    })
-  }
+//   if (searchParams) {
+//     Object.entries(searchParams).forEach(([key, value]) => {
+//       if (value !== null && value !== undefined && value !== '') {
+//         newSearchParams.append(key, value.toString())
+//       }
+//     })
+//   }
 
-  return `${baseUrl}${url}?${newSearchParams.toString()}`
-}
+//   return `${baseUrl}${url}?${newSearchParams.toString()}`
+// }

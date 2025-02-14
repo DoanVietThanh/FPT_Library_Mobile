@@ -1,19 +1,19 @@
-import * as ProgressPrimitive from '@rn-primitives/progress';
-import * as React from 'react';
-import { Platform, View } from 'react-native';
+import * as React from 'react'
+import { Platform, View } from 'react-native'
+import * as ProgressPrimitive from '@rn-primitives/progress'
+import { cn } from '~/lib/utils'
 import Animated, {
   Extrapolation,
   interpolate,
   useAnimatedStyle,
   useDerivedValue,
   withSpring,
-} from 'react-native-reanimated';
-import { cn } from '~/lib/utils';
+} from 'react-native-reanimated'
 
 const Progress = React.forwardRef<
   ProgressPrimitive.RootRef,
   ProgressPrimitive.RootProps & {
-    indicatorClassName?: string;
+    indicatorClassName?: string
   }
 >(({ className, value, indicatorClassName, ...props }, ref) => {
   return (
@@ -24,23 +24,23 @@ const Progress = React.forwardRef<
     >
       <Indicator value={value} className={indicatorClassName} />
     </ProgressPrimitive.Root>
-  );
-});
-Progress.displayName = ProgressPrimitive.Root.displayName;
+  )
+})
+Progress.displayName = ProgressPrimitive.Root.displayName
 
-export { Progress };
+export { Progress }
 
 function Indicator({ value, className }: { value: number | undefined | null; className?: string }) {
-  const progress = useDerivedValue(() => value ?? 0);
+  const progress = useDerivedValue(() => value ?? 0)
 
   const indicator = useAnimatedStyle(() => {
     return {
       width: withSpring(
         `${interpolate(progress.value, [0, 100], [1, 100], Extrapolation.CLAMP)}%`,
-        { overshootClamping: true }
+        { overshootClamping: true },
       ),
-    };
-  });
+    }
+  })
 
   if (Platform.OS === 'web') {
     return (
@@ -50,12 +50,12 @@ function Indicator({ value, className }: { value: number | undefined | null; cla
       >
         <ProgressPrimitive.Indicator className={cn('h-full w-full', className)} />
       </View>
-    );
+    )
   }
 
   return (
     <ProgressPrimitive.Indicator asChild>
       <Animated.View style={indicator} className={cn('h-full bg-foreground', className)} />
     </ProgressPrimitive.Indicator>
-  );
+  )
 }

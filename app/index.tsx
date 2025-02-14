@@ -7,9 +7,8 @@ import { Redirect, router } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function App() {
-  const { isLoadingAuth, isLoggedIn } = useAuth()
-
-  if (!isLoadingAuth && isLoggedIn) {
+  const { isLoadingAuth } = useAuth()
+  if (!isLoadingAuth) {
     return <Redirect href="/home" />
   }
 
@@ -50,10 +49,6 @@ export default function App() {
 
           <Button className="mt-6" onPress={() => router.push('/sign-in')}>
             <Text>Continue with email</Text>
-          </Button>
-
-          <Button className="mt-6" onPress={() => router.push('/(tabs)/home')}>
-            <Text>Home</Text>
           </Button>
         </View>
       </ScrollView>
