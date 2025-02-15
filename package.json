@@ -102,8 +102,7 @@
     "tailwind-merge": "^2.5.5",
     "typescript-eslint": "^8.16.0",
     "zod": "^3.23.8",
-    "zustand": "^4.5.1",
-    "@woosmap/react-native-woosmap": "1.2.2"
+    "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

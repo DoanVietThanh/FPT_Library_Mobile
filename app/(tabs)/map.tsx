@@ -1,32 +1,32 @@
 /* eslint-disable prettier/prettier */
-import { useRef } from 'react'
-import {
-  IndoorRendererOptions,
-  IndoorWidgetOptions,
-  MapController,
-  WoosmapView,
-} from '@woosmap/react-native-woosmap'
+// import { useRef } from 'react'
+// import {
+//   IndoorRendererOptions,
+//   IndoorWidgetOptions,
+//   MapController,
+//   WoosmapView,
+// } from '@woosmap/react-native-woosmap'
 import { Text } from '~/components/ui/text'
 
-const indoorRendererConfiguration: IndoorRendererOptions = {
-  defaultFloor: 0, //Render map with default floor
-  centerMap: true,
-  venue: 'fpt_library',
-  responsive: 'mobile',
-}
-const indoorWidgetConfiguration: IndoorWidgetOptions = {
-  units: 'metric', // Define the distance unit for route distance calculation
-}
+// const indoorRendererConfiguration: IndoorRendererOptions = {
+//   defaultFloor: 0, //Render map with default floor
+//   centerMap: true,
+//   venue: 'fpt_library',
+//   responsive: 'mobile',
+// }
+// const indoorWidgetConfiguration: IndoorWidgetOptions = {
+//   units: 'metric', // Define the distance unit for route distance calculation
+// }
 
 export default function MapScreen() {
-  const mapRef = useRef<MapController>(null)
+  // const mapRef = useRef<MapController>(null)
 
   console.log('MapScreen')
 
   return (
     <>
       <Text>Hello</Text>
-      <WoosmapView
+      {/*<WoosmapView
         ref={mapRef}
         wooskey="woos-2861ec1d-05d1-3d4b-a4dd-1dfefe85769e"
         indoorRendererConfiguration={indoorRendererConfiguration}
@@ -59,7 +59,7 @@ export default function MapScreen() {
           console.log('Navigation ended')
           mapRef.current?.clearDirections()
         }}
-      />
+      />*/}
     </>
   )
 }
