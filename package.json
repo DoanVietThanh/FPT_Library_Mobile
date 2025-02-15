@@ -97,12 +97,13 @@
     "react-native-toast-message": "^2.2.1",
     "react-native-uuid": "^2.0.3",
     "react-native-web": "~0.19.10",
-    "react-native-webview": "^13.13.1",
+    "react-native-webview": "13.12.5",
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^2.5.5",
     "typescript-eslint": "^8.16.0",
     "zod": "^3.23.8",
-    "zustand": "^4.5.1"
+    "zustand": "^4.5.1",
+    "@woosmap/react-native-woosmap": "1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
