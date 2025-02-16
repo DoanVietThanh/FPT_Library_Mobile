@@ -125,6 +125,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --write .",
+      "rm -f android\\app\\build\\intermediates\\assets\\debug\\mergeDebugAssets\\EXDevMenuApp.android.js",
       "eslint --fix ."
     ]
   },
