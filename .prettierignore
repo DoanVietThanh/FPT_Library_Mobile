@@ -2,3 +2,5 @@ node_modules/
 dist/
 android/
 ios/
+*.d.ts
+*.android.js
