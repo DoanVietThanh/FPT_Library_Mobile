@@ -1,6 +1,7 @@
 node_modules/
 dist/
-*.d.ts
 android/
 ios/
 build/
+*.d.ts
+*.android.js

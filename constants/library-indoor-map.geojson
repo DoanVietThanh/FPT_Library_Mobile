@@ -1,0 +1,206 @@
+{
+  "type": "FeatureCollection",
+  "generator": "JOSM",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 1,
+        "name": "Reception",
+        "type": "service"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [0, 0],
+            [10, 0],
+            [10, 5],
+            [0, 5],
+            [0, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 1,
+        "name": "Reading Area",
+        "type": "reading"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [12, 0],
+            [25, 0],
+            [25, 10],
+            [12, 10],
+            [12, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 1,
+        "name": "Bookshelves",
+        "type": "shelves"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [0, 6],
+            [10, 6],
+            [10, 15],
+            [0, 15],
+            [0, 6]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 1,
+        "name": "Stairs",
+        "type": "stairs"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [27, 0],
+            [30, 0],
+            [30, 5],
+            [27, 5],
+            [27, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 2,
+        "name": "Reading Area",
+        "type": "reading"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [12, 0],
+            [25, 0],
+            [25, 10],
+            [12, 10],
+            [12, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 2,
+        "name": "Bookshelves",
+        "type": "shelves"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [0, 6],
+            [10, 6],
+            [10, 15],
+            [0, 15],
+            [0, 6]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 2,
+        "name": "Stairs",
+        "type": "stairs"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [27, 0],
+            [30, 0],
+            [30, 5],
+            [27, 5],
+            [27, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 3,
+        "name": "Study Rooms",
+        "type": "study"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [12, 0],
+            [25, 0],
+            [25, 10],
+            [12, 10],
+            [12, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 3,
+        "name": "Bookshelves",
+        "type": "shelves"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [0, 6],
+            [10, 6],
+            [10, 15],
+            [0, 15],
+            [0, 6]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "level": 3,
+        "name": "Stairs",
+        "type": "stairs"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [27, 0],
+            [30, 0],
+            [30, 5],
+            [27, 5],
+            [27, 0]
+          ]
+        ]
+      }
+    }
+  ]
+}

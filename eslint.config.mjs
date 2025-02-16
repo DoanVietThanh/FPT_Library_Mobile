@@ -13,7 +13,6 @@ export default [
   pluginReact.configs.flat.recommended,
   prettierConfig, // Disables conflicting ESLint rules with Prettier
   {
-    ignores: ['node_modules/', 'android/', 'ios/', 'build/'],
     settings: {
       react: {
         version: 'detect', // Automatically detect React version
@@ -22,6 +21,7 @@ export default [
     plugins: { prettier: prettierPlugin },
     rules: {
       'react/no-unescaped-entities': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       'react-native/no-inline-styles': 'off',
