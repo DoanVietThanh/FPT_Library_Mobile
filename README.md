@@ -8,3 +8,5 @@ Sau khi prebuild android
   ...
   manifestPlaceholders = [appAuthRedirectScheme: 'com.kingchen711.fptlibrarymobile']
   }
+
+EBOOK (pdf): npx expo install expo-file-system react-native-webview

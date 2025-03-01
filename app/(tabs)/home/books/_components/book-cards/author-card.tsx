@@ -11,8 +11,6 @@ type Props = {
 }
 
 const BookAuthorCard = ({ libraryItem }: Props) => {
-  console.log('🚀 ~ BookAuthorCard ~ libraryItem?:', libraryItem)
-
   if (libraryItem.authors.length === 0) {
     return (
       <View className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-background p-4">
@@ -53,7 +51,7 @@ const BookAuthorCard = ({ libraryItem }: Props) => {
           source={{
             uri: libraryItem?.authors[0].authorImage as string,
           }}
-          className="h-20 w-20 rounded-lg object-contain"
+          className="size-20 rounded-lg object-contain"
         />
       </View>
       <Text className="text-justify text-sm">{libraryItem.authors[0]?.biography}</Text>
@@ -63,11 +61,11 @@ const BookAuthorCard = ({ libraryItem }: Props) => {
         <Text className="text-xl font-bold text-primary">Other</Text>
         <Text className="text-xl font-bold">Books</Text>
       </View>
-      <ScrollView horizontal>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className="flex flex-row gap-4">
           {dummyBooks.map((book) => (
             <View key={book.id} className="flex flex-row">
-              <Image source={{ uri: book.image }} className="h-20 w-20 rounded-lg object-contain" />
+              <Image source={{ uri: book.image }} className="h-32 w-20 rounded-lg object-contain" />
             </View>
           ))}
         </View>

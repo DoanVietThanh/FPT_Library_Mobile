@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Image, ScrollView, Text, useWindowDimensions, View } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
-import { dummyBooks } from '~/components/home/dummy-books'
 import { Card } from '~/components/ui/card'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/components/ui/hover-card'
 import {
   Table,
   TableBody,
@@ -11,53 +11,42 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table'
+import { useOcrDetail } from '~/hooks/ai/use-ocr-detail'
+import useGetLibraryItem from '~/hooks/library-items/use-get-libraryItem'
 import { cn } from '~/lib/utils'
+import { usePrediction } from '~/store/ai/use-prediction'
+import { Loader2 } from 'lucide-react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const MIN_COLUMN_WIDTHS = [100, 120, 120, 120, 240, 140]
 
-const ComparisonData = [
-  {
-    field: 'Title',
-    matchPhrase: 80,
-    fuzziness: 80,
-    threshold: 30,
-    matchValue: 'The hobbit or there and back again',
-    matchPercentage: 80,
-  },
-  {
-    field: 'Author',
-    matchPhrase: 80,
-    fuzziness: 80,
-    threshold: 30,
-    matchValue: 'J.R.R TOLKIEN',
-    matchPercentage: 80,
-  },
-  {
-    field: 'Publisher',
-    matchPhrase: 80,
-    fuzziness: 80,
-    threshold: 30,
-    matchValue: 'Not found',
-    matchPercentage: 80,
-  },
-]
-
 const PredictionOcrDetailTab = () => {
-  const uploadedBook = dummyBooks[0]
-  const detectedBook = dummyBooks[1]
   const { width } = useWindowDimensions()
   const insets = useSafeAreaInsets()
+  const { uploadedImage, bestMatchedLibraryItemId } = usePrediction()
 
-  const columnWidths = React.useMemo(() => {
+  const { data: bestMatchedLibraryItem, isPending: isLoadingLibraryItem } = useGetLibraryItem(
+    bestMatchedLibraryItemId?.toString() || '',
+  )
+
+  const { data: ocrDetail, isPending: isLoadingOcrDetail } = useOcrDetail({
+    libraryItemId: bestMatchedLibraryItemId?.toString() || '',
+    image: uploadedImage!,
+  })
+
+  const columnWidths = useMemo(() => {
     return MIN_COLUMN_WIDTHS.map((minWidth) => {
       const evenWidth = width / MIN_COLUMN_WIDTHS.length
       return evenWidth > minWidth ? evenWidth : minWidth
     })
   }, [width])
 
-  if (!uploadedBook) {
-    return <Text className="text-center text-lg">Book not found</Text>
+  if (isLoadingLibraryItem || isLoadingOcrDetail) {
+    return (
+      <View className="flex w-full items-center justify-center">
+        <Loader2 className="size-8 animate-spin" />
+      </View>
+    )
   }
 
   return (
@@ -68,14 +57,16 @@ const PredictionOcrDetailTab = () => {
           <View className="flex-1 flex-col items-center gap-2">
             <Text className="text-lg font-semibold text-primary">Uploaded Book</Text>
             <Image
-              source={{ uri: uploadedBook.image }}
+              alt="uploaded book"
+              source={{ uri: uploadedImage?.assets ? uploadedImage.assets[0].uri : '' }}
               className="h-48 w-32 rounded-lg shadow-lg"
             />
           </View>
           <View className="flex-1 flex-col items-center gap-2">
             <Text className="text-lg font-semibold text-primary">Detected Book</Text>
             <Image
-              source={{ uri: detectedBook.image }}
+              source={{ uri: bestMatchedLibraryItem?.coverImage || undefined }}
+              alt="detected book"
               className="h-48 w-32 rounded-lg shadow-lg"
             />
           </View>
@@ -83,11 +74,17 @@ const PredictionOcrDetailTab = () => {
         <View className="mt-2 flex w-full flex-col gap-2 rounded-lg border-4 border-primary p-2">
           <View className="flex-row justify-between">
             <Text className="font-semibold">Match percentage</Text>
-            <Text className="font-semibold text-danger">90%</Text>
+            {ocrDetail?.isSuccess && (
+              <Text className="font-semibold text-danger">{ocrDetail?.data.matchPercentage}%</Text>
+            )}
           </View>
           <View className="flex-row justify-between">
             <Text className="font-semibold">Overall threshold</Text>
-            <Text className="font-semibold text-danger">60%</Text>
+            {ocrDetail?.isSuccess && (
+              <Text className="font-semibold text-danger">
+                {ocrDetail?.data.overallPercentage}%
+              </Text>
+            )}
           </View>
         </View>
       </Card>
@@ -97,19 +94,45 @@ const PredictionOcrDetailTab = () => {
         <View className="rounded-lg border-2">
           <Text className="bg-draft p-2 font-semibold text-primary-foreground">OCR Text</Text>
           <View className="flex w-full flex-col gap-2">
-            {[
-              'The Hobbit or there and back again',
-              'J.R.R TOLKIEN',
-              'THE ENCHANTING PRELUDE TO',
-              'THE LORD OF THE RINGS',
-            ].map((item, index) => (
-              <Text
-                key={index}
-                className="border-b-2 p-2 hover:bg-primary hover:font-semibold hover:text-primary-foreground"
-              >
-                {item}
-              </Text>
-            ))}
+            {ocrDetail?.isSuccess &&
+              ocrDetail.data.lineStatisticDtos.map((item, index) => (
+                <View key={index}>
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <Text className="w-full border-b-2 p-2 hover:bg-primary hover:font-semibold hover:text-primary-foreground">
+                        {item.lineValue}
+                      </Text>
+                    </HoverCardTrigger>
+                    <HoverCardContent
+                      align="end"
+                      sideOffset={5}
+                      className="native:w-96 flex w-80 flex-col gap-2 border-2"
+                    >
+                      <Text className="justify-center text-center font-semibold text-primary">
+                        Assumption Values
+                      </Text>
+                      <View className="flex flex-row justify-between gap-4">
+                        <Text className="font-semibold text-primary">Title</Text>
+                        <Text className="font-semibold text-danger">
+                          {item.matchedTitlePercentage.toFixed(0)}%
+                        </Text>
+                      </View>
+                      <View className="flex flex-row justify-between gap-4">
+                        <Text className="font-semibold text-primary">Author</Text>
+                        <Text className="font-semibold text-danger">
+                          {item.matchedAuthorPercentage.toFixed(0)}%
+                        </Text>
+                      </View>
+                      <View className="flex flex-row justify-between gap-4">
+                        <Text className="font-semibold text-primary">Publisher</Text>
+                        <Text className="font-semibold text-danger">
+                          {item.matchedPublisherPercentage.toFixed(0)}%
+                        </Text>
+                      </View>
+                    </HoverCardContent>
+                  </HoverCard>
+                </View>
+              ))}
           </View>
         </View>
       </Card>
@@ -141,7 +164,7 @@ const PredictionOcrDetailTab = () => {
             </TableHeader>
             <TableBody>
               <FlashList
-                data={ComparisonData}
+                data={ocrDetail?.isSuccess ? ocrDetail.data.stringComparisions : []}
                 estimatedItemSize={45}
                 contentContainerStyle={{
                   paddingBottom: insets.bottom,
@@ -150,26 +173,26 @@ const PredictionOcrDetailTab = () => {
                 renderItem={({ item, index }) => {
                   return (
                     <TableRow
-                      key={item.field}
+                      key={item.propertyName}
                       className={cn('active:bg-secondary', index % 2 && 'bg-muted/40 ')}
                     >
                       <TableCell style={{ width: columnWidths[0] }}>
-                        <Text className="text-center font-semibold">{item.field}</Text>
+                        <Text className="text-center font-semibold">{item.propertyName}</Text>
                       </TableCell>
                       <TableCell style={{ width: columnWidths[1] }}>
-                        <Text className="text-center">{item.matchPhrase}%</Text>
+                        <Text className="text-center">{item.matchPhrasePoint.toFixed(1)}%</Text>
                       </TableCell>
                       <TableCell style={{ width: columnWidths[2] }}>
-                        <Text className="text-center">{item.fuzziness}%</Text>
+                        <Text className="text-center">{item.fuzzinessPoint.toFixed(1)}%</Text>
                       </TableCell>
                       <TableCell style={{ width: columnWidths[3] }}>
-                        <Text className="text-center">{item.threshold}%</Text>
+                        <Text className="text-center">{item.fieldThreshold.toFixed(1)}%</Text>
                       </TableCell>
                       <TableCell style={{ width: columnWidths[4] }}>
-                        <Text className="text-left">{item.matchValue}</Text>
+                        <Text className="text-left">{item.matchLine}</Text>
                       </TableCell>
                       <TableCell style={{ width: columnWidths[5] }}>
-                        <Text className="text-center">{item.matchPercentage}%</Text>
+                        <Text className="text-center">{item.matchPercentage.toFixed(1)}%</Text>
                       </TableCell>
                     </TableRow>
                   )

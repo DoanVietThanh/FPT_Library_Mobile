@@ -19,8 +19,6 @@ const HomeBookList = ({ title, categoryId }: Props) => {
     pageSize: '5',
   })
 
-  console.log('🚀 ~ HomeBookList ~ libraryItems:', libraryItems)
-
   if (isLoading || !libraryItems) {
     return (
       <View className="flex flex-row justify-center">
@@ -39,7 +37,7 @@ const HomeBookList = ({ title, categoryId }: Props) => {
         </Text>
       </View>
 
-      <ScrollView horizontal className="w-full">
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal className="w-full">
         <View className="flex w-full flex-row items-start justify-start gap-4">
           {libraryItems.sources.map((item) => (
             <Pressable

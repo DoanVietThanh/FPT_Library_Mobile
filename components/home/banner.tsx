@@ -1,16 +1,27 @@
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Pressable, Text, View } from 'react-native'
 import { Card, CardContent } from '~/components/ui/card'
 import { quotes } from '~/constants/quotes'
-import { DotIcon } from 'lucide-react-native'
+import useGetNewArrivals from '~/hooks/library-items/use-get-new-arrivals'
+import { LibraryItem } from '~/types/models'
+import { useRouter } from 'expo-router'
+import { DotIcon, Loader } from 'lucide-react-native'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native-gesture-handler'
 import Swiper from 'react-native-swiper'
 
-import { dummyBooks } from './dummy-books'
-
 export default function HomeBanner() {
   const { t } = useTranslation('HomeScreen')
+  const router = useRouter()
+  const { data: libraryItems, isLoading } = useGetNewArrivals()
+
+  if (isLoading || !libraryItems) {
+    return (
+      <View className="flex flex-row justify-center">
+        <Loader className="size-9 animate-spin" />
+      </View>
+    )
+  }
 
   return (
     <View className="flex flex-col gap-y-4">
@@ -51,25 +62,31 @@ export default function HomeBanner() {
         </Swiper>
       </View>
 
-      {/* Welcome */}
       <Text className="text-center text-xl font-semibold text-primary">{t('welcome')}</Text>
 
-      {/* Banner */}
       <View className="flex flex-row items-center overflow-hidden rounded-lg">
         <View className="flex min-h-[120px] flex-col items-center justify-center text-nowrap bg-primary ">
-          <Text
-            className="-rotate-90 font-semibold text-primary-foreground"
-            // style={{ transform: [{ rotate: '-90deg ' }] }}
-          >
-            New Arrival
-          </Text>
+          <Text className="-rotate-90 font-semibold text-primary-foreground">New Arrival</Text>
         </View>
-        <ScrollView horizontal className="h-full w-full ">
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          className="h-full w-full"
+          bounces={false}
+          overScrollMode="never"
+        >
           <View className="flex-1 flex-row gap-4 overflow-x-auto bg-primary-foreground p-2 px-4">
-            {dummyBooks.map(({ id, image }) => (
-              <View key={id} className="flex flex-col items-center justify-center gap-2">
-                <Image source={{ uri: image }} className="h-24 w-16 rounded-lg object-cover" />
-              </View>
+            {libraryItems.map((item: LibraryItem) => (
+              <Pressable
+                onPress={() => router.push(`/home/books/${item.libraryItemId}`)}
+                key={item.libraryItemId}
+                className="flex flex-col items-center justify-center gap-2"
+              >
+                <Image
+                  source={{ uri: item.coverImage as string }}
+                  className="h-24 w-16 rounded-lg object-cover"
+                />
+              </Pressable>
             ))}
           </View>
         </ScrollView>
