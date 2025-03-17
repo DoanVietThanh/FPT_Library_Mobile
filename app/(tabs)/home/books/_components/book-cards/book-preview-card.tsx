@@ -1,6 +1,10 @@
 import React from 'react'
-import { Image, Pressable, Text, View } from 'react-native'
+import { Image, Pressable, View } from 'react-native'
+import { Button } from '~/components/ui/button'
+import { Text } from '~/components/ui/text'
+import { formUrlQuery } from '~/lib/utils'
 import { LibraryItem } from '~/types/models'
+// import { Href, useRouter } from 'expo-router'
 import { MapPin, NotebookPen, Share2 } from 'lucide-react-native'
 
 type Props = {
@@ -8,6 +12,22 @@ type Props = {
 }
 
 const BookPreviewCard = ({ libraryItem }: Props) => {
+  // const router = useRouter()
+
+  const handleLocate = () => {
+    const newUrl = formUrlQuery({
+      url: '/map',
+      params: '',
+      updates: {
+        ref: '',
+      },
+    })
+
+    console.log(newUrl)
+
+    // router.push(newUrl as Href)
+  }
+
   return (
     <View className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-primary-foreground p-4 ">
       <Image
@@ -18,7 +38,9 @@ const BookPreviewCard = ({ libraryItem }: Props) => {
       <View className="flex w-full justify-between gap-y-4">
         <Pressable className="flex flex-1 flex-row items-center justify-center gap-4 rounded-lg bg-primary p-2 text-primary-foreground">
           <MapPin size={16} color={'white'} />
-          <Text className="text-sm text-primary-foreground">Locate</Text>
+          <Button onPress={handleLocate}>
+            <Text>Locate</Text>
+          </Button>
         </Pressable>
         <View className="flex flex-1 flex-row items-center justify-center gap-4">
           <Pressable className="flex flex-1 flex-row items-center justify-center gap-4">
