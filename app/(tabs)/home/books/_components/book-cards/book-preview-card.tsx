@@ -4,6 +4,7 @@ import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
 import { formUrlQuery } from '~/lib/utils'
 import { LibraryItem } from '~/types/models'
+import { Href, useRouter } from 'expo-router'
 // import { Href, useRouter } from 'expo-router'
 import { MapPin, NotebookPen, Share2 } from 'lucide-react-native'
 
@@ -12,20 +13,20 @@ type Props = {
 }
 
 const BookPreviewCard = ({ libraryItem }: Props) => {
-  // const router = useRouter()
+  const router = useRouter()
 
   const handleLocate = () => {
     const newUrl = formUrlQuery({
       url: '/map',
       params: '',
       updates: {
-        ref: '',
+        ref: `${libraryItem?.shelf?.shelfId};shelf;${libraryItem.shelf?.shelfNumber}`,
       },
     })
 
     console.log(newUrl)
 
-    // router.push(newUrl as Href)
+    router.push(newUrl as Href)
   }
 
   return (
@@ -38,7 +39,7 @@ const BookPreviewCard = ({ libraryItem }: Props) => {
       <View className="flex w-full justify-between gap-y-4">
         <Pressable className="flex flex-1 flex-row items-center justify-center gap-4 rounded-lg bg-primary p-2 text-primary-foreground">
           <MapPin size={16} color={'white'} />
-          <Button onPress={handleLocate}>
+          <Button disabled={!libraryItem?.shelf} onPress={handleLocate}>
             <Text>Locate</Text>
           </Button>
         </Pressable>
