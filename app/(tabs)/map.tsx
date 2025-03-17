@@ -6,21 +6,30 @@ import {
   MapController,
   WoosmapView,
 } from '@woosmap/react-native-woosmap'
+import loader from '~/assets/icons/map-loading.gif'
+import { useLocalSearchParams } from 'expo-router'
 
-const indoorRendererConfiguration: IndoorRendererOptions = {
-  defaultFloor: 0, //Render map with default floor
-  centerMap: true,
-  venue: 'fpt_library',
-  responsive: 'mobile',
-}
 const indoorWidgetConfiguration: IndoorWidgetOptions = {
   units: 'metric', // Define the distance unit for route distance calculation
+  ui: {
+    primaryColor: '#147672',
+    secondaryColor: '#751461',
+  },
 }
 
 export default function MapScreen() {
   const mapRef = useRef<MapController>(null)
+  const { ref } = useLocalSearchParams()
 
-  console.log('MapScreen')
+  console.log({ ref })
+
+  const indoorRendererConfiguration: IndoorRendererOptions = {
+    defaultFloor: 1, //Render map with default floor
+    centerMap: true,
+    venue: 'intelligent_library_v2',
+    responsive: 'mobile',
+    highlightPOIByRef: (ref as string) || undefined,
+  }
 
   return (
     <WoosmapView
@@ -30,12 +39,15 @@ export default function MapScreen() {
       indoorWidgetConfiguration={indoorWidgetConfiguration}
       widget
       activateIndoorProduct
-      defaultIndoorVenueKey="fpt_library"
+      i18nIsDynamicList
+      defaultIndoorVenueKey="intelligent_library_v2"
+      loader={loader}
       loaded={() => {
         console.log('loaded')
       }}
       indoor_venue_loaded={async (venue) => {
         console.log(JSON.stringify({ venue }))
+        // mapRef.current.set
       }}
       indoor_level_changed={(info) => {
         console.log('Level changed ' + JSON.stringify(info))
