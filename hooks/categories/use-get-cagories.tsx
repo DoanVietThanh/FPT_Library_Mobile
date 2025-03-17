@@ -11,7 +11,7 @@ function useGetCategories() {
     queryKey: ['categories', accessToken],
     queryFn: async () => {
       try {
-        const { data } = await http.get<Categories>(`/api/management/categories?`, {
+        const { data } = await http.get<Categories>(`/api/categories?`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
