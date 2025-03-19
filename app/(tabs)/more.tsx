@@ -4,6 +4,8 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
 import { useAuth } from '~/contexts/auth-provider'
+import { Management } from '~/lib/icons/management'
+import { ERoleType } from '~/types/enum'
 import { Link, Stack, useRouter } from 'expo-router'
 import {
   ChevronRight,
@@ -24,7 +26,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 export default function Home() {
   const router = useRouter()
   const { t } = useTranslation('MoreScreen')
-  const { signOut } = useAuth()
+  const { signOut, user } = useAuth()
 
   return (
     <>
@@ -45,31 +47,43 @@ export default function Home() {
           </Pressable>
 
           <View className="flex flex-col gap-4 rounded-lg bg-primary-foreground p-4">
+            {/* Management */}
+            {user?.role?.roleType === ERoleType.EMPLOYEE && (
+              <Link href="/management-tools">
+                <View className="flex w-full flex-row justify-between gap-4">
+                  <View className="flex flex-row items-center gap-2">
+                    <Management className="text-foreground" />
+                    <Text className="text-lg ">{t('Management tools')}</Text>
+                  </View>
+                  <ChevronRight className="text-primary" />
+                </View>
+              </Link>
+            )}
             {/* Setting */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
-                <Settings className="text-primary" color={'orange'} />
+                <Settings className="text-primary" />
                 <Text className="text-lg ">{t('Setting')}</Text>
               </View>
-              <ChevronRight className="text-primary" color={'orange'} />
+              <ChevronRight className="text-primary" />
             </View>
             {/* Security */}
             <Link href="/me/account/security">
               <View className="flex w-full flex-row justify-between gap-4">
                 <View className="flex flex-row items-center gap-2">
-                  <Shield className="text-primary" color={'orange'} />
+                  <Shield className="text-primary" />
                   <Text className="text-lg ">{t('Security')}</Text>
                 </View>
-                <ChevronRight className="text-primary" color={'orange'} />
+                <ChevronRight className="text-primary" />
               </View>
             </Link>
             {/* My QR code */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
-                <QrCode className="text-primary" color={'orange'} />
+                <QrCode className="text-primary" />
                 <Text className="text-lg">{t('MyQR')}</Text>
               </View>
-              <ChevronRight className="text-primary" color={'orange'} />
+              <ChevronRight className="text-primary" />
             </View>
           </View>
 
@@ -77,26 +91,26 @@ export default function Home() {
             {/* OTP */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
-                <ShieldCheck className="text-primary" color={'orange'} />
+                <ShieldCheck className="text-primary" />
                 <Text className="text-lg">{t('OTP')}</Text>
               </View>
-              <ChevronRight className="text-primary" color={'orange'} />
+              <ChevronRight className="text-primary" />
             </View>
             {/* Blog */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
-                <ClipboardList className="text-primary" color={'orange'} />
+                <ClipboardList className="text-primary" />
                 <Text className="text-lg">{t('Blog')}</Text>
               </View>
-              <ChevronRight className="text-primary" color={'orange'} />
+              <ChevronRight className="text-primary" />
             </View>
             {/* Location */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
-                <MapPinHouse className="text-primary" color={'orange'} />
+                <MapPinHouse className="text-primary" />
                 <Text className="text-lg">{t('Location')}</Text>
               </View>
-              <ChevronRight className="text-primary" color={'orange'} />
+              <ChevronRight className="text-primary" />
             </View>
           </View>
 
@@ -104,26 +118,26 @@ export default function Home() {
             {/* Policy */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
-                <NotepadText className="text-primary" color={'orange'} />
+                <NotepadText className="text-primary" />
                 <Text className="text-lg">{t('Policy')}</Text>
               </View>
-              <ChevronRight className="text-primary" color={'orange'} />
+              <ChevronRight className="text-primary" />
             </View>
             {/* Question */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
-                <FileQuestion className="text-primary" color={'orange'} />
+                <FileQuestion className="text-primary" />
                 <Text className="text-lg">{t('Question')}</Text>
               </View>
-              <ChevronRight className="text-primary" color={'orange'} />
+              <ChevronRight className="text-primary" />
             </View>
             {/* Contact */}
             <View className="flex w-full flex-row justify-between gap-4">
               <View className="flex flex-row items-center gap-2">
-                <Phone className="text-primary" color={'orange'} />
+                <Phone className="text-primary" />
                 <Text className="text-lg">{t('Contact')}</Text>
               </View>
-              <ChevronRight className="text-primary" color={'orange'} />
+              <ChevronRight className="text-primary" />
             </View>
           </View>
 

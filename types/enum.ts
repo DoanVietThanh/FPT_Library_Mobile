@@ -74,9 +74,9 @@ export enum EVisibility {
 }
 
 export enum EBookEditionStatus {
-  DRAFT = 'Draft',
-  PUBLISHED = 'Published',
-  DELETED = 'Deleted',
+  DRAFT = 0,
+  PUBLISHED = 1,
+  DELETED = 2,
 }
 
 export enum EBookCopyStatus {

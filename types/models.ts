@@ -235,9 +235,11 @@ export type Floor = {
 export type Zone = {
   zoneId: number
   floorId: number
-  zoneName: string
-  xCoordinate: number
-  yCoordinate: number
+  engZoneName: string
+  vieZoneName: string
+  engDescription: string
+  vieDescription: string
+  totalCount: number
   createDate: Date
   updateDate: Date | null
   isDeleted: boolean
@@ -246,10 +248,17 @@ export type Zone = {
 export type Section = {
   sectionId: number
   zoneId: number
-  sectionName: string
+  engSectionName: string
+  vieSectionName: string
+  shelfPrefix: string
+  classificationNumberRangeFrom: number
+  classificationNumberRangeTo: number
   createDate: Date
   updateDate: Date | null
   isDeleted: boolean
+  isChildrenSection: boolean
+  isReferenceSection: boolean
+  isJournalSection: boolean
 }
 
 export type Shelf = {
@@ -353,4 +362,16 @@ export type LibraryItemsRecommendation = {
     name: string
     isMatched: boolean
   }[]
+}
+
+export type LibraryItemInstance = {
+  libraryItemInstanceId: number
+  libraryItemId: number
+  barcode: string
+  status: EBookCopyStatus
+  createdAt: Date
+  updatedAt: Date | null
+  createdBy: string
+  updatedBy: string | null
+  isDeleted: boolean
 }
