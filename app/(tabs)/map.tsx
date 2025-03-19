@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   IndoorRendererOptions,
   IndoorWidgetOptions,
@@ -20,8 +20,7 @@ const indoorWidgetConfiguration: IndoorWidgetOptions = {
 export default function MapScreen() {
   const mapRef = useRef<MapController>(null)
   const { ref } = useLocalSearchParams()
-
-  console.log({ ref })
+  const [mapLoaded, setMapLoaded] = useState(false)
 
   const indoorRendererConfiguration: IndoorRendererOptions = {
     defaultFloor: 1, //Render map with default floor
@@ -30,6 +29,12 @@ export default function MapScreen() {
     responsive: 'mobile',
     highlightPOIByRef: (ref as string) || undefined,
   }
+
+  useEffect(() => {
+    if (!mapLoaded || !ref || !mapRef.current) return
+    console.log('highlightFeatureByRef', { ref })
+    mapRef.current.highlightFeatureByRef(ref as string)
+  }, [ref, mapRef])
 
   return (
     <WoosmapView
@@ -47,7 +52,7 @@ export default function MapScreen() {
       }}
       indoor_venue_loaded={async (venue) => {
         console.log(JSON.stringify({ venue }))
-        // mapRef.current.set
+        setMapLoaded(true)
       }}
       indoor_level_changed={(info) => {
         console.log('Level changed ' + JSON.stringify(info))

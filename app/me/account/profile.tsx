@@ -39,7 +39,7 @@ export default function Home() {
             <Text className="text-xl font-semibold text-primary">
               {t('Account.Profile.OtherInfo')}
             </Text>
-            <SquarePen color={'orange'} />
+            <SquarePen />
           </View>
           <View className="flex gap-4 rounded-lg bg-primary-foreground p-4">
             <View>
