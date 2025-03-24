@@ -1,15 +1,7 @@
 import React, { useState } from 'react'
 import { Image, Pressable, View } from 'react-native'
 import { Button } from '~/components/ui/button'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '~/components/ui/dialog'
+import { Dialog, DialogClose, DialogContent, DialogFooter } from '~/components/ui/dialog'
 import { Text } from '~/components/ui/text'
 import useShelfDetail from '~/hooks/books/use-shelf-detail'
 import { Loader } from '~/lib/icons/loader'
@@ -50,45 +42,42 @@ const BookPreviewCard = ({ libraryItem }: Props) => {
     <>
       <Dialog open={openLocate} onOpenChange={setOpenLocate}>
         <DialogContent className="max-h-[80dvh] w-[85vw] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>{t('Library item position')}</DialogTitle>
-            <DialogDescription className="w-full">
-              {fetchingShelfDetail ? (
-                <View className=" items-center justify-center">
-                  <Loader className="size-12 animate-spin" />
-                </View>
-              ) : shelfData ? (
-                <View className="w-full">
-                  <View className="flex flex-row items-center justify-between gap-2">
-                    <Text className="text-sm font-bold">{t('Floor')}: </Text>
-                    <Text>{t(shelfData.floor.floorNumber)}</Text>
-                  </View>
-                  <View className="flex flex-row items-center justify-between gap-2">
-                    <Text className="text-sm font-bold">{t('Zone')}: </Text>
-                    <Text>
-                      {t(locale === 'vi' ? shelfData.zone.vieZoneName : shelfData.zone.engZoneName)}
-                    </Text>
-                  </View>
-                  <View className="flex flex-row items-center justify-between gap-2">
-                    <Text className="text-sm font-bold">{t('Section')}: </Text>
-                    <Text>
-                      {t(
-                        locale === 'vi'
-                          ? shelfData.section.vieSectionName
-                          : shelfData.section.engSectionName,
-                      )}
-                    </Text>
-                  </View>
-                  <View className="flex flex-row items-center justify-between gap-2">
-                    <Text className="text-sm font-bold">{t('Shelf')}: </Text>
-                    <Text>{t(shelfData.libraryShelf.shelfNumber)}</Text>
-                  </View>
-                </View>
-              ) : (
-                <Text>{t('Not found')}</Text>
-              )}
-            </DialogDescription>
-          </DialogHeader>
+          {fetchingShelfDetail ? (
+            <View className=" items-center justify-center">
+              <Loader className="size-12 animate-spin" />
+            </View>
+          ) : shelfData ? (
+            <View>
+              <Text className="mb-1 font-bold">{t('Library item position')}</Text>
+              <View className="flex flex-row items-center justify-between gap-2">
+                <Text className="font-bold">{t('Floor')}: </Text>
+                <Text>{t(shelfData.floor.floorNumber)}</Text>
+              </View>
+              <View className="flex flex-row items-center justify-between gap-2">
+                <Text className="font-bold">{t('Zone')}: </Text>
+                <Text>
+                  {t(locale === 'vi' ? shelfData.zone.vieZoneName : shelfData.zone.engZoneName)}
+                </Text>
+              </View>
+              <View className="flex flex-row items-center justify-between gap-2">
+                <Text className="font-bold">{t('Section')}: </Text>
+                <Text>
+                  {t(
+                    locale === 'vi'
+                      ? shelfData.section.vieSectionName
+                      : shelfData.section.engSectionName,
+                  )}
+                </Text>
+              </View>
+              <View className="flex flex-row items-center justify-between gap-2">
+                <Text className="font-bold">{t('Shelf')}: </Text>
+                <Text>{t(shelfData.libraryShelf.shelfNumber)}</Text>
+              </View>
+            </View>
+          ) : (
+            <Text>{t('Not found')}</Text>
+          )}
+
           <DialogFooter>
             <View className="flex flex-row items-center gap-4">
               <DialogClose asChild>

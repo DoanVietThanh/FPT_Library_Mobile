@@ -21,6 +21,8 @@ const getTypeColor = (type: EBookCopyStatus) => {
       return 'info'
     case EBookCopyStatus.RESERVED:
       return 'progress'
+    case EBookCopyStatus.LOST:
+      return 'draft'
     case EBookCopyStatus.DELETED:
       return 'danger'
     default:
