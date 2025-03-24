@@ -524,6 +524,7 @@
       "OutOfShelf": "Trong kho",
       "Borrowed": "Đang mượn",
       "Reserved": "Đặt trước",
+      "Lost": "Mất",
       "Deleted": "Đã xóa"
     },
     "Visibility": {

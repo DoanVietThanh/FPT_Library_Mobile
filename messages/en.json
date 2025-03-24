@@ -528,6 +528,7 @@
       "OutOfShelf": "Out of shelf",
       "Borrowed": "Borrowed",
       "Reserved": "Reserved",
+      "Lost": "Lost",
       "Deleted": "Deleted"
     },
     "Visibility": {

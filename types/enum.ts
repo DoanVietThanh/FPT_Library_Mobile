@@ -84,6 +84,7 @@ export enum EBookCopyStatus {
   OUT_OF_SHELF = 'OutOfShelf',
   BORROWED = 'Borrowed',
   RESERVED = 'Reserved',
+  LOST = 'Lost',
   DELETED = 'Deleted',
 }
 
