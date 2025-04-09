@@ -16,7 +16,7 @@ const HomeBookList = ({ title, categoryId }: Props) => {
   const { data: libraryItems, isLoading } = useGetLibraryItemByCategory(categoryId, {
     search: '',
     pageIndex: 1,
-    pageSize: '5',
+    pageSize: '50',
   })
 
   if (isLoading || !libraryItems) {
@@ -32,9 +32,7 @@ const HomeBookList = ({ title, categoryId }: Props) => {
   return (
     <View className="flex w-full items-center justify-start gap-4 rounded-lg bg-background p-4">
       <View className="flex w-full flex-row justify-between">
-        <Text className="font-semibold text-primary">
-          {title} ({libraryItems.sources.length} books)
-        </Text>
+        <Text className="font-semibold text-primary">{title}</Text>
       </View>
 
       <ScrollView showsHorizontalScrollIndicator={false} horizontal className="w-full">

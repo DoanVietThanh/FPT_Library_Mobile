@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import BorrowBookPreview from '../../_components/borrow-book-preview'
 import BorrowReserveItemPreview from '../../_components/borrow-reserve-item-preview'
+import BorrowResourcePreview from '../../_components/borrow-resource-preview'
 
 const BorrowRequestDetail = () => {
   const { t } = useTranslation('BookPage')
@@ -179,6 +180,22 @@ const BorrowRequestDetail = () => {
                       expandable={true}
                       libraryItem={queue.libraryItem}
                       key={`/borrow/reservation-queues/${queue.libraryItemId}`}
+                    />
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {borrowRequest.borrowRequestResources?.length > 0 && (
+              <View className="rounded-xl bg-background p-4 shadow">
+                <Text className="mb-3 text-lg font-bold text-primary">
+                  {t('borrow tracking.borrow request resource')}
+                </Text>
+                <View className="flex flex-col gap-2">
+                  {borrowRequest.borrowRequestResources.map((resource) => (
+                    <BorrowResourcePreview
+                      resource={resource}
+                      key={`/borrow/borrow-request-resources/${resource.resourceId}`}
                     />
                   ))}
                 </View>
