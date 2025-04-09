@@ -2,8 +2,12 @@ import {
   EBookCopyStatus,
   EBookEditionStatus,
   EBookFormat,
+  EBorrowRequestStatus,
+  ECardStatus,
+  EIssuanceMethod,
   ENotificationType,
   EResourceBookType,
+  ERoleType,
 } from './enum'
 
 export type User = {
@@ -17,6 +21,69 @@ export type User = {
   isActive: boolean
 }
 
+export type Role = {
+  roleId: number
+  englishName: string
+  vietnameseName: string
+  roleType: ERoleType
+}
+
+export type CurrentUser = {
+  userId: string
+  roleId: number
+  libraryCardId: string
+  email: string
+  firstName: string | null
+  lastName: string | null
+  passwordHash: null
+  phone: string | null
+  avatar: string | null
+  address: string | null
+  gender: 'Male' | 'Female' | 'Other' | null
+  dob: string | null
+  isActive: boolean | null
+  isDeleted: boolean | null
+  isEmployeeCreated: boolean | null
+  createDate: string | null
+  modifiedDate: string | null
+  modifiedBy: string | null
+  twoFactorEnabled: boolean | null
+  phoneNumberConfirmed: boolean | null
+  emailConfirmed: boolean | null
+  twoFactorSecretKey: boolean | null
+  twoFactorBackupCodes: boolean | null
+  phoneVerificationCode: boolean | null
+  emailVerificationCode: boolean | null
+  phoneVerificationExpiry: boolean | null
+  role: Role
+  libraryCard: {
+    libraryCardId: string
+    fullName: string | null
+    avatar: string | null
+    barcode: string | null
+    issuanceMethod: number | null
+    status: number | null
+    isAllowBorrowMore: boolean | null
+    maxItemOnceTime: number | null
+    allowBorrowMoreReason: boolean | null
+    totalMissedPickUp: number | null
+    isReminderSent: boolean | null
+    isExtended: boolean | null
+    extensionCount: number | null
+    issueDate: string | null
+    expiryDate: string | null
+    suspensionEndDate: string | null
+    suspensionReason: string | null
+    rejectReason: string | null
+    isArchived: boolean | null
+    archiveReason: string | null
+    previousUserId: string | null
+    transactionCode: string | null
+    previousUser: null
+  }
+  notificationRecipients: []
+}
+
 export type Notification = {
   notificationId: number
   title: string
@@ -28,6 +95,16 @@ export type Notification = {
   notificationRecipients: []
 }
 
+export type PaymentMethod = { paymentMethodId: number; methodName: string }
+
+export type PaymentData = {
+  description: string
+  orderCode: string
+  qrCode: string
+  expiredAt: Date | null
+  paymentLinkId: string
+}
+
 export type Category = {
   categoryId: number
   prefix: string
@@ -35,6 +112,17 @@ export type Category = {
   vietnameseName: string
   description: string | null
   isAllowAITraining: boolean
+  totalBorrowDays: number | null
+}
+
+export type Package = {
+  libraryCardPackageId: number
+  packageName: string
+  price: number
+  durationInMonths: number
+  isActive: boolean
+  createdAt: Date
+  description: string | null
 }
 
 export type BookEdition = {
@@ -112,31 +200,18 @@ export type LibraryItem = {
   shelfId: number | null
   status: number | null
   avgReviewedRate: number | null
-  category: {
-    categoryId: number
-    prefix: string | null
-    englishName: string | null
-    vietnameseName: string | null
-    description: string | null
-    isAllowAITraining: boolean
-  }
+  category: Category
   shelf: {
-    shelfId: number | null
-    sectionId: number | null
-    shelfNumber: string | null
-    createDate: string | null
+    shelfId: number
+    sectionId: number
+    shelfNumber: string
+    createDate: string
     updateDate: string | null
     isDeleted: boolean
     section: unknown
   } | null
-  libraryItemInventory: {
-    libraryItemId: number
-    totalUnits: number
-    availableUnits: number
-    requestUnits: number
-    borrowedUnits: number
-    reservedUnits: number
-  }
+  libraryItemInventory: LibraryItemInventory
+  resources: BookResource[]
   authors: {
     authorId: number
     authorCode: string | null
@@ -150,18 +225,30 @@ export type LibraryItem = {
     updateDate: string | null
     isDeleted: boolean
   }[]
-  libraryItemInstances: {
-    libraryItemInstanceId: number
-    libraryItemId: number | null
-    barcode: string | null
-    status: EBookCopyStatus
-    createdAt: string | null
-    updatedAt: string | null
-    createdBy: string | null
-    updatedBy: string | null
-    isDeleted: boolean
-    libraryItemConditionHistories: unknown[]
-  }[]
+  libraryItemInstances: LibraryItemInstance[]
+  digitalBorrows: DigitalBorrow[]
+}
+
+export type LibraryItemInventory = {
+  libraryItemId: number
+  totalUnits: number
+  availableUnits: number
+  requestUnits: number
+  borrowedUnits: number
+  reservedUnits: number
+}
+
+export type DigitalBorrow = {
+  digitalBorrowId: number
+  resourceId: number
+  userId: string
+  registerDate: string
+  expiryDate: string
+  isExtended: boolean
+  extensionCount: number
+  status: number
+  user: null
+  digitalBorrowExtensionHistories: unknown[]
 }
 
 export type ReviewsLibraryItem = {
@@ -188,6 +275,7 @@ export type Book = {
 
 export type BookResource = {
   resourceId: number
+  resourceTitle: string
   bookId: number
   resourceType: EResourceBookType
   resourceUrl: string
@@ -201,6 +289,8 @@ export type BookResource = {
   updatedAt: Date | null
   createdBy: string
   updatedBy: string | null
+  defaultBorrowDurationDays: number | null
+  borrowPrice: number | null
 }
 
 export type BookEditionInventory = {
@@ -374,4 +464,78 @@ export type LibraryItemInstance = {
   createdBy: string
   updatedBy: string | null
   isDeleted: boolean
+}
+
+export type LibraryCard = {
+  libraryCardId: string
+  fullName: string
+  avatar: string
+  barcode: string
+  issuanceMethod: EIssuanceMethod
+  status: ECardStatus
+  isAllowBorrowMore: boolean
+  maxItemOnceTime: number
+  allowBorrowMoreReason: string | null
+  totalMissedPickUp: number
+  isReminderSent: boolean
+  isExtended: boolean
+  extensionCount: number
+  issueDate: Date
+  expiryDate: Date
+  suspensionEndDate: Date | null
+  suspensionReason: string | null
+  rejectReason: string | null
+  isArchived: boolean
+  archiveReason: string | null
+  previousUserId: string | null
+  transactionCode: string
+}
+
+export type BorrowRequest = {
+  borrowRequestId: number
+  libraryCardId: string
+  requestDate: Date
+  expirationDate: Date
+  status: EBorrowRequestStatus
+  description: string | null
+  cancelledAt: string | null
+  cancellationReason: string | null
+  isReminderSent: boolean
+  totalRequestItem: number
+  libraryItems: LibraryItem[]
+  reservationQueues: ReservationQueue[]
+}
+
+export type BorrowRequestResource = {
+  borrowRequestResourceId: number
+  borrowRequestId: number
+  resourceId: number
+  resourceTitle: string
+  borrowPrice: number
+  defaultBorrowDurationDays: number
+  transactionId: number | null
+  libraryResource: BookResource
+  transaction: null
+}
+
+export type ReservationQueue = {
+  queueId: number
+  libraryItemId: number
+  libraryItemInstanceId: null | number
+  libraryCardId: string
+  queueStatus: number
+  borrowRequestId: number
+  isReservedAfterRequestFailed: boolean
+  expectedAvailableDateMin: null | string
+  expectedAvailableDateMax: null | string
+  reservationDate: string
+  expiryDate: null | string
+  reservationCode: null | string
+  isAppliedLabel: false
+  collectedDate: null | string
+  isNotified: false
+  cancelledBy: null | string
+  cancellationReason: null | string
+  libraryItem: LibraryItem
+  libraryItemInstance: null | LibraryItemInstance
 }

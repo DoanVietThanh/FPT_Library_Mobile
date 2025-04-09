@@ -33,6 +33,14 @@ export const formatTime = (time: number): string => {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`
 }
 
+export const formatLeftTime = (seconds: number) => {
+  const floorSeconds = Math.floor(seconds)
+
+  const minutes = Math.floor(floorSeconds / 60)
+  const remainingSeconds = floorSeconds % 60
+  return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+}
+
 export function isImageLinkValid(link: string): boolean {
   try {
     const url = new URL(link)
@@ -69,4 +77,8 @@ export function formUrlQuery({
     },
     { skipNull: true },
   )
+}
+
+export function formatPrice(price: number): string {
+  return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
 }

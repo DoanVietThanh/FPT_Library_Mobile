@@ -4,32 +4,19 @@ import React, { createContext, useContext, useEffect, useMemo } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { http } from '~/lib/http'
-import { ERoleType } from '~/types/enum'
+import { CurrentUser } from '~/types/models'
 import { useRouter } from 'expo-router'
 import { jwtDecode } from 'jwt-decode'
 
 interface DecodedToken {
   email: string
   exp: number
-  //...
 }
 
 type Token = {
   accessToken: string
   refreshToken: string
 }
-
-type CurrentUser = {
-  email: string
-  firstName: string
-  lastName: string
-  avatar: string
-  role: {
-    englishName: string
-    vietnameseName: string
-    roleType: ERoleType
-  }
-} | null
 
 type AuthProviderProps = {
   children: React.ReactNode

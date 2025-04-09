@@ -29,9 +29,9 @@ const BookDetail = () => {
 
   return (
     <>
-      <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right', 'bottom', 'top']}>
+      <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false} overScrollMode="never">
-          <View className="min-h-screen-safe flex flex-col gap-y-6 bg-secondary p-6">
+          <View className="min-h-screen-safe flex flex-col gap-2 bg-secondary px-6 pb-6">
             <BookPreviewCard libraryItem={libraryItem} />
             <LibraryItemInfo libraryItem={libraryItem} />
             <BookAuthorCard libraryItem={libraryItem} />

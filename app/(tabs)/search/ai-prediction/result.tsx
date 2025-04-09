@@ -30,7 +30,7 @@ export default function AiPredictionResult() {
               className="mx-auto flex max-w-[400px] flex-col "
             >
               <ScrollView horizontal>
-                <TabsList className="w-full flex-row bg-primary-foreground">
+                <TabsList className="w-full flex-row bg-background">
                   <TabsTrigger className="flex-1" value={EPredictionTab.RESULT}>
                     <Text>Result</Text>
                   </TabsTrigger>

@@ -8,7 +8,7 @@ type CustomOptions = RequestInit & {
   baseUrl?: string
   lang?: string
   searchParams?: queryString.StringifiableRecord | undefined
-  responseType?: 'json' | 'blob'
+  responseType?: 'json' | 'blob' | 'arraybuffer'
 }
 
 type OkResponse<TData = undefined> = {
@@ -109,7 +109,7 @@ const request = async <TData = undefined>(
     delete baseHeaders['Content-Type']
   }
 
-  const responseType = options?.responseType === 'blob' ? 'blob' : 'json'
+  const responseType = options?.responseType
 
   const baseUrl =
     options?.baseUrl === undefined ? process.env.EXPO_PUBLIC_API_ENDPOINT : options.baseUrl
@@ -143,6 +143,18 @@ const request = async <TData = undefined>(
       resultCode: '',
       message: '',
       data: blob as TData,
+    }
+  }
+
+  if (responseType === 'arraybuffer') {
+    if (!res.ok) {
+      throw new Error(`Failed to fetch arraybuffer: ${res.status} ${res.statusText}`)
+    }
+    const arrayBuffer = await res.arrayBuffer()
+    return {
+      resultCode: '',
+      message: '',
+      data: arrayBuffer as TData, // Chắc chắn rằng data là ArrayBuffer
     }
   }
 

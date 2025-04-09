@@ -10,15 +10,13 @@ export function usePredictImage() {
       formData: FormData,
     ): Promise<ActionResponse<{ message: string; data: PredictResult }>> => {
       try {
-        const { resultCode, data, message } = await axios
+        const { data, message } = await axios
           .post(`${process.env.EXPO_PUBLIC_API_ENDPOINT}/api/library-items/ai/predict`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           })
           .then((res) => res.data)
-
-        console.log({ resultCode, data, message })
 
         return {
           isSuccess: true,

@@ -27,7 +27,7 @@ const BookPreview = ({ book, selectedImage }: Props) => {
           <Text className="text-sm">by {book.author}</Text>
         </View>
         <Badge variant={'success'}>
-          <Text className="text-sm text-white">Available</Text>
+          <Text className="text-sm text-primary-foreground">Available</Text>
         </Badge>
         <View className="flex flex-row items-center gap-2">
           <MapPin size={16} className="size-4" color={'orange'} />
