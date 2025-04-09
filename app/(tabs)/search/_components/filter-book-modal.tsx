@@ -31,7 +31,7 @@ const FilterBookModal = ({ isVisible, setIsVisible, slideAnim }: Props) => {
   return (
     <Modal transparent visible={isVisible} onRequestClose={closeRightSheet}>
       <View className="flex-1 bg-black/50">
-        <View className="absolute right-0 h-full w-[80%] rounded-l-2xl bg-gray-100 px-4 py-6">
+        <View className="absolute right-0 h-full w-[80%] rounded-l-2xl px-4 py-6">
           <View className="flex h-full flex-col justify-between gap-2">
             <View className="flex flex-row items-center gap-4">
               <Button variant={'destructive'} size={'icon'} onPress={closeRightSheet}>
@@ -45,13 +45,13 @@ const FilterBookModal = ({ isVisible, setIsVisible, slideAnim }: Props) => {
               //   onValueChange={(value) => setActiveAccordion(value)}
               collapsible
               defaultValue={['item-0']}
-              className="flex-1 bg-white"
+              className="flex-1 bg-background"
             >
               <AccordionItem value="item-0">
-                <AccordionTrigger className="bg-gray-200 px-4 py-2">
+                <AccordionTrigger className="px-4 py-2">
                   <Text className="text-base font-medium">Tìm kiếm nâng cao</Text>
                 </AccordionTrigger>
-                <AccordionContent className="bg-gray-100 ">
+                <AccordionContent className="">
                   <View className="px-4 py-2">
                     <View className="flex w-full flex-row items-center rounded-lg border pl-2">
                       <SearchCheck size={16} color="black" />
@@ -65,54 +65,54 @@ const FilterBookModal = ({ isVisible, setIsVisible, slideAnim }: Props) => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-1">
-                <AccordionTrigger className="bg-gray-200 px-4 py-2">
+                <AccordionTrigger className="px-4 py-2">
                   <Text className="text-base font-medium">Nhà cung cấp nội dung</Text>
                 </AccordionTrigger>
-                <AccordionContent className="bg-gray-100 px-4 py-2">
+                <AccordionContent className="px-4 py-2">
                   <Text>content...</Text>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger className="bg-gray-200 px-4 py-2">
+                <AccordionTrigger className="px-4 py-2">
                   <Text className="text-base font-medium">Loại nguồn</Text>
                 </AccordionTrigger>
-                <AccordionContent className="bg-gray-100 px-4 py-2">
+                <AccordionContent className="px-4 py-2">
                   <Text>content...</Text>
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-3">
-                <AccordionTrigger className="bg-gray-200 px-4 py-2">
+                <AccordionTrigger className="px-4 py-2">
                   <Text className="text-base font-medium">Chủ đề</Text>
                 </AccordionTrigger>
-                <AccordionContent className="bg-gray-100 px-4 py-2">
+                <AccordionContent className="px-4 py-2">
                   <Text>content...</Text>
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-4">
-                <AccordionTrigger className="bg-gray-200 px-4 py-2">
+                <AccordionTrigger className="px-4 py-2">
                   <Text className="text-base font-medium">Nhà xuất bản</Text>
                 </AccordionTrigger>
-                <AccordionContent className="bg-gray-100 px-4 py-2">
+                <AccordionContent className="px-4 py-2">
                   <Text>content...</Text>
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-5">
-                <AccordionTrigger className="bg-gray-200 px-4 py-2">
+                <AccordionTrigger className="px-4 py-2">
                   <Text className="text-base font-medium">Ấn phẩm</Text>
                 </AccordionTrigger>
-                <AccordionContent className="bg-gray-100 px-4 py-2">
+                <AccordionContent className="px-4 py-2">
                   <Text>content...</Text>
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-6">
-                <AccordionTrigger className="bg-gray-200 px-4 py-2">
+                <AccordionTrigger className="px-4 py-2">
                   <Text className="text-base font-medium">Năm xuất bản</Text>
                 </AccordionTrigger>
-                <AccordionContent className="bg-gray-100 px-4 py-2">
+                <AccordionContent className="px-4 py-2">
                   <Text>content...</Text>
                 </AccordionContent>
               </AccordionItem>

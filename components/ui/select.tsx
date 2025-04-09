@@ -125,6 +125,7 @@ const SelectLabel = React.forwardRef<SelectPrimitive.LabelRef, SelectPrimitive.L
 SelectLabel.displayName = SelectPrimitive.Label.displayName
 
 const SelectItem = React.forwardRef<SelectPrimitive.ItemRef, SelectPrimitive.ItemProps>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ({ className, children, ...props }, ref) => (
     <SelectPrimitive.Item
       ref={ref}

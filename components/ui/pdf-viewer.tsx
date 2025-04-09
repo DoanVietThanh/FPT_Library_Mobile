@@ -227,8 +227,10 @@ const getWebviewSource = ({
 }
 
 const PdfViewer = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   classname,
   source,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   style,
   webviewStyle,
   webviewProps,

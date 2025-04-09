@@ -1,7 +1,7 @@
 import React from 'react'
-import { Image } from 'react-native'
+import { Image, View } from 'react-native'
 import fptLogo from '~/assets/images/fpt-logo.png'
-import SignOutButton from '~/components/sign-out-button'
+import { HeaderDropdown } from '~/components/ui/header-dropdown'
 import { NotificationBell } from '~/components/ui/notifications-bell'
 import { ThemeToggle } from '~/components/ui/theme-toggle'
 import { Tabs } from 'expo-router'
@@ -17,13 +17,16 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          headerShown: false,
+          title: t('Home'),
+          headerTitle: () => (
+            <Image source={fptLogo} style={{ height: 32, width: 100 }} resizeMode="contain" />
+          ),
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
-            <>
+            <View className="flex flex-row gap-2 pr-2">
               <ThemeToggle />
-              <SignOutButton />
-            </>
+              <HeaderDropdown />
+            </View>
           ),
         }}
       />
@@ -64,7 +67,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="map"
         options={{
-          title: 'Map',
+          title: t('Map'),
           tabBarIcon: ({ color }) => <TabBarIcon name="map" color={color} />,
           headerShown: false,
         }}
@@ -72,6 +75,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="more"
         options={{
+          title: t('More'),
           headerTitle: () => (
             <Image source={fptLogo} style={{ height: 32, width: 100 }} resizeMode="contain" />
           ),

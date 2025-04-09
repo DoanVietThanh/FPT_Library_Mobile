@@ -30,7 +30,7 @@ const HomeBookList = ({ title, categoryId }: Props) => {
   if (!libraryItems || libraryItems.sources.length === 0) return null
 
   return (
-    <View className="flex w-full items-center justify-start gap-4 rounded-lg bg-primary-foreground p-4">
+    <View className="flex w-full items-center justify-start gap-4 rounded-lg bg-background p-4">
       <View className="flex w-full flex-row justify-between">
         <Text className="font-semibold text-primary">
           {title} ({libraryItems.sources.length} books)

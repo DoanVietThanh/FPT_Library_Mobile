@@ -41,20 +41,16 @@ export default function BookTabs({ libraryItemId }: Props) {
     )
   }
   return (
-    <View className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-primary-foreground p-4 ">
+    <View className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-background p-4 ">
       {/* Title */}
       <View className="flex flex-row gap-2">
         <Text className="text-xl font-bold text-primary">More</Text>
         <Text className="text-xl font-bold">Details</Text>
       </View>
       {/* Tabs */}
-      <Tabs
-        value={value}
-        onValueChange={setValue}
-        className="w-full flex-col gap-1 bg-primary-foreground"
-      >
+      <Tabs value={value} onValueChange={setValue} className="w-full flex-col gap-1 bg-background">
         <ScrollView horizontal>
-          <TabsList className="w-full flex-row bg-primary-foreground">
+          <TabsList className="w-full flex-row bg-background">
             <TabsTrigger value={EBookTabs.overview} className="flex-1">
               <Text>Overview</Text>
             </TabsTrigger>

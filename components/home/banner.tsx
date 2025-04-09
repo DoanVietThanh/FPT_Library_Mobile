@@ -75,7 +75,7 @@ export default function HomeBanner() {
           bounces={false}
           overScrollMode="never"
         >
-          <View className="flex-1 flex-row gap-4 overflow-x-auto bg-primary-foreground p-2 px-4">
+          <View className="flex-1 flex-row gap-4 overflow-x-auto bg-background p-2 px-4">
             {libraryItems.map((item: LibraryItem) => (
               <Pressable
                 onPress={() => router.push(`/home/books/${item.libraryItemId}`)}

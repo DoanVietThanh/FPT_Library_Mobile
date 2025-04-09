@@ -1,3 +1,44 @@
+export enum LocalStorageKeys {
+  FAVORITE = 'favorite',
+  OPENING_RECENT = 'opening-recent',
+  BORROW_LIBRARY_ITEM_IDS = 'borrow-library-item-Ids',
+  BORROW_RESOURCE_IDS = 'borrow-resource-Ids',
+}
+
+export enum ResourceType {
+  PROFILE = 'Profile',
+  BOOK_IMAGE = 'BookImage',
+  BOOK_AUDIO = 'BookAudio',
+}
+
+export enum ETransactionStatus {
+  PENDING,
+  EXPIRED,
+  PAID,
+  CANCELLED,
+}
+
+export enum EIssuanceMethod {
+  IN_LIBRARY,
+  ONLINE,
+}
+
+export enum ECardStatus {
+  UNPAID,
+  PENDING,
+  ACTIVE,
+  REJECTED,
+  EXPIRED,
+  SUSPENDED,
+}
+
+export enum EBorrowRequestStatus {
+  CREATED, // The request is created and waiting for the user to pick up the item
+  EXPIRED, // The user didn't pick up the item before ExpirationDate
+  BORROWED, // The user picked up the item, and a BorrowRecord has been created
+  CANCELLED, // The user cancels the request
+}
+
 export enum ERoleType {
   USER = 'User',
   EMPLOYEE = 'Employee',

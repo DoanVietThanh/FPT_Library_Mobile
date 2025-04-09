@@ -25,6 +25,7 @@ type Props = {
 const MIN_COLUMN_WIDTHS = [40, 60, 120, 120, 120]
 
 const BookInstancesTab = ({ libraryItemId, libraryItem }: Props) => {
+  console.log('🚀 ~ BookInstancesTab ~ libraryItemId:', libraryItemId)
   const { width } = useWindowDimensions()
   const insets = useSafeAreaInsets()
 

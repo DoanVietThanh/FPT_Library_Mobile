@@ -92,7 +92,7 @@ const BookPreviewCard = ({ libraryItem }: Props) => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <View className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-primary-foreground p-4 ">
+      <View className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-background p-4 ">
         <Image
           source={{ uri: libraryItem.coverImage as string }}
           className="h-96 w-2/3 rounded-lg object-contain"
