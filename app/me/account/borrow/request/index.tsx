@@ -24,7 +24,7 @@ const BorrowRequest = () => {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: 'Borrow request',
+          headerTitle: t('borrow tracking.borrow request'),
           headerLeft: () => (
             <Pressable onPress={() => router.push('/me/account/borrow')} style={{ padding: 10 }}>
               <ChevronLeft size={24} />

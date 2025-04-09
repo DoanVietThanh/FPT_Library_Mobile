@@ -16,7 +16,7 @@ import { MoveDown } from '~/lib/icons/move-down'
 import { MoveUp } from '~/lib/icons/move-up'
 import { Trash2 } from '~/lib/icons/trash2'
 import { EBookCopyStatus } from '~/types/enum'
-import { CameraView } from 'expo-camera'
+import { Camera, CameraView } from 'expo-camera'
 import { useRouter } from 'expo-router'
 import i18n from 'i18next'
 import { useTranslation } from 'react-i18next'
@@ -44,6 +44,15 @@ function ChangeInstanceShelfStatus() {
   const handleRemoveBook = (barcode: string) => {
     setScannedInstances((prev) => prev.filter((b) => b.barcode !== barcode))
   }
+
+  useEffect(() => {
+    ;(async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync()
+      if (status !== 'granted') {
+        alert('Permission to access camera was denied')
+      }
+    })()
+  }, [])
 
   useEffect(() => {
     if (

@@ -1,9 +1,13 @@
 import React from 'react'
 import { Image, Text, View } from 'react-native'
+import { Button } from '~/components/ui/button'
 import { Card } from '~/components/ui/card'
+import LibraryItemLocateDialog from '~/components/ui/library-item-locate-dialog'
 import { cn } from '~/lib/utils'
 import { LibraryItem } from '~/types/models'
+import { Href, useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
+import { Pressable } from 'react-native-gesture-handler'
 
 type Props = {
   libraryItem: LibraryItem
@@ -11,6 +15,11 @@ type Props = {
 }
 
 const BorrowBookPreview = ({ libraryItem, className }: Props) => {
+  const router = useRouter()
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation('BooksManagementPage')
   const {
     category,
     coverImage,
@@ -22,11 +31,6 @@ const BorrowBookPreview = ({ libraryItem, className }: Props) => {
     summary,
     title,
   } = libraryItem
-
-  const {
-    t,
-    i18n: { language },
-  } = useTranslation('BooksManagementPage')
 
   return (
     <>
@@ -43,9 +47,13 @@ const BorrowBookPreview = ({ libraryItem, className }: Props) => {
 
             <View className="flex-1 space-y-2">
               <View className="flex-row items-center justify-between">
-                <Text className="text-lg font-bold" numberOfLines={1}>
-                  {title}
-                </Text>
+                <Pressable
+                  onPress={() => router.push(`/home/books/${libraryItem.libraryItemId}` as Href)}
+                >
+                  <Text className="text-lg font-bold" numberOfLines={1}>
+                    {title}
+                  </Text>
+                </Pressable>
               </View>
 
               {subTitle && <Text className="text-sm text-muted-foreground">{subTitle}</Text>}
@@ -93,6 +101,14 @@ const BorrowBookPreview = ({ libraryItem, className }: Props) => {
                   {summary.replace(/<[^>]+>/g, '')}
                 </Text>
               )}
+            </View>
+
+            <View className="flex flex-row items-center justify-end gap-4">
+              <Button variant="outline">
+                <Text>{t('Cancel')}</Text>
+              </Button>
+
+              <LibraryItemLocateDialog libraryItem={libraryItem} />
             </View>
           </View>
         </View>
