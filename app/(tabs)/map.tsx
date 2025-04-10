@@ -1,53 +1,13 @@
-/* eslint-disable prettier/prettier */
-import { useEffect, useRef, useState } from 'react'
-import { KeyboardAvoidingView, Platform, View } from 'react-native'
-import {
-  IndoorRendererOptions,
-  IndoorWidgetOptions,
-  MapController,
-  WoosmapView,
-} from '@woosmap/react-native-woosmap'
-import loader from '~/assets/icons/map-loading.gif'
 import { useLocalSearchParams } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import WebView from 'react-native-webview'
-
-const indoorWidgetConfiguration: IndoorWidgetOptions = {
-  units: 'metric', // Define the distance unit for route distance calculation
-  ui: {
-    primaryColor: '#147672',
-    secondaryColor: '#751461',
-  },
-}
 
 export default function MapScreen() {
   const { ref } = useLocalSearchParams()
   const {
-    i18n: { language },
+    i18n: { language: locale },
   } = useTranslation()
-  // const mapRef = useRef<MapController>(null)
-  // const [mapLoaded, setMapLoaded] = useState(false)
-
-  // const indoorRendererConfiguration: IndoorRendererOptions = {
-  //   defaultFloor: 1, //Render map with default floor
-  //   centerMap: true,
-  //   venue: 'intelligent_library_v2',
-  //   responsive: 'mobile',
-  //   highlightPOIByRef: (ref as string) || undefined,
-  // }
-
-  // useEffect(() => {
-  //   if (!mapLoaded || !ref || !mapRef.current) return
-
-  //   const handleChangeRef = async () => {
-  //     await mapRef.current!.highlightFeatureByRef(ref as string)
-  //     await mapRef.current!.setZoom(2)
-  //   }
-
-  //   handleChangeRef()
-  // }, [ref, mapRef])
 
   return (
     <ScrollView
@@ -61,7 +21,7 @@ export default function MapScreen() {
     >
       <WebView
         source={{
-          uri: `https://elibrary-capstone.vercel.app/vi/full-map?${ref ? `ref=${ref}` : ''}&responsive=mobile`,
+          uri: `https://elibrary-capstone.vercel.app/${locale}/full-map?responsive=mobile${ref ? `&ref=${ref}` : ''}`,
         }}
         className="flex-0 h-screen-safe w-[100dvh]"
         scrollEnabled={false} // Tắt scroll
@@ -94,8 +54,5 @@ export default function MapScreen() {
               `}
       />
     </ScrollView>
-
-    //   </View>
-    // </SafeAreaView>
   )
 }
