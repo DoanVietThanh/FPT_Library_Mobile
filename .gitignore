@@ -11,6 +11,7 @@ npm-debug.*
 web-build/
 # expo router
 expo-env.d.ts
+.vscode
 
 
 
@@ -62,3 +63,4 @@ yarn-error.*
 app-example
 .env
 
+.qodo

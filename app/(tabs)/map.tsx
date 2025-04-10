@@ -1,78 +1,58 @@
-/* eslint-disable prettier/prettier */
-import { useEffect, useRef, useState } from 'react'
-import {
-  IndoorRendererOptions,
-  IndoorWidgetOptions,
-  MapController,
-  WoosmapView,
-} from '@woosmap/react-native-woosmap'
-import loader from '~/assets/icons/map-loading.gif'
 import { useLocalSearchParams } from 'expo-router'
-
-const indoorWidgetConfiguration: IndoorWidgetOptions = {
-  units: 'metric', // Define the distance unit for route distance calculation
-  ui: {
-    primaryColor: '#147672',
-    secondaryColor: '#751461',
-  },
-}
+import { useTranslation } from 'react-i18next'
+import { ScrollView } from 'react-native-gesture-handler'
+import WebView from 'react-native-webview'
 
 export default function MapScreen() {
-  const mapRef = useRef<MapController>(null)
   const { ref } = useLocalSearchParams()
-  const [mapLoaded, setMapLoaded] = useState(false)
-
-  const indoorRendererConfiguration: IndoorRendererOptions = {
-    defaultFloor: 1, //Render map with default floor
-    centerMap: true,
-    venue: 'intelligent_library_v2',
-    responsive: 'mobile',
-    highlightPOIByRef: (ref as string) || undefined,
-  }
-
-  useEffect(() => {
-    if (!mapLoaded || !ref || !mapRef.current) return
-    console.log('highlightFeatureByRef', { ref })
-    mapRef.current.highlightFeatureByRef(ref as string)
-  }, [ref, mapRef])
+  const {
+    i18n: { language: locale },
+  } = useTranslation()
 
   return (
-    <WoosmapView
-      ref={mapRef}
-      wooskey="woos-2861ec1d-05d1-3d4b-a4dd-1dfefe85769e"
-      indoorRendererConfiguration={indoorRendererConfiguration}
-      indoorWidgetConfiguration={indoorWidgetConfiguration}
-      widget
-      activateIndoorProduct
-      i18nIsDynamicList
-      defaultIndoorVenueKey="intelligent_library_v2"
-      loader={loader}
-      loaded={() => {
-        console.log('loaded')
-      }}
-      indoor_venue_loaded={async (venue) => {
-        console.log(JSON.stringify({ venue }))
-        setMapLoaded(true)
-      }}
-      indoor_level_changed={(info) => {
-        console.log('Level changed ' + JSON.stringify(info))
-      }}
-      indoor_feature_selected={(info) => {
-        console.log('Feature selected ' + JSON.stringify(info))
-      }}
-      indoor_user_location={(info) => {
-        console.log('User location ' + JSON.stringify(info))
-      }}
-      indoor_highlight_step={(info) => {
-        console.log('Step info ' + JSON.stringify(info))
-      }}
-      indoor_navigation_started={() => {
-        console.log('Navigation Started')
-      }}
-      indoor_navigation_exited={() => {
-        console.log('Navigation ended')
-        mapRef.current?.clearDirections()
-      }}
-    />
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      bounces={false}
+      scrollEnabled={false}
+      overScrollMode="never"
+      automaticallyAdjustContentInsets={false}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+    >
+      <WebView
+        source={{
+          uri: `https://elibrary-capstone.vercel.app/${locale}/full-map?responsive=mobile${ref ? `&ref=${ref}` : ''}`,
+        }}
+        className="flex-0 h-screen-safe w-[100dvh]"
+        scrollEnabled={false} // Tắt scroll
+        bounces={false} // Tắt bounce trên iOS
+        overScrollMode="never" // Tắt overscroll trên Android
+        scalesPageToFit={false} // Ngăn tự động điều chỉnh tỷ lệ
+        automaticallyAdjustContentInsets={false} // Ngăn điều chỉnh nội dung khi có bàn phím
+        showsVerticalScrollIndicator={false} // Ẩn thanh cuộn
+        showsHorizontalScrollIndicator={false}
+        javaScriptEnabled={true}
+        domStorageEnabled={true} // Đảm bảo JS hoạt động đầy đủ
+        injectedJavaScript={`
+                // Chèn meta viewport để cố định tỷ lệ và tắt zoom
+                const meta = document.createElement('meta');
+                meta.setAttribute('name', 'viewport');
+                meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                document.getElementsByTagName('head')[0].appendChild(meta);
+      
+                // Tắt scroll và zoom bằng CSS
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+                document.body.style.height = '100%';
+                document.documentElement.style.overflow = 'hidden';
+      
+                // Ngăn sự kiện zoom từ touch
+                document.addEventListener('touchmove', function (event) {
+                  if (event.scale !== 1) { event.preventDefault(); }
+                }, { passive: false });
+              `}
+      />
+    </ScrollView>
   )
 }

@@ -34,7 +34,7 @@ const BookPreviewCard = ({ libraryItem }: Props) => {
         ref: `${libraryItem?.shelf?.shelfId};shelf;${libraryItem.shelf?.shelfNumber}`,
       },
     })
-
+    setOpenLocate(false)
     router.push(newUrl as Href)
   }
 
