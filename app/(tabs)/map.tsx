@@ -9,6 +9,8 @@ export default function MapScreen() {
     i18n: { language: locale },
   } = useTranslation()
 
+  console.log('map screen 123', { locale })
+
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -21,7 +23,7 @@ export default function MapScreen() {
     >
       <WebView
         source={{
-          uri: `https://elibrary-capstone.vercel.app/${locale}/full-map?responsive=mobile${ref ? `&ref=${ref}` : ''}`,
+          uri: `https://elibrary.htpv.site/${locale}/full-map?responsive=mobile${ref ? `&ref=${ref}` : ''}`,
         }}
         className="flex-0 h-screen-safe w-[100dvh]"
         scrollEnabled={false} // Tắt scroll

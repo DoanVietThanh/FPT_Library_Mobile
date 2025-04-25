@@ -920,12 +920,12 @@
   "ManagementToolsScreen": {
     "Management tools": "Management tools",
     "Management guides": "Management guides",
-    "Change instances shelf": "Change instances's shelf",
+    "Change instances shelf": "Change instance's status",
     "Scan barcode": "Scan barcode",
-    "Let start scan some book to change its status to in shelf or out of shelf": "Start scanning some books to move them up/down the shelf.",
-    "No books scanned": "No books have been scanned yet",
+    "Let start scan some book to change its status to in shelf or out of shelf": "Start scanning some instances to move them up/down the shelf.",
+    "No books scanned": "No instances have been scanned yet",
     "Barcode": "Barcode",
-    "Put on shelf": "ut on shelf",
+    "Put on shelf": "Put on shelf",
     "Remove on shelf": "Remove on shelf",
     "View details": "View details",
     "Remove": "Remove"
