@@ -38,7 +38,7 @@ const BorrowRequestDetail = () => {
         }}
       />
 
-      <SafeAreaView className="flex-1 bg-secondary" edges={['left', 'right']}>
+      <SafeAreaView className="flex-1" edges={['left', 'right']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false} overScrollMode="never">
           <View className="p-6">
             {/* Status Overview */}

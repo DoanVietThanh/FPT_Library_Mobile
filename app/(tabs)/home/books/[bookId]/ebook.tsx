@@ -96,7 +96,7 @@ const BookEbook = () => {
     <>
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false} overScrollMode="never">
-          <View className="flex flex-1 flex-col bg-secondary">
+          <View className="flex flex-1 flex-col">
             <View className="flex-1">
               <PdfViewer source={{ uri: pdfUrl }} noLoader={false} />
             </View>

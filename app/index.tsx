@@ -1,5 +1,5 @@
 import { Image, ScrollView, View } from 'react-native'
-import fptLogo from '~/assets/images/fpt-logo.png'
+import logo from '~/assets/images/logo.png'
 import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
 import { useAuth } from '~/contexts/auth-provider'
@@ -16,13 +16,13 @@ export default function App() {
     <SafeAreaView className="relative h-full">
       {isLoadingAuth && (
         <View className="fixed z-10 flex h-full w-full items-center justify-center">
-          <Image source={fptLogo} className="h-[84px] w-[130px]" resizeMode="contain" />
+          <Image source={logo} className="h-[84px] w-[130px]" resizeMode="contain" />
         </View>
       )}
 
       <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View className="min-h-[85vh] w-full items-center justify-center px-4">
-          <Image source={fptLogo} className="h-[84px] w-[130px]" resizeMode="contain" />
+          <Image source={logo} className="h-[84px] w-[130px]" resizeMode="contain" />
 
           {/* <Image
             source={images.cards}

@@ -8,7 +8,7 @@ import { useAuth } from '~/contexts/auth-provider'
 import { IdCard } from '~/lib/icons/card-icon'
 import { Management } from '~/lib/icons/management'
 import { ERoleType } from '~/types/enum'
-import { Href, Link, Stack, useRouter } from 'expo-router'
+import { Href, Stack, useRouter } from 'expo-router'
 import {
   ChevronRight,
   FileQuestion,
@@ -110,16 +110,18 @@ export default function Home() {
 
           <View className="my-2 flex flex-col gap-4 rounded-lg bg-background p-4">
             {/* Management */}
+
             {user?.role?.roleType === ERoleType.EMPLOYEE && (
-              <Link href="/management-tools">
-                <View className="flex w-full flex-row justify-between gap-4">
-                  <View className="flex flex-row items-center gap-2">
-                    <Management className="text-foreground" />
-                    <Text className="text-lg ">{t('Management tools')}</Text>
-                  </View>
-                  <ChevronRight color={'green'} />
+              <Pressable
+                onPress={() => router.push('/management-tools')}
+                className="flex w-full flex-row justify-between gap-4"
+              >
+                <View className="flex flex-row items-center gap-2">
+                  <Management color={'green'} />
+                  <Text className="text-lg ">{t('Management tools')}</Text>
                 </View>
-              </Link>
+                <ChevronRight color={'green'} />
+              </Pressable>
             )}
             {/* Setting */}
             <View className="flex w-full flex-row justify-between gap-4">

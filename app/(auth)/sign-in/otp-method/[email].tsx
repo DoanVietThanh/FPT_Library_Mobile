@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
-import fptLogo from '~/assets/images/fpt-logo.png'
+import logo from '~/assets/images/logo.png'
 import { Text } from '~/components/ui/text'
 import { useLocalSearchParams } from 'expo-router/build/hooks'
 import { useTranslation } from 'react-i18next'
@@ -22,7 +22,7 @@ function LoginPasswordMethodScreen() {
             <View className="flex w-full flex-col items-center justify-center gap-6 overflow-hidden rounded-lg">
               <View className="container flex gap-y-4">
                 <View className="flex flex-row justify-center">
-                  <Image source={fptLogo} className="h-12 w-32" resizeMode="contain" />
+                  <Image source={logo} className="h-12 w-32" resizeMode="contain" />
                 </View>
                 <View className="flex flex-col gap-y-1">
                   <Text className="text-center text-lg font-semibold">{t('Check your email')}</Text>

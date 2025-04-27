@@ -66,7 +66,7 @@ const MeLibraryCard = () => {
       />
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false} overScrollMode="never">
-          <View className="min-h-screen-safe  bg-secondary p-6">
+          <View className="min-h-screen-safe p-6">
             {/* Library card */}
             {user.libraryCard ? (
               <View className="flex flex-col gap-y-6">
@@ -115,7 +115,7 @@ const MeLibraryCard = () => {
 
                       <View className="flex flex-row justify-center p-4">
                         <Barcode
-                          value={user.libraryCard?.libraryCardId}
+                          value={user.libraryCard?.barcode || ''}
                           format="CODE128"
                           width={20}
                           height={40}

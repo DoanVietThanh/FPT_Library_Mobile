@@ -5,7 +5,6 @@ import { Card } from '~/components/ui/card'
 import Loading from '~/components/ui/loading'
 import NoData from '~/components/ui/no-data'
 import useUserPendingActivity from '~/hooks/profile/use-user-pending-activity'
-import { formatPrice } from '~/lib/utils'
 import { Stack, useRouter } from 'expo-router'
 import { ChevronLeft } from 'lucide-react-native'
 import { useTranslation } from 'react-i18next'
@@ -48,11 +47,6 @@ const BorrowTracking = () => {
               value={data.totalBorrowOnce}
             />
             <InfoBlock label={t('borrow tracking.remain total')} value={data.remainTotal} />
-            <InfoBlock
-              label={t('borrow tracking.unpaid fees')}
-              value={formatPrice(150000)}
-              textClass="text-yellow-600"
-            />
           </View>
         </Card>
 

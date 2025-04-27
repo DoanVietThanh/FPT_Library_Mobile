@@ -38,7 +38,7 @@ const CheckAvailableBorrow = () => {
     <>
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false} overScrollMode="never">
-          <View className="min-h-screen-safe flex flex-col gap-y-2 bg-secondary p-6 ">
+          <View className="min-h-screen-safe flex flex-col gap-y-2 p-6 ">
             <View className="flex-row items-center gap-2">
               <ChevronLeft onPress={() => router.back()} size={20} color="black" />
               <Text className="text-xl font-semibold">Borrow list</Text>

@@ -35,7 +35,7 @@ const BorrowRequest = () => {
 
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false} overScrollMode="never">
-          <View className="min-h-screen-safe bg-secondary p-6">
+          <View className="min-h-screen-safe p-6">
             <View className="flex flex-col gap-4">
               {borrowRequests?.sources.map((request) => (
                 <Pressable

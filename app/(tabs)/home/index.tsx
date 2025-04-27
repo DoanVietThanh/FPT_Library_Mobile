@@ -27,7 +27,7 @@ export default function Home() {
     <>
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false} overScrollMode="never">
-          <View className="min-h-screen-safe flex flex-col gap-y-6 bg-secondary p-6 ">
+          <View className="min-h-screen-safe flex flex-col gap-y-6 p-6 ">
             <HomeBanner />
             {categories &&
               categories.map((category) => (
