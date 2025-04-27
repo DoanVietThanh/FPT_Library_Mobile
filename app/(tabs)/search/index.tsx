@@ -17,7 +17,7 @@ export default function SearchBook() {
       <Stack.Screen options={{ title: t('Title') }} />
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right', 'bottom']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false} overScrollMode="never">
-          <View className="flex flex-1 flex-col gap-6 bg-secondary p-6">
+          <View className="flex flex-1 flex-col gap-6 p-6">
             <Button
               variant={'outline'}
               className="flex w-full flex-row items-center justify-start gap-2"

@@ -44,7 +44,7 @@ export default function Home() {
       />
 
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right', 'bottom']}>
-        <View className="min-h-screen-safe flex flex-col gap-y-6 bg-secondary p-6">
+        <View className="min-h-screen-safe flex flex-col gap-y-6 p-6">
           <View className="flex w-full items-center justify-start gap-2 rounded-lg bg-background p-4">
             <View className="flex items-center justify-center rounded-full border-2 border-primary p-2">
               <AntDesign name="user" size={32} className="text-primary" />

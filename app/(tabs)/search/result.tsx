@@ -32,7 +32,7 @@ const SearchBookResult = () => {
       <Stack.Screen options={{ title: 'Search Book Result' }} />
       <SafeAreaView className="m-0 flex-1 p-0" edges={['left', 'right', 'bottom']}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View className="min-h-screen-safe flex flex-col gap-2 bg-secondary p-6">
+          <View className="min-h-screen-safe flex flex-col gap-2 p-6">
             <View className="flex flex-row items-center gap-2">
               <Button variant={'outline'} className="flex flex-row items-center gap-2">
                 <Filter size={16} color="black" />
