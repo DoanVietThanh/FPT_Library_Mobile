@@ -1325,5 +1325,53 @@
     "Locate": "Locate",
     "Cancel": "Cancel",
     "Go to map": "Go to map"
+  },
+  "MeLibraryCard": {
+    "Library Card": "Library Card",
+    "Issuance Method": "Issuance Method",
+    "Allow Borrow More": "Allow Borrow More",
+    "Max Items at Once": "Max Items at Once",
+    "Total Missed Pickups": "Total Missed Pickups",
+    "Reminder Sent": "Reminder Sent",
+    "Extended": "Extended",
+    "Extension Count": "Extension Count",
+
+    "Library Card Introduction": "Library Card Introduction",
+    "What is a Library Card": "What is a Library Card?",
+    "library card defi": "A library card is your key to accessing our extensive collection of books, digital resources, and exclusive services. It is a personal identification that grants you borrowing privileges and access to our facilities.",
+    "Who is it for": "Who is it for?",
+    "Who is it for desc": "Our library card is perfect for students, researchers, professionals, and anyone with a passion for knowledge and learning. Available to all residents aged 12 and above.",
+    "Benefits": "Benefits",
+    "Borrow up to 3 books at once": "Borrow up to 3 books at once",
+    "Borrow ebooks and audiobooks": "Borrow ebooks and audiobooks",
+    "Reserve library items": "Reserve library items",
+    "Policies": "Policies",
+    "No benefits if library card is expire": "No benefits if library card is expire",
+    "Participate in exclusive events": "Participate in exclusive events",
+    "Lost items incur a penalty fee": "Lost items incur a penalty fee",
+    "Late returns incur a penalty fee": "Late returns incur a penalty fee",
+    "Must re-register to continue receiving benefits if card is lost": "Must re-register to continue receiving benefits if card is lost",
+    "Important Information": "Important Information",
+    "Important Information desc": " By registering for a library card, you agree to follow our library rules and policies. You are responsible for all materials borrowed with your card and any fees incurred. Please notify us immediately if your card is lost or stolen.",
+    "Please select a package that best suits your needs": "Please select a package that best suits your needs",
+    "I understand and want to continue": "I understand and want to continue",
+
+    "Back": "Back",
+    "Library Card Registration": "Library Card Registration",
+    "Personal Information": "Personal Information",
+    "Profile Photo": "Profile Photo",
+    "Required": "Required",
+    "Clear avatar": "Clear avatar",
+    "Payment Method": "Payment Method",
+    "Register Library Card": "Register Library Card",
+    "Card Preview": "Card Preview",
+    "Member Card": "Member Card",
+    "Issue Date": "Issue Date",
+    "Expiry Date": "Expiry Date",
+
+    "Full Name": "Full Name",
+
+    "Library card": "Library card",
+    "Card Information": "Card Information"
   }
 }

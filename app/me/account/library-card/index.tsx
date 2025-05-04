@@ -3,7 +3,7 @@ import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native'
 import Barcode from '@kichiyaki/react-native-barcode-generator'
 import PackageCard from '~/components/package-card'
 import { Button } from '~/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '~/components/ui/card'
+import { Card, CardContent, CardHeader } from '~/components/ui/card'
 import Loading from '~/components/ui/loading'
 import NoData from '~/components/ui/no-data'
 import { Separator } from '~/components/ui/separator'
@@ -13,13 +13,14 @@ import { Package } from '~/types/models'
 import { format } from 'date-fns'
 import { Stack, useRouter } from 'expo-router'
 import { BookOpen, Calendar, CheckCircle, ChevronLeft, MapPin } from 'lucide-react-native'
+import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const MeLibraryCard = () => {
   const router = useRouter()
+  const { t } = useTranslation('MeLibraryCard')
   const { user, isLoadingAuth } = useAuth()
-  console.log('🚀 ~ Home ~ user:', user)
   const { data: packages, isLoading: isLoadingPackages } = usePackages()
   const [selectedPackageId, setSelectedPackageId] = useState<number | null>(null)
 
@@ -56,7 +57,7 @@ const MeLibraryCard = () => {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: 'Library Card',
+          headerTitle: t('Library Card'),
           headerLeft: () => (
             <Pressable onPress={() => router.push('/more')} style={{ padding: 10 }}>
               <ChevronLeft size={24} />
@@ -71,7 +72,7 @@ const MeLibraryCard = () => {
             {user.libraryCard ? (
               <View className="flex flex-col gap-y-6">
                 <View>
-                  <Text className="mb-2 text-xl font-semibold">Library Card</Text>
+                  <Text className="mb-2 text-xl font-semibold">{t('Library Card')}</Text>
                   <Card className="overflow-hidden rounded-xl">
                     <CardHeader className="flex flex-row justify-between bg-primary text-primary-foreground">
                       <View className="flex flex-row items-center gap-2">
@@ -80,7 +81,7 @@ const MeLibraryCard = () => {
                           ELibrary
                         </Text>
                       </View>
-                      <Text className="text-lg text-primary-foreground">Member Card</Text>
+                      {/* <Text className="text-lg text-primary-foreground">Member Card</Text> */}
                     </CardHeader>
                     <CardContent>
                       <View className="my-4 flex flex-row items-start gap-4 ">
@@ -123,34 +124,18 @@ const MeLibraryCard = () => {
                           maxWidth={300}
                         />
                       </View>
-
-                      {/* <View className="flex flex-row justify-between">
-                        <Text>Issue Date</Text>
-                        <Text>{formatDate(user.libraryCard?.issueDate || '')}</Text>
-                      </View>
-                      <View className="flex flex-row justify-between">
-                        <Text>Expiry Date</Text>
-                        <Text>{formatDate(user.libraryCard?.expiryDate || '')}</Text>
-                      </View> */}
                     </CardContent>
-
-                    <CardFooter>
-                      <Text className="text-xs">
-                        This card remains the property of ELibrary. If found, please return to any
-                        ELibrary branch.
-                      </Text>
-                    </CardFooter>
                   </Card>
                 </View>
 
                 {/* Information */}
                 <View>
-                  <Text className="mb-2 text-xl font-semibold">Card Information</Text>
+                  <Text className="mb-2 text-xl font-semibold">{t('Card Information')}</Text>
                   <Card className="flex flex-col gap-4 p-4">
                     <View className="flex flex-row items-center justify-between gap-2">
                       <View className="flex flex-row items-center gap-2">
                         <BookOpen size={16} color={'gray'} />
-                        <Text>Issuance Method</Text>
+                        <Text>{t('Issuance Method')}</Text>
                       </View>
                       <Text>{user?.libraryCard?.issuanceMethod}</Text>
                     </View>
@@ -158,7 +143,7 @@ const MeLibraryCard = () => {
                     <View className="flex flex-row items-center justify-between gap-2">
                       <View className="flex flex-row items-center gap-2">
                         <BookOpen size={16} color={'gray'} />
-                        <Text>Allow Borrow More</Text>
+                        <Text>{t('Allow Borrow More')}</Text>
                       </View>
                       <Text>{user?.libraryCard?.isAllowBorrowMore ? '✅' : '❌'}</Text>
                     </View>
@@ -166,7 +151,7 @@ const MeLibraryCard = () => {
                     <View className="flex flex-row items-center justify-between gap-2">
                       <View className="flex flex-row items-center gap-2">
                         <BookOpen size={16} color={'gray'} />
-                        <Text>Max Items at Once</Text>
+                        <Text>{t('Max Items at Once')}</Text>
                       </View>
                       <Text>{user?.libraryCard?.maxItemOnceTime}</Text>
                     </View>
@@ -174,7 +159,7 @@ const MeLibraryCard = () => {
                     <View className="flex flex-row items-center justify-between gap-2">
                       <View className="flex flex-row items-center gap-2">
                         <BookOpen size={16} color={'gray'} />
-                        <Text>Total Missed Pickups</Text>
+                        <Text>{t('Total Missed Pickups')}</Text>
                       </View>
                       <Text>{user?.libraryCard?.totalMissedPickUp}</Text>
                     </View>
@@ -182,7 +167,7 @@ const MeLibraryCard = () => {
                     <View className="flex flex-row items-center justify-between gap-2">
                       <View className="flex flex-row items-center gap-2">
                         <BookOpen size={16} color={'gray'} />
-                        <Text>Reminder Sent</Text>
+                        <Text>{t('Reminder Sent')}</Text>
                       </View>
                       <Text>{user?.libraryCard?.isReminderSent ? '✅' : '❌'}</Text>
                     </View>
@@ -190,7 +175,7 @@ const MeLibraryCard = () => {
                     <View className="flex flex-row items-center justify-between gap-2">
                       <View className="flex flex-row items-center gap-2">
                         <BookOpen size={16} color={'gray'} />
-                        <Text>Extended</Text>
+                        <Text>{t('Extended')}</Text>
                       </View>
                       <Text>{user?.libraryCard?.isExtended ? '✅' : '❌'}</Text>
                     </View>
@@ -198,7 +183,7 @@ const MeLibraryCard = () => {
                     <View className="flex flex-row items-center justify-between gap-2">
                       <View className="flex flex-row items-center gap-2">
                         <BookOpen size={16} color={'gray'} />
-                        <Text>Extension Count</Text>
+                        <Text>{t('Extension Count')}</Text>
                       </View>
                       <Text>{user?.libraryCard?.extensionCount}</Text>
                     </View>
@@ -206,7 +191,7 @@ const MeLibraryCard = () => {
                     <View className="flex flex-row items-center justify-between gap-2">
                       <View className="flex flex-row items-center gap-2">
                         <Calendar size={16} color={'gray'} />
-                        <Text>Expiry Date</Text>
+                        <Text>{t('Expiry Date')}</Text>
                       </View>
                       {user?.libraryCard?.expiryDate ? (
                         <Text>{formatDate(user?.libraryCard?.expiryDate)}</Text>
@@ -219,66 +204,56 @@ const MeLibraryCard = () => {
               </View>
             ) : (
               <ScrollView showsVerticalScrollIndicator={false}>
-                <Text className="mb-4 text-2xl font-bold">Library Card Introduction</Text>
+                <Text className="mb-4 text-2xl font-bold">{t('Library Card Introduction')}</Text>
 
                 <View className="mb-6 space-y-4">
-                  <Text className="text-xl font-semibold">What is a Library Card?</Text>
-                  <Text>
-                    A library card is your key to accessing our extensive collection of books,
-                    digital resources, and exclusive services. It is a personal identification that
-                    grants you borrowing privileges and access to our facilities.
-                  </Text>
+                  <Text className="text-xl font-semibold">{t('What is a Library Card')}</Text>
+                  <Text>{t('library card defi')}</Text>
                 </View>
 
                 <View className="mb-6 space-y-4">
-                  <Text className="text-xl font-semibold">Who is it for?</Text>
-                  <Text>
-                    Our library card is perfect for students, researchers, professionals, and anyone
-                    with a passion for knowledge and learning. Available to all residents aged 12
-                    and above.
-                  </Text>
+                  <Text className="text-xl font-semibold">{t('Who is it for')}</Text>
+                  <Text>{t('Who is it for desc')}</Text>
                 </View>
 
                 <View className="mb-6 space-y-4">
-                  <Text className="text-xl font-semibold">Benefits?</Text>
+                  <Text className="text-xl font-semibold">{t('Benefits')}</Text>
                   <View className="flex flex-col">
                     <View className="flex flex-row items-center gap-2">
                       <CheckCircle size={16} className="size-4" color={'green'} />
-                      <Text>Borrow up to 10 books at once</Text>
+                      <Text>{t('Borrow up to 3 books at once')}</Text>
                     </View>
                     <View className="flex flex-row items-center gap-2">
                       <CheckCircle size={16} className="size-4" color={'green'} />
-                      <Text>Access to digital resources and e-books</Text>
+                      <Text>{t('Borrow ebooks and audiobooks')}</Text>
                     </View>
                     <View className="flex flex-row items-center gap-2">
                       <CheckCircle size={16} className="size-4" color={'green'} />
-                      <Text>Reserve books and study rooms</Text>
-                    </View>
-                    <View className="flex flex-row items-center gap-2">
-                      <CheckCircle size={16} className="size-4" color={'green'} />
-                      <Text>Participate in exclusive events</Text>
+                      <Text>{t('Reserve library items')}</Text>
                     </View>
                   </View>
                 </View>
 
                 <View className="mb-6 space-y-4">
-                  <Text className="text-xl font-semibold">Policies?</Text>
+                  <Text className="text-xl font-semibold">{t('Policies')}</Text>
                   <View className="flex flex-col">
                     <View className="flex flex-row items-center gap-2">
                       <CheckCircle size={16} className="size-4" color={'green'} />
-                      <Text>Valid for 1 year from date of issue</Text>
+                      <Text>{t('No benefits if library card is expire')}</Text>
                     </View>
                     <View className="flex flex-row items-center gap-2">
                       <CheckCircle size={16} className="size-4" color={'green'} />
-                      <Text>Books can be borrowed for up to 3 weeks</Text>
+                      <Text>{t('Lost items incur a penalty fee')}</Text>
                     </View>
                     <View className="flex flex-row items-center gap-2">
                       <CheckCircle size={16} className="size-4" color={'green'} />
-                      <Text>Late returns incur a small fee</Text>
+                      <Text>{t('Late returns incur a penalty fee')}</Text>
                     </View>
                     <View className="flex flex-row items-center gap-2">
                       <CheckCircle size={16} className="size-4" color={'green'} />
-                      <Text>Replacement fee for lost cards</Text>
+                      <Text>
+                        {t('Must re-register to continue receiving benefits if card is lost')}
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -286,16 +261,12 @@ const MeLibraryCard = () => {
                 <Separator />
                 <View className="mt-4 flex flex-col gap-2">
                   <Text className="text-center text-xl font-semibold">
-                    Important Information{' '}
+                    {t('Important Information')}
                     <Text className="text-2xl font-semibold text-danger">(*)</Text>
                   </Text>
-                  <Text className="text-justify text-sm">
-                    By registering for a library card, you agree to follow our library rules and
-                    policies. You are responsible for all materials borrowed with your card and any
-                    fees incurred. Please notify us immediately if your card is lost or stolen.
-                  </Text>
+                  <Text className="text-justify text-sm">{t('Important Information desc')}</Text>
                   <Text className="text-lg font-semibold">
-                    Please select a package that best suits your needs and preferences.
+                    {t('Please select a package that best suits your needs')}
                   </Text>
                 </View>
 
@@ -314,7 +285,7 @@ const MeLibraryCard = () => {
 
                 <Button onPress={handleContinue} disabled={!selectedPackageId}>
                   <Text className="text-center font-semibold text-primary-foreground">
-                    I understand and want to continue
+                    {t('I understand and want to continue')}
                   </Text>
                 </Button>
               </ScrollView>
