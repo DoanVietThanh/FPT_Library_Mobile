@@ -2,10 +2,10 @@
   "expo": {
     "owner": "thanhdoan2003",
     "newArchEnabled": true,
-    "name": "fpt-library-mobile",
-    "slug": "fpt-library-mobile",
+    "name": "elibrary",
+    "slug": "elibrary",
     "version": "1.0.0",
-    "scheme": "fpt-library-mobile",
+    "scheme": "elibrary",
     "web": {
       "bundler": "metro",
       "output": "static",

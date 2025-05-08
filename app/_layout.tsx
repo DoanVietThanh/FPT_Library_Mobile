@@ -3,7 +3,6 @@ import '~/global.css'
 import * as React from 'react'
 import { Platform } from 'react-native'
 import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { PortalHost } from '@rn-primitives/portal'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -87,17 +86,15 @@ export default function RootLayout() {
               <NotificationsProvider>
                 <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
                 <GestureHandlerRootView style={{ flex: 1 }}>
-                  <BottomSheetModalProvider>
-                    <Stack>
-                      <Stack.Screen name="index" options={{ headerShown: false }} />
-                      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                      <Stack.Screen name="(stacks)" options={{ headerShown: false }} />
-                      <Stack.Screen name="me" options={{ headerShown: false }} />
-                      <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-                    </Stack>
-                    <PortalHost />
-                  </BottomSheetModalProvider>
+                  <Stack>
+                    <Stack.Screen name="index" options={{ headerShown: false }} />
+                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(stacks)" options={{ headerShown: false }} />
+                    <Stack.Screen name="me" options={{ headerShown: false }} />
+                    <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+                  </Stack>
+                  <PortalHost />
                   <PortalHost />
                   <Toast />
                 </GestureHandlerRootView>

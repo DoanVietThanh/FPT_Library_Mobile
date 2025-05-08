@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -21,16 +23,18 @@
     <activity android:name=".MainActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:theme="@style/Theme.App.SplashScreen" android:exported="true" android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
+        <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="fpt-library-mobile"/>
-        <data android:scheme="com.kingchen711.fptlibrarymobile"/>
-        <data android:scheme="exp+fpt-library-mobile"/>
+        <data android:scheme="elibrary"/>
+        <data android:scheme="com.thanhdoan2003.fptlibrarymobile"/>
+        <data android:scheme="exp+elibrary"/>
       </intent-filter>
     </activity>
+    <provider android:name="com.facebook.react.modules.blob.BlobProvider" android:authorities="@string/blob_provider_authority" android:exported="false"/>
   </application>
 </manifest>

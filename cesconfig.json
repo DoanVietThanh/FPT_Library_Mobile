@@ -1,6 +1,6 @@
 {
   "cesVersion": "2.12.2",
-  "projectName": "fpt-library-mobile",
+  "projectName": "elibrary",
   "packages": [
     {
       "name": "expo-router",

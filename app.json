@@ -1,70 +1,75 @@
 {
-  "expo": {
-    "owner": "thanhdoan2003",
-    "newArchEnabled": true,
-    "name": "fpt-library-mobile",
-    "slug": "fpt-library-mobile",
-    "version": "1.0.0",
-    "scheme": "fpt-library-mobile",
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "EXPO_PUBLIC_API_ENDPOINT": "https://sep-elibrary-wos.azurewebsites.net",
-      "EXPO_PUBLIC_GOOGLE_CLIENT_ID": "1076769092661-kde2gscmapurmteslfbhommlcobb685k.apps.googleusercontent.com",
-      "EXPO_PUBLIC_SCANNER_SOCKET_URL": "http://192.168.1.5:7000",
-      "JWT_SECRET_KEY": "64A63153-11C1-4919-9133-EFAF99A9B456",
-      "NODE_TLS_REJECT_UNAUTHORIZED": "0"
-    },
-    "plugins": [
-      "expo-router",
-      "@react-native-google-signin/google-signin",
-      "@config-plugins/react-native-blob-util",
-      "@config-plugins/react-native-pdf"
-    ],
-    "experiments": {
-      "typedRoutes": true,
-      "tsconfigPaths": true
-    },
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.thanhdoan2003.fptlibrarymobile",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.thanhdoan2003.fptlibrarymobile"
+  "owner": "thanhdoan2003",
+  "newArchEnabled": true,
+  "name": "elibrary",
+  "slug": "elibrary",
+  "version": "1.0.0",
+  "scheme": "elibrary",
+  "web": {
+    "bundler": "metro",
+    "output": "static",
+    "favicon": "./assets/favicon.png"
+  },
+  "extra": {
+    "router": {
+      "origin": false
     },
     "eas": {
-      "build": {
-        "experimental": {
-          "native": true
-        }
-      }
+      "projectId": "0201a3f6-4bed-4458-a36c-db5584f912a7"
+    }
+  },
+  "plugins": [
+    "expo-router",
+    "@react-native-google-signin/google-signin",
+    "@config-plugins/react-native-blob-util",
+    "@config-plugins/react-native-pdf"
+  ],
+  "experiments": {
+    "typedRoutes": true,
+    "tsconfigPaths": true
+  },
+  "orientation": "portrait",
+  "icon": "./assets/icon.png",
+  "userInterfaceStyle": "light",
+  "splash": {
+    "image": "./assets/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  },
+  "assetBundlePatterns": [
+    "*/"
+  ],
+  "ios": {
+    "supportsTablet": true,
+    "bundleIdentifier": "com.thanhdoan2003.fptlibrarymobile",
+    "infoPlist": {
+      "ITSAppUsesNonExemptEncryption": false
+    }
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/adaptive-icon.png",
+      "backgroundColor": "#ffffff"
     },
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "6c1f8620-d3b8-4d66-aaa9-31242d6b2e9f"
+    "package": "com.thanhdoan2003.fptlibrarymobile",
+    "permissions": [
+      "android.permission.READ_EXTERNAL_STORAGE",
+      "android.permission.WRITE_EXTERNAL_STORAGE",
+      "android.permission.DOWNLOAD_WITHOUT_NOTIFICATION",
+      "android.permission.ACCESS_NETWORK_STATE"
+    ]
+  },
+  "eas": {
+    "build": {
+      "experimental": {
+        "native": true
       }
     }
-  }
+  },
+  "sdkVersion": "52.0.0",
+  "platforms": [
+    "ios",
+    "android",
+    "web"
+  ]
 }

@@ -1,4 +1,4 @@
-package com.kingchen711.fptlibrarymobile
+package com.thanhdoan2003.fptlibrarymobile
 
 import android.app.Application
 import android.content.res.Configuration

@@ -20,7 +20,6 @@
         "env": {
           "EXPO_PUBLIC_API_ENDPOINT": "https://sep-elibrary-wos.azurewebsites.net",
           "EXPO_PUBLIC_GOOGLE_CLIENT_ID": "1076769092661-kde2gscmapurmteslfbhommlcobb685k.apps.googleusercontent.com",
-          "EXPO_PUBLIC_SCANNER_SOCKET_URL": "http://192.168.1.5:7000",
           "JWT_SECRET_KEY": "64A63153-11C1-4919-9133-EFAF99A9B456",
           "NODE_TLS_REJECT_UNAUTHORIZED": "0"
         }

@@ -1,9 +1,11 @@
 import React from 'react'
 import { Text, View } from 'react-native'
+import { useTheme } from '@react-navigation/native'
 import BorrowRequestStatusBadge from '~/components/badge.tsx/borrow-request-status-badge'
 import Loading from '~/components/ui/loading'
 import NoData from '~/components/ui/no-data'
 import useBorrowRequestPatron from '~/hooks/borrow/use-borrow-request-patron'
+import { useColorScheme } from '~/lib/use-color-scheme'
 import { formatDate } from 'date-fns'
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import { BookOpen, Calendar, ChevronLeft, Clock, FileText } from 'lucide-react-native'
@@ -19,6 +21,7 @@ const BorrowRequestDetail = () => {
   const { t } = useTranslation('BookPage')
   const { borrowRequestId } = useLocalSearchParams()
   const router = useRouter()
+  const { dark } = useTheme()
   const { data: borrowRequest, isLoading } = useBorrowRequestPatron(+borrowRequestId)
 
   if (isLoading) return <Loading />
@@ -32,7 +35,7 @@ const BorrowRequestDetail = () => {
           headerTitle: t('borrow tracking.borrow request detail'),
           headerLeft: () => (
             <Pressable onPress={() => router.push('/me/account/borrow/request')} className="p-2">
-              <ChevronLeft size={24} />
+              <ChevronLeft size={24} color={dark ? 'white' : 'black'} />
             </Pressable>
           ),
         }}
@@ -56,7 +59,11 @@ const BorrowRequestDetail = () => {
                     {t('borrow tracking.request date')}
                   </Text>
                   <View className="flex-row items-center gap-2">
-                    <Calendar size={14} className="mr-1 text-primary" />
+                    <Calendar
+                      size={14}
+                      className="mr-1 text-primary"
+                      color={dark ? 'white' : 'black'}
+                    />
                     <Text>{formatDate(borrowRequest.requestDate, 'HH:mm dd/MM/yyyy')}</Text>
                   </View>
                 </View>
@@ -66,7 +73,11 @@ const BorrowRequestDetail = () => {
                     {t('borrow tracking.expiration date')}
                   </Text>
                   <View className="flex-row items-center gap-2">
-                    <Clock size={14} className="mr-1 text-primary" />
+                    <Clock
+                      size={14}
+                      className="mr-1 text-primary"
+                      color={dark ? 'white' : 'black'}
+                    />
                     <Text>
                       {borrowRequest.expirationDate ? (
                         formatDate(borrowRequest.expirationDate, 'HH:mm dd/MM/yyyy')
@@ -82,7 +93,11 @@ const BorrowRequestDetail = () => {
                     {t('borrow tracking.total items')}
                   </Text>
                   <View className="flex-row items-center gap-2">
-                    <BookOpen size={14} className="mr-1 text-primary" />
+                    <BookOpen
+                      size={14}
+                      className="mr-1 text-primary"
+                      color={dark ? 'white' : 'black'}
+                    />
                     <Text>{borrowRequest.totalRequestItem}</Text>
                   </View>
                 </View>
@@ -92,7 +107,11 @@ const BorrowRequestDetail = () => {
             {/* Request Detail Card */}
             <View className="mb-6 rounded-xl bg-background p-4 shadow">
               <View className="mb-3 flex-row items-center">
-                <FileText size={20} className="mr-2 text-primary" />
+                <FileText
+                  size={20}
+                  className="mr-2 text-primary"
+                  color={dark ? 'white' : 'black'}
+                />
                 <Text className="text-lg font-bold">{t('borrow tracking.request details')}</Text>
               </View>
 
@@ -157,9 +176,9 @@ const BorrowRequestDetail = () => {
                   {t('borrow tracking.library items')}
                 </Text>
                 <View className="flex flex-col gap-2">
-                  {borrowRequest.libraryItems.map((item) => (
+                  {borrowRequest.libraryItems.map((item, index) => (
                     <BorrowBookPreview
-                      key={`/borrow/library-items/${item.libraryItemId}`}
+                      key={`/borrow/library-items/${item.libraryItemId}/${index}`}
                       libraryItem={item}
                     />
                   ))}
@@ -174,12 +193,12 @@ const BorrowRequestDetail = () => {
                   {t('borrow tracking.reservation queue')}
                 </Text>
                 <View className="flex flex-col gap-2">
-                  {borrowRequest.reservationQueues.map((queue) => (
+                  {borrowRequest.reservationQueues.map((queue, index) => (
                     <BorrowReserveItemPreview
                       reservationQueue={queue}
                       expandable={true}
                       libraryItem={queue.libraryItem}
-                      key={`/borrow/reservation-queues/${queue.libraryItemId}`}
+                      key={`/borrow/reservation-queues/${queue.libraryItemId}/${index}`}
                     />
                   ))}
                 </View>
@@ -192,10 +211,10 @@ const BorrowRequestDetail = () => {
                   {t('borrow tracking.borrow request resource')}
                 </Text>
                 <View className="flex flex-col gap-2">
-                  {borrowRequest.borrowRequestResources.map((resource) => (
+                  {borrowRequest.borrowRequestResources.map((resource, index) => (
                     <BorrowResourcePreview
                       resource={resource}
-                      key={`/borrow/borrow-request-resources/${resource.resourceId}`}
+                      key={`/borrow/borrow-request-resources/${resource.resourceId}/${index}`}
                     />
                   ))}
                 </View>

@@ -32,20 +32,6 @@ const MeLibraryCard = () => {
     return null
   }
 
-  const formatDate = (dateString: string): string => {
-    if (!dateString) return 'N/A' // Tránh lỗi khi dateString là rỗng
-
-    // Chuẩn hóa định dạng: Thêm `000` nếu phần thập phân thiếu
-    const normalizedDate = dateString.replace(/(\.\d{1,2})$/, '')
-
-    try {
-      return format(new Date(normalizedDate), 'MMM dd, yyyy')
-    } catch (error) {
-      console.error('🚀 ~ formatDate error:', error)
-      return 'Invalid Date'
-    }
-  }
-
   const handleContinue = () => {
     if (selectedPackageId) {
       router.push(`/me/account/library-card/register?packageId=${selectedPackageId}`)
@@ -59,8 +45,14 @@ const MeLibraryCard = () => {
           headerShown: true,
           headerTitle: t('Library Card'),
           headerLeft: () => (
-            <Pressable onPress={() => router.push('/more')} style={{ padding: 10 }}>
-              <ChevronLeft size={24} />
+            <Pressable
+              onPress={() => {
+                console.log(123)
+                router.back()
+              }}
+              style={{ padding: 10 }}
+            >
+              <ChevronLeft size={24} color={'black'} />
             </Pressable>
           ),
         }}
@@ -72,7 +64,7 @@ const MeLibraryCard = () => {
             {user.libraryCard ? (
               <View className="flex flex-col gap-y-6">
                 <View>
-                  <Text className="mb-2 text-xl font-semibold">{t('Library Card')}</Text>
+                  {/* <Text className="mb-2 text-xl font-semibold">{t('Library Card')}</Text> */}
                   <Card className="overflow-hidden rounded-xl">
                     <CardHeader className="flex flex-row justify-between bg-primary text-primary-foreground">
                       <View className="flex flex-row items-center gap-2">
@@ -81,7 +73,7 @@ const MeLibraryCard = () => {
                           ELibrary
                         </Text>
                       </View>
-                      {/* <Text className="text-lg text-primary-foreground">Member Card</Text> */}
+                      <Text className="text-lg text-primary-foreground">{t('Member Card')}</Text>
                     </CardHeader>
                     <CardContent>
                       <View className="my-4 flex flex-row items-start gap-4 ">
@@ -98,20 +90,38 @@ const MeLibraryCard = () => {
                           </Text>
                           <Text>{user?.email}</Text>
                           {user.dob ? (
-                            <View className="flex flex-row items-center">
+                            <View className="flex flex-row items-center gap-2">
                               <Calendar size={16} color="gray" />
-                              <Text> {formatDate(user.dob)}</Text>
+                              <Text>{format(user.dob, 'dd/MM/yyyy')}</Text>
                             </View>
                           ) : (
                             <NoData />
                           )}
                           {user.address && (
-                            <View className="flex flex-row items-center gap-1 text-sm">
+                            <View className="flex flex-row items-center gap-2 text-sm">
                               <MapPin size={16} color={'gray'} />
                               <Text>{user?.address}</Text>
                             </View>
                           )}
                         </View>
+                      </View>
+
+                      <View className="flex flex-row items-start justify-between gap-4 ">
+                        <Text>{t('Issue Date')}:</Text>
+                        <Text>
+                          {user.libraryCard?.issueDate
+                            ? format(user.libraryCard?.issueDate as string, 'dd/MM/yyyy')
+                            : '-'}
+                        </Text>
+                      </View>
+
+                      <View className="flex flex-row items-start justify-between gap-4 ">
+                        <Text>{t('Expiry Date')}:</Text>
+                        <Text>
+                          {user.libraryCard?.expiryDate
+                            ? format(user.libraryCard?.expiryDate as string, 'dd/MM/yyyy')
+                            : '-'}
+                        </Text>
                       </View>
 
                       <View className="flex flex-row justify-center p-4">
@@ -194,7 +204,7 @@ const MeLibraryCard = () => {
                         <Text>{t('Expiry Date')}</Text>
                       </View>
                       {user?.libraryCard?.expiryDate ? (
-                        <Text>{formatDate(user?.libraryCard?.expiryDate)}</Text>
+                        <Text>{format(user?.libraryCard?.expiryDate, 'dd/MM/yyyy')}</Text>
                       ) : (
                         <NoData />
                       )}
